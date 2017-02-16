@@ -10,7 +10,9 @@ class Signup extends Component {
   }
 
   handleFormSubmit(formProps) {
-    this.props.signupUser(formProps);
+    const params = Object.assign(formProps, this.props.searchCriteria);
+    console.log(params);
+    this.props.signupUser(params);
   }
 
   renderAlert() {
@@ -25,7 +27,6 @@ class Signup extends Component {
 
   render() {
     const { handleSubmit, fields: { email, password, passwordConfirm }} = this.props;
-
     return (
       <div className="auth-form">
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="form-validation">

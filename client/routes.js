@@ -13,9 +13,12 @@ import RequreAuth from './components/auth/require_auth';
 import Feature from './components/feature';
 import NotFound from './components/misc/not_found';
 
+import WelcomeMain from './components/welcome/main';
+
 export default (
   <Route component={App}>
     <Route path="signin" component={Signin} />
+    <Route path="welcome" component={WelcomeMain} />
     <Route path="signup" component={Signup} />
     <Route path="signout" component={Signout} />
     <Route path="/" component={RequreAuth(Main)}>
