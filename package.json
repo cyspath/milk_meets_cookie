@@ -1,0 +1,60 @@
+{
+  "name": "cookie_meets_bagel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "watch": "webpack -d --watch",
+    "build": "webpack",
+    "serve": "serve ./public",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SaltySashimi/cookie_meets_bagel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SaltySashimi/cookie_meets_bagel/issues"
+  },
+  "homepage": "https://github.com/SaltySashimi/cookie_meets_bagel#readme",
+  "dependencies": {
+    "axios": "^0.15.3",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.16.0",
+    "fs": "0.0.1-security",
+    "jwt-simple": "^0.5.0",
+    "morgan": "^1.7.0",
+    "mysql": "^2.12.0",
+    "node-sass": "^4.5.0",
+    "nodemon": "^1.11.0",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1",
+    "passport-local": "^1.0.0",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-redux": "^5.0.2",
+    "react-router": "^2.0.0-rc5",
+    "react-sparklines": "^1.6.0",
+    "redux": "^3.6.0",
+    "redux-form": "^4.1.3",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.2.0",
+    "sequelize": "^3.29.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-0": "^6.16.0",
+    "express": "^4.14.0",
+    "webpack": "^1.14.0",
+    "webpack-dev-middleware": "^1.9.0",
+    "webpack-hot-middleware": "^2.15.0"
+  }
+}
