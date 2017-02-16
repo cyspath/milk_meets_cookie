@@ -11,7 +11,6 @@ class Signup extends Component {
 
   handleFormSubmit(formProps) {
     const params = Object.assign(formProps, this.props.searchCriteria);
-    console.log(params);
     this.props.signupUser(params);
   }
 

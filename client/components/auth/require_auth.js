@@ -9,13 +9,13 @@ export default function(ComposedComponent) {
 
     componentWillMount() {
       if (!this.props.authenticated) {
-        this.context.router.push('/signup');
+        this.context.router.push('/welcome');
       }
     }
 
     componentWillUpdate(nextProps) {
       if (!nextProps.authenticated) {
-        this.context.router.push('/signup');
+        this.context.router.push('/welcome');
       }
     }
 

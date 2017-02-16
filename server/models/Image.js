@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     url: DataTypes.STRING,
     userAvatar: { type: DataTypes.BOOLEAN, defaultValue: false }
   }, {
-
+    underscored: true,
     classMethods: {
       associate: (models) => {
         Image.belongsTo(models.User, {

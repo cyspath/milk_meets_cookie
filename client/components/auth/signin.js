@@ -54,7 +54,7 @@ class Signin extends Component {
 
           <div className="form-row">
             <div className="form-footer">
-              <span>Not a member?</span><Link to="/signup"> Sign up here »</Link>
+              <span>Not a member?</span><Link to="/welcome"> Start here »</Link>
             </div>
           </div>
         </form>

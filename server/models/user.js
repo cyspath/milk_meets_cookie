@@ -10,8 +10,9 @@ module.exports = function(sequelize, DataTypes) {
     email:                      { type: DataTypes.STRING, allowNull: false, unique: true, validate: { isEmail: true } },
     password_digest:            { type: DataTypes.STRING, validate: { notEmpty: true } },
   	password:                   { type: DataTypes.VIRTUAL, allowNull: false, validate: { notEmpty: true, len: [3, Infinity] } },
+    looking_for:                { type: DataTypes.STRING },
   }, {
-
+    underscored: true,
     hooks: {
       beforeCreate: (user, options, callback) => {
         user.email = user.email.toLowerCase();

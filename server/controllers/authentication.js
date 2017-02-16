@@ -14,6 +14,8 @@ exports.signin = (req, res, next) => {
 exports.signup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
+  const sex = req.body.sex;
+  const lookingFor = req.body.lookingFor;
 
   if(!email || !password) {
     return res.status(422).send({ error: 'You must provide email and password'});
@@ -27,7 +29,9 @@ exports.signup = (req, res, next) => {
     else // if does not exist, create and save record
       User.create({
         email: email,
-        password: password
+        password: password,
+        sex: sex,
+        looking_for: lookingFor
       }).then((user) => {
         res.json({ success: true, token: tokenForUser(user) });
       }).catch((err) => {

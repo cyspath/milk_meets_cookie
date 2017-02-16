@@ -5,7 +5,6 @@ import App from './components/app';
 import Main from './components/main';
 import Welcome from './components/welcome'
 import Signin from './components/auth/signin';
-import Signup from './components/auth/signup';
 import Signout from './components/auth/signout';
 import Inbox from './components/inbox/inbox';
 import Profile from './components/user/profile';
@@ -19,7 +18,6 @@ export default (
   <Route component={App}>
     <Route path="signin" component={Signin} />
     <Route path="welcome" component={WelcomeMain} />
-    <Route path="signup" component={Signup} />
     <Route path="signout" component={Signout} />
     <Route path="/" component={RequreAuth(Main)}>
       <IndexRoute component={Welcome} />
