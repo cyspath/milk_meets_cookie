@@ -12,6 +12,7 @@ exports.signin = (req, res, next) => {
 }
 
 exports.signup = (req, res, next) => {
+  const dob = req.body.dob;
   const email = req.body.email;
   const password = req.body.password;
   const sex = req.body.sex;
@@ -28,6 +29,7 @@ exports.signup = (req, res, next) => {
       res.status(422).send({ error: 'Email is in use' });
     else // if does not exist, create and save record
       User.create({
+        dob: dob,
         email: email,
         password: password,
         sex: sex,

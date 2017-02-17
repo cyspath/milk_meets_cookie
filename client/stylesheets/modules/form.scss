@@ -12,6 +12,15 @@
     box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.2);
 
     text-align: center;
+
+    .dob-input__month, .dob-input__day, {
+      width: 65px;
+      margin-right: 10px;
+    }
+    .dob-input__year {
+      width: 90px;
+    }
+
   }
 
   .form-row {
@@ -149,16 +158,20 @@
 
   .form-validation ::-webkit-input-placeholder  {
     color:  #999;
+    opacity: 0.5;
+    font-weight: normal;
   }
 
   .form-validation ::-moz-placeholder  {
     color:  #999;
-    opacity: 1;
+    opacity: 0.5;
+    font-weight: normal;
   }
 
   .form-validation :-ms-input-placeholder  {
     color:  #999;
-    opacity: 1;
+    opacity: 0.5;
+    font-weight: normal;
   }
 
   /*	Making the form responsive. Remove this media query
