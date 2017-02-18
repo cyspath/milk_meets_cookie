@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions/auth_actions';
 import moment from 'moment';
+import provinces from '../../services/province_city/province_city'
 
 class Signup extends Component {
 
@@ -27,6 +28,7 @@ class Signup extends Component {
   }
 
   render() {
+    console.log(provinces.query());
     const { handleSubmit, fields: { month, day, year, email, password, passwordConfirm }} = this.props;
     const dobError = (month.touched && month.error) || (day.touched && day.error) || (year.touched && year.error)
 
