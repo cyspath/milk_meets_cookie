@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions/auth_actions';
 import moment from 'moment';
-import provinces from '../../services/province_city/province_city'
+import ProvinceCitySelect from './province_city_select';
 
 class Signup extends Component {
 
@@ -28,64 +28,78 @@ class Signup extends Component {
   }
 
   render() {
-    console.log(provinces.query());
     const { handleSubmit, fields: { month, day, year, email, password, passwordConfirm }} = this.props;
     const dobError = (month.touched && month.error) || (day.touched && day.error) || (year.touched && year.error)
 
-    return (
-      <div className="auth-form">
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="form-validation">
-
-          <div className="form-title-row"><h1>Register now to see who's in your area</h1></div>
-
-          <div className={dobError ? "form-row form-input-email-row form-invalid-data" : "form-row form-input-email-row"}>
-            <label>
-              <span>Birthdate</span>
-              <input {...month} placeholder="MM" className="dob-input dob-input__month"/>
-              <input {...day}  placeholder="DD" className="dob-input dob-input__day"/>
-              <input {...year} placeholder="YYYY" className="dob-input dob-input__year"/>
-            </label>
-            <span className="form-invalid-data-info">{month.error || day.error || year.error}</span>
-          </div>
-
-          <div className={email.touched && email.error ? "form-row form-input-email-row form-invalid-data" : "form-row form-input-email-row"}>
-            <label>
-              <span>Email</span>
-              <input {...email} />
-            </label>
-            <span className="form-invalid-data-info">{email.error}</span>
-          </div>
-
-          <div className={password.touched && password.error ? "form-row form-input-email-row form-invalid-data" : "form-row form-input-email-row"}>
-            <label>
-              <span>Password</span>
-              <input {...password} type="password"/>
-            </label>
-            <span className="form-invalid-data-info">{password.error}</span>
-          </div>
-
-          <div className={passwordConfirm.touched && passwordConfirm.error ? "form-row form-input-email-row form-invalid-data" : "form-row form-input-email-row"}>
-            <label>
-              <span>Confirm Password</span>
-              <input {...passwordConfirm} type="password"/>
-            </label>
-            <span className="form-invalid-data-info">{passwordConfirm.error}</span>
-          </div>
-
-          {this.renderAlert()}
-
-          <div className="form-row">
-            <button action="submit">Sign Up!</button>
-          </div>
-
-          <div className="form-row">
-            <div className="form-footer">
-              <span>Already a member?</span><Link to="/signin"> Sign in here »</Link>
-            </div>
-          </div>
-        </form>
-      </div>
-    );
+    return <ProvinceCitySelect />
+    // return (
+    //   <div className="auth-form">
+    //     <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="form-validation">
+    //
+    //       <div className="form-title-row"><h1>Register now to see who's in your area</h1></div>
+    //
+    //       <div className={dobError ? "form-row form-input-email-row form-invalid-data" : "form-row form-input-email-row"}>
+    //         <label>
+    //           <span>Birthdate</span>
+    //           <input {...month} placeholder="MM" className="dob-input dob-input__month"/>
+    //           <input {...day}  placeholder="DD" className="dob-input dob-input__day"/>
+    //           <input {...year} placeholder="YYYY" className="dob-input dob-input__year"/>
+    //         </label>
+    //         <span className="form-invalid-data-info">{month.error || day.error || year.error}</span>
+    //       </div>
+    //
+    //       <div className="form-row">
+    //         <label>
+    //           <span>Location</span>
+    //           <ProvinceSelect />
+    //           <select name="city">
+    //             <option>Choose an option</option>
+    //             <option>Option One</option>
+    //             <option>Option Two</option>
+    //             <option>Option Three</option>
+    //             <option>Option Four</option>
+    //           </select>
+    //         </label>
+    //       </div>
+    //
+    //       <div className={email.touched && email.error ? "form-row form-input-email-row form-invalid-data" : "form-row form-input-email-row"}>
+    //         <label>
+    //           <span>Email</span>
+    //           <input {...email} />
+    //         </label>
+    //         <span className="form-invalid-data-info">{email.error}</span>
+    //       </div>
+    //
+    //       <div className={password.touched && password.error ? "form-row form-input-email-row form-invalid-data" : "form-row form-input-email-row"}>
+    //         <label>
+    //           <span>Password</span>
+    //           <input {...password} type="password"/>
+    //         </label>
+    //         <span className="form-invalid-data-info">{password.error}</span>
+    //       </div>
+    //
+    //       <div className={passwordConfirm.touched && passwordConfirm.error ? "form-row form-input-email-row form-invalid-data" : "form-row form-input-email-row"}>
+    //         <label>
+    //           <span>Confirm Password</span>
+    //           <input {...passwordConfirm} type="password"/>
+    //         </label>
+    //         <span className="form-invalid-data-info">{passwordConfirm.error}</span>
+    //       </div>
+    //
+    //       {this.renderAlert()}
+    //
+    //       <div className="form-row">
+    //         <button action="submit">Sign Up!</button>
+    //       </div>
+    //
+    //       <div className="form-row">
+    //         <div className="form-footer">
+    //           <span>Already a member?</span><Link to="/signin"> Sign in here »</Link>
+    //         </div>
+    //       </div>
+    //     </form>
+    //   </div>
+    // );
   }
 }
 
