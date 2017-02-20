@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 import * as actions from '../../actions/auth_actions';
 
 class Signin extends Component {
@@ -67,7 +68,9 @@ function mapStateToProps(state) {
   return { errorMessage: state.auth.error, authenticated: state.auth.authenticated };
 }
 
-export default reduxForm({
+const form = reduxForm({
   form: 'signin',
   fields: ['email', 'password']
-}, mapStateToProps, actions)(Signin);
+});
+
+export default connect(mapStateToProps, actions)(form(Signin));
