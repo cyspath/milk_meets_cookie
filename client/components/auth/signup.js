@@ -44,11 +44,17 @@ class Signup extends Component {
     return (
       <div>
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-          <label>Email:</label>
-          <Field name="email" type="email" component={renderField} />
+          <Field name="email" type="email" component={renderField} label="Email"/>
 
-
-
+          <div className="inline-list">
+            <label>Favorite Color</label>
+            <Field
+              name="favoriteColor"
+              component={renderDropdownList}
+              data={colors}
+              valueField="value"
+              textField="color"/>
+          </div>
 
           <button action="submit">Save changes</button>
         </form>
@@ -126,55 +132,76 @@ class Signup extends Component {
   }
 }
 
-const renderField = field => (
+// const renderField = field => (
+//     <div>
+//       <input {...field.input}/>
+//       {field.error && <div className="error">{field.error}</div>}
+//     </div>
+// );
+
+const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+  <div>
+    <label>{label}</label>
     <div>
-      <input {...field.input}/>
-      {field.error && <div className="error">{field.error}</div>}
+      <input {...input} placeholder={label} type={type}/>
+      {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
-);
+  </div>
+)
+//
+// const renderDropdownList = ({ input, ...rest }) =>
+//   <DropdownList {...input} {...rest}/>
+//
+// const renderDropdownList = ({ input, meta, ...rest }) =>
+//      <DropdownList {...input} {...rest} />
+const renderDropdownList = ({ input, data, valueField, textField }) =>
+  <DropdownList {...input}
+   data={data}
+   valueField={valueField}
+   textField={textField}
+   onChange={input.onChange} />
 
-// const validate = values => {
-//   debugger
-//   const errors = {}
-//   if (!values.username) {
-//     errors.username = 'Required'
-//   } else if (values.username.length > 15) {
-//     errors.username = 'Must be 15 characters or less'
-//   }
-//   if (!values.email) {
-//     errors.email = 'Required'
-//   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-//     errors.email = 'Invalid email address'
-//   }
-//   if (!values.age) {
-//     errors.age = 'Required'
-//   } else if (isNaN(Number(values.age))) {
-//     errors.age = 'Must be a number'
-//   } else if (Number(values.age) < 18) {
-//     errors.age = 'Sorry, you must be at least 18 years old'
-//   }
-//   return errors
-// }
-
-function validate(formProps) {
-  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  const errors = {};
-  ['month', 'day', 'year', 'email', 'password', 'passwordConfirm'].forEach((field) => {
-    if (!formProps[field]) {
-      let fieldName = field === 'passwordConfirm' ? 'password confirmation' : field;
-      errors[field] = `Please enter an ${fieldName}`;
-    } else if (field === 'email' && emailRegex.test(formProps[field]) === false) {
-      errors[field] = `Email format is invalid`;
-    }
-  });
-  if (formProps.passwordConfirm && formProps.password !== formProps.passwordConfirm) {
-    errors.password = 'Passwords must match';
+const validate = values => {
+  const errors = {}
+  if (!values.username) {
+    errors.username = 'Required'
+  } else if (values.username.length > 15) {
+    errors.username = 'Must be 15 characters or less'
   }
-  if (!validateDob(formProps)) {
-    errors['year'] = 'Birthdate is invalid';
+  if (!values.email) {
+    errors.email = 'Required'
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address'
   }
-  return errors;
+  if (!values.age) {
+    errors.age = 'Required'
+  } else if (isNaN(Number(values.age))) {
+    errors.age = 'Must be a number'
+  } else if (Number(values.age) < 18) {
+    errors.age = 'Sorry, you must be at least 18 years old'
+  }
+  return errors
 }
+
+// function validate(formProps) {
+//   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+//   const errors = {};
+//   ['month', 'day', 'year', 'email', 'password', 'passwordConfirm'].forEach((field) => {
+//     if (!formProps[field]) {
+//       let fieldName = field === 'passwordConfirm' ? 'password confirmation' : field;
+//       errors[field] = `Please enter an ${fieldName}`;
+//     } else if (field === 'email' && emailRegex.test(formProps[field]) === false) {
+//       errors[field] = `Email format is invalid`;
+//     }
+//   });
+//   if (formProps.passwordConfirm && formProps.password !== formProps.passwordConfirm) {
+//     errors.password = 'Passwords must match';
+//   }
+//   if (!validateDob(formProps)) {
+//     errors['year'] = 'Birthdate is invalid';
+//   }
+//   return errors;
+// }
 
 function validateDob(formProps) {
   const str = `${formProps.month}/${formProps.day}/${formProps.year}`
@@ -187,7 +214,6 @@ function mapStateToProps(state) {
 
 const form = reduxForm({
   form: 'signup',
-  fields: ['month', 'day', 'year', 'location', 'email', 'password', 'passwordConfirm'],
   validate: validate
 });
 
