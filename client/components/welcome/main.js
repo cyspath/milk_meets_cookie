@@ -20,9 +20,9 @@ class WelcomeMain extends Component {
 
 	render() {
 		switch (this.state.step) {
+			// case 1:
+      //   return <WelcomeForm nextStep={this.nextStep.bind(this)} />
 			case 1:
-        return <WelcomeForm nextStep={this.nextStep.bind(this)} />
-			case 2:
 				return <Signup searchCriteria={this.state.searchCriteria} />
 		}
 	}

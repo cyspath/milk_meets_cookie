@@ -17,6 +17,10 @@ class Signup extends Component {
     this.props.signupUser(params);
   }
 
+  handleClassName(condition) {
+    return condition ? "form-row form-input-email-row form-invalid-data" : "form-row form-input-email-row";
+  }
+
   renderAlert() {
     if (this.props.errorMessage && !this.props.authenticated) {
       return (
@@ -31,75 +35,68 @@ class Signup extends Component {
     const { handleSubmit, fields: { month, day, year, email, password, passwordConfirm }} = this.props;
     const dobError = (month.touched && month.error) || (day.touched && day.error) || (year.touched && year.error)
 
-    return <ProvinceCitySelect />
-    // return (
-    //   <div className="auth-form">
-    //     <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="form-validation">
-    //
-    //       <div className="form-title-row"><h1>Register now to see who's in your area</h1></div>
-    //
-    //       <div className={dobError ? "form-row form-input-email-row form-invalid-data" : "form-row form-input-email-row"}>
-    //         <label>
-    //           <span>Birthdate</span>
-    //           <input {...month} placeholder="MM" className="dob-input dob-input__month"/>
-    //           <input {...day}  placeholder="DD" className="dob-input dob-input__day"/>
-    //           <input {...year} placeholder="YYYY" className="dob-input dob-input__year"/>
-    //         </label>
-    //         <span className="form-invalid-data-info">{month.error || day.error || year.error}</span>
-    //       </div>
-    //
-    //       <div className="form-row">
-    //         <label>
-    //           <span>Location</span>
-    //           <ProvinceSelect />
-    //           <select name="city">
-    //             <option>Choose an option</option>
-    //             <option>Option One</option>
-    //             <option>Option Two</option>
-    //             <option>Option Three</option>
-    //             <option>Option Four</option>
-    //           </select>
-    //         </label>
-    //       </div>
-    //
-    //       <div className={email.touched && email.error ? "form-row form-input-email-row form-invalid-data" : "form-row form-input-email-row"}>
-    //         <label>
-    //           <span>Email</span>
-    //           <input {...email} />
-    //         </label>
-    //         <span className="form-invalid-data-info">{email.error}</span>
-    //       </div>
-    //
-    //       <div className={password.touched && password.error ? "form-row form-input-email-row form-invalid-data" : "form-row form-input-email-row"}>
-    //         <label>
-    //           <span>Password</span>
-    //           <input {...password} type="password"/>
-    //         </label>
-    //         <span className="form-invalid-data-info">{password.error}</span>
-    //       </div>
-    //
-    //       <div className={passwordConfirm.touched && passwordConfirm.error ? "form-row form-input-email-row form-invalid-data" : "form-row form-input-email-row"}>
-    //         <label>
-    //           <span>Confirm Password</span>
-    //           <input {...passwordConfirm} type="password"/>
-    //         </label>
-    //         <span className="form-invalid-data-info">{passwordConfirm.error}</span>
-    //       </div>
-    //
-    //       {this.renderAlert()}
-    //
-    //       <div className="form-row">
-    //         <button action="submit">Sign Up!</button>
-    //       </div>
-    //
-    //       <div className="form-row">
-    //         <div className="form-footer">
-    //           <span>Already a member?</span><Link to="/signin"> Sign in here »</Link>
-    //         </div>
-    //       </div>
-    //     </form>
-    //   </div>
-    // );
+    return (
+      <div className="auth-form">
+        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="form-validation">
+
+          <div className="form-title-row"><h1>Register now to see who's in your area</h1></div>
+
+          <div className={this.handleClassName(dobError)}>
+            <label>
+              <span>Birthdate</span>
+              <input {...month} placeholder="MM" className="dob-input dob-input__month"/>
+              <input {...day}  placeholder="DD" className="dob-input dob-input__day"/>
+              <input {...year} placeholder="YYYY" className="dob-input dob-input__year"/>
+            </label>
+            <span className="form-invalid-data-info">{month.error || day.error || year.error}</span>
+          </div>
+
+          <div className={this.handleClassName(location.touched)}>
+            <label>
+              <span>Location</span>
+            </label>
+            <ProvinceCitySelect {...location}/>
+            <span className="form-invalid-data-info">"{location.error}"</span>
+          </div>
+
+          <div className={this.handleClassName(email.touched && email.error)}>
+            <label>
+              <span>Email</span>
+              <input {...email} />
+            </label>
+            <span className="form-invalid-data-info">{email.error}</span>
+          </div>
+
+          <div className={this.handleClassName(password.touched && password.error)}>
+            <label>
+              <span>Password</span>
+              <input {...password} type="password"/>
+            </label>
+            <span className="form-invalid-data-info">{password.error}</span>
+          </div>
+
+          <div className={this.handleClassName(passwordConfirm.touched && passwordConfirm.error)}>
+            <label>
+              <span>Confirm Password</span>
+              <input {...passwordConfirm} type="password"/>
+            </label>
+            <span className="form-invalid-data-info">{passwordConfirm.error}</span>
+          </div>
+
+          {this.renderAlert()}
+
+          <div className="form-row">
+            <button action="submit">Sign Up!</button>
+          </div>
+
+          <div className="form-row">
+            <div className="form-footer">
+              <span>Already a member?</span><Link to="/signin"> Sign in here »</Link>
+            </div>
+          </div>
+        </form>
+      </div>
+    );
   }
 }
 
@@ -134,6 +131,6 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'signup',
-  fields: ['month', 'day', 'year', 'email', 'password', 'passwordConfirm'],
+  fields: ['month', 'day', 'year', 'location', 'email', 'password', 'passwordConfirm'],
   validate: validate
 }, mapStateToProps, actions)(Signup);

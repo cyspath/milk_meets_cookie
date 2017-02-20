@@ -28,18 +28,25 @@ class ProvinceCitySelect extends Component {
     this.setState({ city: option.value })
   }
 
-  render() {
+  renderProvince() {
     return (
-      <div>
-        <Select value={this.state.province}
-                options={this.state.provinces}
-                placeholder="Select a province..."
-                clearable={false}
-                onChange={this.handleProvinceChange.bind(this)}
-                name="form-field-name"
-                backspaceRemoves={false}
-                />
+      <Select value={this.state.province}
+              className="select-province"
+              options={this.state.provinces}
+              placeholder="Select a province..."
+              clearable={false}
+              onChange={this.handleProvinceChange.bind(this)}
+              name="form-field-name"
+              backspaceRemoves={false}
+              />
+    )
+  }
+
+  renderCity() {
+    if (this.state.province) {
+      return (
         <Select value={this.state.city}
+                className="select-city"
                 options={this.state.cities}
                 placeholder="Select a city..."
                 clearable={false}
@@ -48,6 +55,16 @@ class ProvinceCitySelect extends Component {
                 backspaceRemoves={false}
                 noResultsText="Enter a province first"
                 />
+      )
+    }
+  }
+
+  render() {
+    return (
+      <div className="Select-container">
+        <input {...location} />
+        {this.renderProvince()}
+        {this.renderCity()}
       </div>
     )
   }
