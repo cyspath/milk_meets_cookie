@@ -369,11 +369,10 @@ $focus-rgba: rgba(red($input-border-focus), green($input-border-focus), blue($in
   }
 }
 
-
+// .rw-dropdownlist,
 .rw-combobox,
 .rw-datetimepicker,
-.rw-numberpicker,
-.rw-dropdownlist {
+.rw-numberpicker {
   &:hover {
     background-color: $state-bg-hover;
     border-color: $state-border-hover;

@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { Field, reduxForm } from 'redux-form';
+import { Field, formValueSelector, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import DropdownList from 'react-widgets/lib/DropdownList'
 import * as actions from '../../actions/auth_actions';
 import moment from 'moment';
-import ProvinceCitySelect from './province_city_select';
+import ProvinceCity from '../../services/province_city/province_city';
 
 const colors = [ { color: 'Red', value: 'ff0000' },
   { color: 'Green', value: '00ff00' },
   { color: 'Blue', value: '0000ff' } ]
 
 class Signup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      provinces: ProvinceCity.query().map((p) => { return { value: p, label: p } }),
+      province: undefined,
+      cities: [],
+      city: undefined
+    };
+  }
 
   componentWillMount() {
     this.props.clearAuthError(); // first clear auth errors from clicking submit
@@ -21,10 +30,6 @@ class Signup extends Component {
     const params = Object.assign(formProps, this.props.searchCriteria);
     params.dob = new Date(`${params.month}/${params.day}/${params.year}`)
     this.props.signupUser(params);
-  }
-
-  handleClassName(condition) {
-    return condition ? "form-row form-input-email-row form-invalid-data" : "form-row form-input-email-row";
   }
 
   renderAlert() {
@@ -38,174 +43,130 @@ class Signup extends Component {
   }
 
   render() {
-    // const { handleSubmit, fields: { month, day, year, email, password, passwordConfirm }} = this.props;
-    // const dobError = (month.touched && month.error) || (day.touched && day.error) || (year.touched && year.error)
     const { handleSubmit, pristine, reset, submitting } = this.props
-    return (
-      <div>
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-          <Field name="email" type="email" component={renderField} label="Email"/>
 
-          <div className="inline-list">
-            <label>Favorite Color</label>
-            <Field
-              name="favoriteColor"
-              component={renderDropdownList}
-              data={colors}
-              valueField="value"
-              textField="color"/>
+    return (
+      <div className="auth-form">
+        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="form-validation">
+          <div className="form-title-row"><h1>Register now to see who's in your area</h1></div>
+
+          <div className="form-row">
+            <label><span>Birthdate</span></label>
+            <div className="form-input-container">
+              <Field name="month" placeholder="MM" className="dob-input dob-input__month" component={renderDateField}/>
+              <Field name="day" placeholder="DD" className="dob-input dob-input__day" component={renderDateField}/>
+              <Field name="year" placeholder="YYYY" className="dob-input dob-input__year" component={renderDateField}/>
+            </div>
           </div>
 
-          <button action="submit">Save changes</button>
+          <div className="form-row inline-list">
+            <label><span>Location</span></label>
+            <Field
+              name="location"
+              component={renderDropdownList}
+              data={this.state.provinces}
+              valueField="value"
+              textField="label"/>
+          </div>
+
+          <Field
+            label="Email"
+            name="email"
+            type="email"
+            component={renderInputField}/>
+
+          <Field
+            label="Password"
+            name="password"
+            type="password"
+            component={renderInputField}/>
+
+          {this.renderAlert()}
+
+          <div className="form-row">
+            <button action="submit">Sign Up!</button>
+          </div>
+
+          <div className="form-row">
+            <div className="form-footer">
+              <span>Already a member?</span><Link to="/signin"> Sign in here »</Link>
+            </div>
+          </div>
         </form>
       </div>
-      )
-    // return (
-    //   <div className="auth-form">
-    //     <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="form-validation">
-    //
-    //         <Field
-    //           name="favoriteColor"
-    //           component={DropdownList}
-    //           data={colors}
-    //           valueField="value"
-    //           textField="color"/>
-    //
-    //       <div className="form-title-row"><h1>Register now to see who's in your area</h1></div>
-    //
-    //       <div className={this.handleClassName(dobError)}>
-    //         <label>
-    //           <span>Birthdate</span>
-    //           <input {...month} placeholder="MM" className="dob-input dob-input__month"/>
-    //           <input {...day}  placeholder="DD" className="dob-input dob-input__day"/>
-    //           <input {...year} placeholder="YYYY" className="dob-input dob-input__year"/>
-    //         </label>
-    //         <span className="form-invalid-data-info">{month.error || day.error || year.error}</span>
-    //       </div>
-    //
-    //       <div className={this.handleClassName(location.touched)}>
-    //         <label>
-    //           <span>Location</span>
-    //         </label>
-    //         <ProvinceCitySelect {...location}/>
-    //         <span className="form-invalid-data-info">"{location.error}"</span>
-    //       </div>
-    //
-    //       <div className={this.handleClassName(email.touched && email.error)}>
-    //         <label>
-    //           <span>Email</span>
-    //           <input {...email} />
-    //         </label>
-    //         <span className="form-invalid-data-info">{email.error}</span>
-    //       </div>
-    //
-    //       <div className={this.handleClassName(password.touched && password.error)}>
-    //         <label>
-    //           <span>Password</span>
-    //           <input {...password} type="password"/>
-    //         </label>
-    //         <span className="form-invalid-data-info">{password.error}</span>
-    //       </div>
-    //
-    //       <div className={this.handleClassName(passwordConfirm.touched && passwordConfirm.error)}>
-    //         <label>
-    //           <span>Confirm Password</span>
-    //           <input {...passwordConfirm} type="password"/>
-    //         </label>
-    //         <span className="form-invalid-data-info">{passwordConfirm.error}</span>
-    //       </div>
-    //
-    //       {this.renderAlert()}
-    //
-    //       <div className="form-row">
-    //         <button action="submit">Sign Up!</button>
-    //       </div>
-    //
-    //       <div className="form-row">
-    //         <div className="form-footer">
-    //           <span>Already a member?</span><Link to="/signin"> Sign in here »</Link>
-    //         </div>
-    //       </div>
-    //     </form>
-    //   </div>
-    // );
+    );
   }
 }
 
-// const renderField = field => (
-//     <div>
-//       <input {...field.input}/>
-//       {field.error && <div className="error">{field.error}</div>}
-//     </div>
-// );
-
-const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
-  <div>
-    <label>{label}</label>
-    <div>
-      <input {...input} placeholder={label} type={type}/>
-      {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+const renderInputField = ({ input, label, type, meta: { touched, error, warning } }) => (
+  <div className="form-row">
+    <label><span>{label}</span></label>
+    <div className="form-input-container">
+      <div className={touched && error ? "form-invalid-data" : ""}>
+        <input {...input} placeholder={label} type={type}/>
+        <span className="form-invalid-data-info">{error}</span>
+      </div>
     </div>
   </div>
 )
-//
-// const renderDropdownList = ({ input, ...rest }) =>
-//   <DropdownList {...input} {...rest}/>
-//
-// const renderDropdownList = ({ input, meta, ...rest }) =>
-//      <DropdownList {...input} {...rest} />
-const renderDropdownList = ({ input, data, valueField, textField }) =>
-  <DropdownList {...input}
-   data={data}
-   valueField={valueField}
-   textField={textField}
-   onChange={input.onChange} />
+
+const renderDateField = ({ input, placeholder, className, meta: { touched, error, warning } }) => (
+  <div className={`inline-block ${touched && error ? "form-invalid-data" : ""}`}>
+    <input {...input} placeholder={placeholder} className={className}/>
+    <span className="form-invalid-date-info">{error}</span>
+  </div>
+)
+
+const renderDropdownList = ({ input, meta: { touched, error, warning }, ...rest }) => (
+  <div className="form-input-container">
+    <div className={touched && error ? "form-invalid-data" : ""}>
+      <DropdownList {...input} {...rest} />
+      <span className="form-invalid-data-info">{error}</span>
+    </div>
+  </div>
+)
+
 
 const validate = values => {
   const errors = {}
-  if (!values.username) {
-    errors.username = 'Required'
-  } else if (values.username.length > 15) {
-    errors.username = 'Must be 15 characters or less'
+  // location
+  debugger
+  if (!values.location) {
+    errors.location = 'where are you?'
   }
+  // email
   if (!values.email) {
-    errors.email = 'Required'
+    errors.email = 'Please enter an email'
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address'
   }
-  if (!values.age) {
-    errors.age = 'Required'
-  } else if (isNaN(Number(values.age))) {
-    errors.age = 'Must be a number'
-  } else if (Number(values.age) < 18) {
-    errors.age = 'Sorry, you must be at least 18 years old'
+  // password
+  if (!values.password) {
+    errors.password = 'Please enter a password'
   }
+  // birthdate
+  let dateString = `${values.month}/${values.day}/${values.year}`
+  if (!values.month) {
+    errors.month = 'Please enter a month'
+  } else if (isNaN(Number(values.month)) || Number(values.month) < 1 || Number(values.month) > 12) {
+    errors.month = 'Must be a valid month number'
+  }
+  if (!values.day) {
+    errors.day = 'Please enter a day'
+  } else if (isNaN(Number(values.day)) || Number(values.day) < 1 || Number(values.day) > 31) {
+    errors.day = 'Must be a valid day number'
+  }
+  if (!values.year) {
+    errors.year = 'Please enter a year'
+  } else if (isNaN(Number(values.year)) || Number(values.year) < 1910 || Number(values.year) > 2100) {
+    errors.year = 'Must be a valid year number'
+  } else if (values.year >  moment().year() - 18) {
+    errors.year = 'Must be at least 18'
+  } else if (!moment(dateString, "MM/DD/YYYY", true).isValid()) {
+    errors.year = 'Must be a valid birthdate (this date does not exist)'
+  }
+
   return errors
-}
-
-// function validate(formProps) {
-//   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//   const errors = {};
-//   ['month', 'day', 'year', 'email', 'password', 'passwordConfirm'].forEach((field) => {
-//     if (!formProps[field]) {
-//       let fieldName = field === 'passwordConfirm' ? 'password confirmation' : field;
-//       errors[field] = `Please enter an ${fieldName}`;
-//     } else if (field === 'email' && emailRegex.test(formProps[field]) === false) {
-//       errors[field] = `Email format is invalid`;
-//     }
-//   });
-//   if (formProps.passwordConfirm && formProps.password !== formProps.passwordConfirm) {
-//     errors.password = 'Passwords must match';
-//   }
-//   if (!validateDob(formProps)) {
-//     errors['year'] = 'Birthdate is invalid';
-//   }
-//   return errors;
-// }
-
-function validateDob(formProps) {
-  const str = `${formProps.month}/${formProps.day}/${formProps.year}`
-  return moment(str, "MM/DD/YYYY", true).isValid() && formProps.year <  moment().year() - 13
 }
 
 function mapStateToProps(state) {

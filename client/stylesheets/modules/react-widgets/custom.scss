@@ -1,10 +1,16 @@
 .inline-list {
+  .rw-dropdownlist.rw-widget {
+    box-shadow: 1px 2px 4px 0 rgba(0,0,0,0.08);
+    border: 1px solid #dbdbdb;
+  }
   .rw-select {
     padding: 9px;
   }
   ul.rw-list {
     li.rw-list-option {
       display: inline-block;
+      width: 70px;
+      margin-bottom: 5px;
     }
   }
 }
