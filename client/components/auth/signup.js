@@ -7,10 +7,6 @@ import * as actions from '../../actions/auth_actions';
 import moment from 'moment';
 import ProvinceCity from '../../services/province_city/province_city';
 
-const colors = [ { color: 'Red', value: 'ff0000' },
-  { color: 'Green', value: '00ff00' },
-  { color: 'Blue', value: '0000ff' } ]
-
 class Signup extends Component {
   constructor(props) {
     super(props);
@@ -69,17 +65,15 @@ class Signup extends Component {
               textField="label"/>
           </div>
 
-          <Field
-            label="Email"
-            name="email"
-            type="email"
-            component={renderInputField}/>
+          <div className="form-row">
+            <label><span>Email</span></label>
+            <Field name="email" type="email" component={renderInputField}/>
+          </div>
 
-          <Field
-            label="Password"
-            name="password"
-            type="password"
-            component={renderInputField}/>
+          <div className="form-row">
+            <label><span>Password</span></label>
+            <Field name="password" type="password" component={renderInputField}/>
+          </div>
 
           {this.renderAlert()}
 
@@ -99,13 +93,10 @@ class Signup extends Component {
 }
 
 const renderInputField = ({ input, label, type, meta: { touched, error, warning } }) => (
-  <div className="form-row">
-    <label><span>{label}</span></label>
-    <div className="form-input-container">
-      <div className={touched && error ? "form-invalid-data" : ""}>
-        <input {...input} placeholder={label} type={type}/>
-        <span className="form-invalid-data-info">{error}</span>
-      </div>
+  <div className="form-input-container">
+    <div className={touched && error ? "form-invalid-data" : ""}>
+      <input {...input} placeholder={label} type={type}/>
+      <span className="form-invalid-data-info">{error}</span>
     </div>
   </div>
 )
@@ -130,7 +121,6 @@ const renderDropdownList = ({ input, meta: { touched, error, warning }, ...rest 
 const validate = values => {
   const errors = {}
   // location
-  debugger
   if (!values.location) {
     errors.location = 'where are you?'
   }

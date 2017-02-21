@@ -84,7 +84,8 @@
     box-shadow: 2px 3px 4px 0 rgba(200, 77, 77, 0.15);
   }
 
-  .form-invalid-data-info, .form-invalid-date-info {
+  .form-invalid-data-info,
+  .form-invalid-date-info {
     display: none;
     background-color: white;
     position: absolute;
@@ -92,6 +93,12 @@
     left: 0;
     top: 60px;
     width: 100%;
+  }
+
+  .inline-list {
+    .form-invalid-data-info {
+      top: 45px;
+    }
   }
 
   .form-validation .form-checkbox input {
