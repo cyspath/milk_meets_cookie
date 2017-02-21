@@ -95,7 +95,11 @@
     width: 100%;
   }
 
-  .inline-list {
+  .form-input-location > .inline-block:first-child {
+    margin-bottom: 15px;
+  }
+
+  .form-input-date {
     .form-invalid-data-info {
       top: 45px;
     }

@@ -28,6 +28,20 @@ class Signup extends Component {
     this.props.signupUser(params);
   }
 
+  handleProvinceChange(option) {
+    console.log("Selected province: " + option.value);
+    this.setState({
+      province: option.value,
+      cities: ProvinceCity.query(option.value).map((p) => { return { value: p, label: p } }),
+      city: undefined
+    })
+  }
+
+  handleCityChange(option) {
+    console.log("Selected city: " + option.value);
+    this.setState({ city: option.value })
+  }
+
   renderAlert() {
     if (this.props.errorMessage && !this.props.authenticated) {
       return (
@@ -48,21 +62,33 @@ class Signup extends Component {
 
           <div className="form-row">
             <label><span>Birthdate</span></label>
-            <div className="form-input-container">
+            <div className="form-input-container form-input-date">
               <Field name="month" placeholder="MM" className="dob-input dob-input__month" component={renderDateField}/>
               <Field name="day" placeholder="DD" className="dob-input dob-input__day" component={renderDateField}/>
               <Field name="year" placeholder="YYYY" className="dob-input dob-input__year" component={renderDateField}/>
             </div>
           </div>
 
-          <div className="form-row inline-list">
+          <div className="form-row">
             <label><span>Location</span></label>
-            <Field
-              name="location"
-              component={renderDropdownList}
-              data={this.state.provinces}
-              valueField="value"
-              textField="label"/>
+            <div className="form-input-container form-input-location inline-list">
+              <Field
+                name="province"
+                placeholder="Province"
+                onChange={this.handleProvinceChange.bind(this)}
+                component={renderDropdownList}
+                data={this.state.provinces}
+                valueField="value"
+                textField="label"/>
+              <Field
+                name="city"
+                placeholder="City"
+                onChange={this.handleCityChange.bind(this)}
+                component={renderDropdownList}
+                data={this.state.cities}
+                valueField="value"
+                textField="label"/>
+            </div>
           </div>
 
           <div className="form-row">
@@ -109,11 +135,8 @@ const renderDateField = ({ input, placeholder, className, meta: { touched, error
 )
 
 const renderDropdownList = ({ input, meta: { touched, error, warning }, ...rest }) => (
-  <div className="form-input-container">
-    <div className={touched && error ? "form-invalid-data" : ""}>
-      <DropdownList {...input} {...rest} />
-      <span className="form-invalid-data-info">{error}</span>
-    </div>
+  <div className="inline-block">
+    <DropdownList {...input} {...rest} />
   </div>
 )
 
@@ -121,9 +144,13 @@ const renderDropdownList = ({ input, meta: { touched, error, warning }, ...rest 
 const validate = values => {
   const errors = {}
   // location
-  if (!values.location) {
-    errors.location = 'where are you?'
+  if (!values.province) {
+    errors.province = 'where are you?'
   }
+  if (!values.city) {
+    errors.city = 'where are you?'
+  }
+
   // email
   if (!values.email) {
     errors.email = 'Please enter an email'
