@@ -12,28 +12,26 @@ exports.signin = (req, res, next) => {
 }
 
 exports.signup = (req, res, next) => {
-  const dob = req.body.dob;
-  const email = req.body.email;
-  const password = req.body.password;
-  const sex = req.body.sex;
-  const lookingFor = req.body.lookingFor;
+  const params = req.body;
 
-  if(!email || !password) {
+  if(!params.email || !params.password) {
     return res.status(422).send({ error: 'You must provide email and password'});
   }
 
   User
-  .findOne({ where: { email } })
+  .findOne({ where: { email: params.email } })
   .then((existingUser) => {
     if (existingUser) // if does exist, create Error
       res.status(422).send({ error: 'Email is in use' });
     else // if does not exist, create and save record
       User.create({
-        dob: dob,
-        email: email,
-        password: password,
-        sex: sex,
-        looking_for: lookingFor
+        dob: params.dob,
+        email: params.email,
+        password: params.password,
+        sex: params.sex,
+        looking_for: params.lookingFor,
+        province: params.province,
+        city: params.city,
       }).then((user) => {
         res.json({ success: true, token: tokenForUser(user) });
       }).catch((err) => {

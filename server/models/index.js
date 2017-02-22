@@ -44,7 +44,7 @@ Object.keys(db).forEach((modelName) => {
 //   .catch(function(err) {
 //     console.log(err);
 //   })
-
+//
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

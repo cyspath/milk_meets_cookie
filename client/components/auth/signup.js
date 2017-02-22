@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { Field, formValueSelector, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import DropdownList from 'react-widgets/lib/DropdownList'
 import * as actions from '../../actions/auth_actions';
 import moment from 'moment';
-import ProvinceCity from '../../services/province_city/province_city';
+import ProvinceCity from '../../modules/province_city/province_city';
 
 class Signup extends Component {
   constructor(props) {
@@ -25,6 +25,8 @@ class Signup extends Component {
   handleFormSubmit(formProps) {
     const params = Object.assign(formProps, this.props.searchCriteria);
     params.dob = new Date(`${params.month}/${params.day}/${params.year}`)
+    params.province = params.province.value
+    params.city = params.city.value
     this.props.signupUser(params);
   }
 
@@ -54,10 +56,10 @@ class Signup extends Component {
 
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props
-
     return (
       <div className="auth-form">
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="form-validation">
+        <form onSubmit={handleSubmit(props => this.handleFormSubmit(props))} className="form-validation">
+
           <div className="form-title-row"><h1>Register now to see who's in your area</h1></div>
 
           <div className="form-row">
@@ -71,7 +73,7 @@ class Signup extends Component {
 
           <div className="form-row">
             <label><span>Location</span></label>
-            <div className="form-input-container form-input-location inline-list">
+            <div className="form-input-container form-input-select inline-list">
               <Field
                 name="province"
                 placeholder="Province"
@@ -104,7 +106,7 @@ class Signup extends Component {
           {this.renderAlert()}
 
           <div className="form-row">
-            <button action="submit">Sign Up!</button>
+            <button type="submit" className="btn btn-primary">Sign Up!</button>
           </div>
 
           <div className="form-row">
@@ -143,13 +145,13 @@ const renderDropdownList = ({ input, meta: { touched, error, warning }, ...rest 
 
 const validate = values => {
   const errors = {}
-  // location
-  if (!values.province) {
-    errors.province = 'where are you?'
-  }
-  if (!values.city) {
-    errors.city = 'where are you?'
-  }
+  // // location
+  // if (!values.province) {
+  //   errors.province = 'where are you?'
+  // }
+  // if (!values.city) {
+  //   errors.city = 'where are you?'
+  // }
 
   // email
   if (!values.email) {
