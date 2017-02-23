@@ -27,7 +27,7 @@ export function signupUser({ dob, email, password, sex, lookingFor, province, ci
     axios
     .post('/api/signup', { dob, email, password, sex, lookingFor, province, city })
     .then(resp => {
-      dispatch({ type: AUTH_USER }); // update state to indicate user-auth'ed
+      dispatch({ type: AUTH_USER, payload: resp.data }); // update state to indicate user-auth'ed
       localStorage.setItem('token', resp.data.token); // save JWT
       browserHistory.push('/'); // redirect to route /feature
     })

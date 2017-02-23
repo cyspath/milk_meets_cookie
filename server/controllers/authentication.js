@@ -14,9 +14,9 @@ exports.signin = (req, res, next) => {
 exports.signup = (req, res, next) => {
   const params = req.body;
 
-  if(!params.email || !params.password) {
-    return res.status(422).send({ error: 'You must provide email and password'});
-  }
+  // if (Object.values(params).includes(null || undefined)) {
+  //   return res.status(422).send({ error: 'Missing information'});
+  // }
 
   User
   .findOne({ where: { email: params.email } })
@@ -33,7 +33,7 @@ exports.signup = (req, res, next) => {
         province: params.province,
         city: params.city,
       }).then((user) => {
-        res.json({ success: true, token: tokenForUser(user) });
+        res.json({ success: true, token: tokenForUser(user), currentUser: user });
       }).catch((err) => {
         console.log("500 Error: ", err.name);
         res.status(500).send({ error: err.name });
@@ -42,5 +42,4 @@ exports.signup = (req, res, next) => {
   .catch((err) => {
     next(err);
   });
-
 };
