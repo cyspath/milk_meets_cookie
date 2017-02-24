@@ -4,38 +4,38 @@ const User = require('../models').User;
 
 const tokenForUser = (user) => {
   const timestamp = new Date().getTime();
-  return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
+  return jwt.encode({ sub: user.id, iat: timestamp }, config.jwtSecret);
 };
 
+exports.currentUser = (req, res, next) => {
+  res.send({ currentUser: req.user });
+}
+
 exports.signin = (req, res, next) => {
-  res.send({ token: tokenForUser(req.user) });
+  res.send({ token: tokenForUser(req.user), currentUser: req.user });
 }
 
 exports.signup = (req, res, next) => {
-  const dob = req.body.dob;
-  const email = req.body.email;
-  const password = req.body.password;
-  const sex = req.body.sex;
-  const lookingFor = req.body.lookingFor;
-
-  if(!email || !password) {
-    return res.status(422).send({ error: 'You must provide email and password'});
-  }
-
+  const params = req.body;
+  // if (Object.values(params).includes(null || undefined)) {
+  //   return res.status(422).send({ error: 'Missing information'});
+  // }
   User
-  .findOne({ where: { email } })
+  .findOne({ where: { email: params.email } })
   .then((existingUser) => {
     if (existingUser) // if does exist, create Error
       res.status(422).send({ error: 'Email is in use' });
     else // if does not exist, create and save record
       User.create({
-        dob: dob,
-        email: email,
-        password: password,
-        sex: sex,
-        looking_for: lookingFor
+        dob: params.dob,
+        email: params.email,
+        password: params.password,
+        sex: params.sex,
+        looking_for: params.lookingFor,
+        province: params.province,
+        city: params.city,
       }).then((user) => {
-        res.json({ success: true, token: tokenForUser(user) });
+        res.send({ token: tokenForUser(user), currentUser: req.user });
       }).catch((err) => {
         console.log("500 Error: ", err.name);
         res.status(500).send({ error: err.name });
@@ -44,5 +44,4 @@ exports.signup = (req, res, next) => {
   .catch((err) => {
     next(err);
   });
-
 };

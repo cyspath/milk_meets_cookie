@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
-import { reduxForm } from 'redux-form';
+import { Link, browserHistory } from 'react-router';
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 import * as actions from '../../actions/auth_actions';
 
 class Signin extends Component {
 
   componentWillMount() {
+    if (this.props.authenticated) { // if already authenicated, redirect to root
+      browserHistory.push('/');
+    }
     this.props.clearAuthError(); // first clear auth errors from clicking submit
   }
 
@@ -24,32 +28,28 @@ class Signin extends Component {
   }
 
   render() {
-    const { handleSubmit, fields: { email, password }} = this.props;
+    const { handleSubmit, pristine, reset, submitting } = this.props
 
     return (
-      <div className="auth-form">
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="form-validation">
+      <div className={`${this.constructor.name}-component auth-form`}>
+        <form onSubmit={handleSubmit(props => this.handleFormSubmit(props))} className="form-validation">
 
           <div className="form-title-row"><h1>Sign in to see who's in your area</h1></div>
 
-          <div className="form-row form-input-email-row">
-            <label>
-              <span>Email</span>
-              <input {...email} />
-            </label>
+          <div className="form-row">
+            <label><span>Email</span></label>
+            <Field name="email" type="email" component={renderInputField}/>
           </div>
 
-          <div className="form-row form-input-email-row">
-            <label>
-              <span>Password</span>
-              <input {...password} type="password"/>
-            </label>
+          <div className="form-row">
+            <label><span>Password</span></label>
+            <Field name="password" type="password" component={renderInputField}/>
           </div>
 
           {this.renderAlert()}
 
           <div className="form-row">
-            <button action="submit">Continue</button>
+            <button type="submit" className="btn btn-primary">Continue</button>
           </div>
 
           <div className="form-row">
@@ -63,11 +63,24 @@ class Signin extends Component {
   }
 }
 
+const renderInputField = ({ input, label, type }) => (
+  <div className="form-input-container">
+    <div>
+      <input {...input} placeholder={label} type={type}/>
+    </div>
+  </div>
+)
+
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.error, authenticated: state.auth.authenticated };
+  return {
+    errorMessage: state.auth.error,
+    authenticated: state.auth.authenticated,
+  };
 }
 
-export default reduxForm({
+const form = reduxForm({
   form: 'signin',
   fields: ['email', 'password']
-}, mapStateToProps, actions)(Signin);
+});
+
+export default connect(mapStateToProps, actions)(form(Signin));

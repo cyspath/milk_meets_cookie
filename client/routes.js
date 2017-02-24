@@ -2,24 +2,30 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from './components/app';
-import Main from './components/main';
+import Root from './components/root';
 import Welcome from './components/welcome'
+import Feature from './components/feature';
+
+// auth
+import SignupMain from './components/auth/signup_main';
 import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
+import RequreAuth from './components/auth/require_auth';
+
+// features
 import Inbox from './components/inbox/inbox';
 import Profile from './components/user/profile';
-import RequreAuth from './components/auth/require_auth';
-import Feature from './components/feature';
+
+// misc
 import NotFound from './components/misc/not_found';
 
-import WelcomeMain from './components/welcome/main';
 
 export default (
   <Route component={App}>
+    <Route path="welcome" component={SignupMain} />
     <Route path="signin" component={Signin} />
-    <Route path="welcome" component={WelcomeMain} />
     <Route path="signout" component={Signout} />
-    <Route path="/" component={RequreAuth(Main)}>
+    <Route path="/" component={RequreAuth(Root)}>
       <IndexRoute component={Welcome} />
       <Route path="messages" component={RequreAuth(Inbox)}></Route>
       <Route path="profile" component={RequreAuth(Profile)}></Route>

@@ -9,9 +9,10 @@ dist
 
 public/bundle.js
 server/config.js
+server/config/config.json
 .env
 public/youTube_API_KEY.js
-server/config.json
+server/config/config.json
 
 # Ignore Mac DS_Store files
 .DS_Store

@@ -1,13 +1,30 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
+import { jwtHeader } from './utils';
 import {
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR,
-  CLEAR_AUTH_ERROR
+  CLEAR_AUTH_ERROR,
+  CURRENT_USER
 } from './types';
 
+export function getCurrentUser() {
+  console.log('action: getCurrentUser');
+  return function(dispatch) {
+    axios
+    .get('/api/current_user', jwtHeader())
+    .then(resp => {
+      dispatch({ type: CURRENT_USER, payload: resp.data.currentUser });
+    })
+    .catch((err) => {
+      dispatch(authError(err.response.data.error))
+    });
+  }
+}
+
 export function signinUser({ email, password }) {
+  console.log('action: sign in');
   return function(dispatch) {
     axios
     .post('/api/signin', { email, password })
@@ -22,10 +39,11 @@ export function signinUser({ email, password }) {
   }
 }
 
-export function signupUser({ dob, email, password, sex, lookingFor }) {
+export function signupUser({ dob, email, password, sex, lookingFor, province, city }) {
+  console.log('action: sign up');
   return function(dispatch) {
     axios
-    .post('/api/signup', { dob, email, password, sex, lookingFor })
+    .post('/api/signup', { dob, email, password, sex, lookingFor, province, city })
     .then(resp => {
       dispatch({ type: AUTH_USER }); // update state to indicate user-auth'ed
       localStorage.setItem('token', resp.data.token); // save JWT
@@ -52,6 +70,7 @@ export function clearAuthError() {
 }
 
 export function signoutUser() {
+  console.log('action: sign out');
   localStorage.removeItem('token'); // remove JWT
   return { type: UNAUTH_USER };
 }

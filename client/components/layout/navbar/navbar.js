@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import NavbarLink from './navbar_link';
-
+import NavLink from './navbar_link';
+// <NavLink params={{ props: { ...this.props }, pathname: "/" }} >Home</NavLink>
+// <NavLink params={{ props: { ...this.props }, pathname: "/messages" }} >Messages</NavLink>
+// <NavLink params={{ props: { ...this.props }, pathname: "/profile" }} >Profile</NavLink>
 class Navbar extends Component {
   renderLinks() {
     if (this.props.authenticated) {
       return [
         <ul className="nav navbar-nav" key={1}>
-          <NavbarLink {...this.props} to="/">Home</NavbarLink>
-          <NavbarLink {...this.props} to="/messages">Messages</NavbarLink>
-          <NavbarLink {...this.props} to="/profile">Profile</NavbarLink>
+          <NavLink {...this.props} to="/">Home</NavLink>
+          <NavLink {...this.props} to="/messages">Messages</NavLink>
+          <NavLink {...this.props} to="/profile">Profile</NavLink>
         </ul>,
         <ul className="nav navbar-nav navbar-right" key={2}>
           <li className="dropdown">
-            <a className="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown<span className="caret"></span></a>
+            <a className="dropdown-toggle" data-toggle="dropdown" href="#">{this.props.currentUser.email}<span className="caret"></span></a>
             <ul className="dropdown-menu">
               <li><Link to="/messages"><i className="fa fa-envelope-square"></i> Messages</Link></li>
               <li><Link to="/profile"><i className="fa fa-user-circle"></i> Profile</Link></li>
@@ -25,7 +27,7 @@ class Navbar extends Component {
       ];
     } else {
       return (
-        <ul className="nav navbar-nav navbar-right">
+        <ul className={`${this.constructor.name}-component nav navbar-nav navbar-right`}>
           <li className="nav-item">
             <Link to="/signin"><i className="fa fa-sign-in"></i> Sign In</Link>
           </li>
