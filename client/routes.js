@@ -2,7 +2,8 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from './components/app';
-import Main from './components/main';
+
+import Root from './components/root';
 import Welcome from './components/welcome'
 import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
@@ -19,7 +20,7 @@ export default (
     <Route path="signin" component={Signin} />
     <Route path="welcome" component={WelcomeMain} />
     <Route path="signout" component={Signout} />
-    <Route path="/" component={RequreAuth(Main)}>
+    <Route path="/" component={RequreAuth(Root)}>
       <IndexRoute component={Welcome} />
       <Route path="messages" component={RequreAuth(Inbox)}></Route>
       <Route path="profile" component={RequreAuth(Profile)}></Route>

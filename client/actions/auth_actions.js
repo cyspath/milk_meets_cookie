@@ -12,7 +12,7 @@ export function signinUser({ email, password }) {
     axios
     .post('/api/signin', { email, password })
     .then(resp => {
-      dispatch({ type: AUTH_USER }); // update state to indicate user-auth'ed
+      dispatch({ type: AUTH_USER, payload: resp.data }); // update state to indicate user-auth'ed
       localStorage.setItem('token', resp.data.token); // save JWT
       browserHistory.push('/'); // redirect to route /feature
     })

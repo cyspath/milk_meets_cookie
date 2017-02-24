@@ -14,6 +14,9 @@ architecture http://docs.sequelizejs.com/en/1.7.0/articles/express/
 
 fa icons: http://fontawesome.io/icons/
 
+GOOD READS TO LEARN:
+- jwt https://blog.jscrambler.com/implementing-jwt-using-passport/
+
 run mongodb on windos"
 "C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe"
 run schema sql script `mysql -u root < db/schema.sql`

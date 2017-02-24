@@ -4,20 +4,27 @@ const User = require('../models').User;
 
 const tokenForUser = (user) => {
   const timestamp = new Date().getTime();
-  return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
+  return jwt.encode({ sub: user.id, iat: timestamp }, config.jwtSecret);
 };
 
+exports.getUser = (req, res, next) => {
+  res.send({
+    currentUser: req.user
+  });
+}
+
 exports.signin = (req, res, next) => {
-  res.send({ token: tokenForUser(req.user) });
+  res.send({
+    currentUser: req.user,
+    token: tokenForUser(req.user)
+  });
 }
 
 exports.signup = (req, res, next) => {
   const params = req.body;
-
   // if (Object.values(params).includes(null || undefined)) {
   //   return res.status(422).send({ error: 'Missing information'});
   // }
-
   User
   .findOne({ where: { email: params.email } })
   .then((existingUser) => {
@@ -33,7 +40,10 @@ exports.signup = (req, res, next) => {
         province: params.province,
         city: params.city,
       }).then((user) => {
-        res.json({ success: true, token: tokenForUser(user), currentUser: user });
+        res.send({
+          currentUser: user,
+          token: tokenForUser(user)
+        });
       }).catch((err) => {
         console.log("500 Error: ", err.name);
         res.status(500).send({ error: err.name });
