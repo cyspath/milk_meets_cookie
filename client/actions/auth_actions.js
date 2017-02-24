@@ -7,6 +7,25 @@ import {
   CLEAR_AUTH_ERROR
 } from './types';
 
+export function getUser() {
+  debugger
+  return function(dispatch) {
+    axios
+    .get('/api/get_user')
+    .then(resp => {
+      console.log(resp.data);
+      debugger
+      // dispatch({ type: AUTH_USER, payload: resp.data }); // update state to indicate user-auth'ed
+      // localStorage.setItem('token', resp.data.token); // save JWT
+      // browserHistory.push('/'); // redirect to route /feature
+    })
+    .catch((err) => {
+      debugger
+      dispatch(authError(err.response.data.error))
+    });
+  }
+}
+
 export function signinUser({ email, password }) {
   return function(dispatch) {
     axios

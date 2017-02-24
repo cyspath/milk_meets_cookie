@@ -8,12 +8,15 @@ const tokenForUser = (user) => {
 };
 
 exports.getUser = (req, res, next) => {
+  console.log('Authentication.getUser');
   res.send({
     currentUser: req.user
   });
 }
 
 exports.signin = (req, res, next) => {
+  console.log('Authentication.signin');
+
   res.send({
     currentUser: req.user,
     token: tokenForUser(req.user)

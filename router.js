@@ -10,7 +10,8 @@ const requireLocal = passport.authenticate('local', { session: false });
 
 module.exports = (app) => {
   // authenication
-  app.get('/api/user', requireJwt, Authentication.getUser);
+
+  app.get('/api/get_user', requireJwt, Authentication.getUser);
   app.post('/api/signin', requireLocal, Authentication.signin);
   app.post('/api/signup', Authentication.signup);
 
