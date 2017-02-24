@@ -9,6 +9,7 @@ dist
 
 public/bundle.js
 server/config.js
+server/config/config.json
 .env
 public/youTube_API_KEY.js
 server/config/config.json
