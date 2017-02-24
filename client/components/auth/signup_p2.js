@@ -7,7 +7,7 @@ import * as actions from '../../actions/auth_actions';
 import moment from 'moment';
 import ProvinceCity from '../../modules/province_city/province_city';
 
-class Signup extends Component {
+class SignupP2 extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,7 +57,7 @@ class Signup extends Component {
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props
     return (
-      <div className="auth-form">
+      <div className={`${this.constructor.name}-component auth-form`}>
         <form onSubmit={handleSubmit(props => this.handleFormSubmit(props))} className="form-validation">
 
           <div className="form-title-row"><h1>Register now to see who's in your area</h1></div>
@@ -200,4 +200,4 @@ const form = reduxForm({
   validate: validate
 });
 
-export default connect(mapStateToProps, actions)(form(Signup));
+export default connect(mapStateToProps, actions)(form(SignupP2));

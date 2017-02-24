@@ -5,7 +5,7 @@ class NavLink extends Component {
   render() {
     const currentPath = this.props.location.pathname;
     let className;
-    
+
     if (currentPath === "/" && this.props.to === "/") {
       className = "active";
     } else if (currentPath === this.props.to.slice(1)) {
@@ -14,7 +14,7 @@ class NavLink extends Component {
       className = "";
     }
     return (
-      <li className={className}>
+      <li className={`${this.constructor.name}-component ${className}`}>
         <Link to={this.props.to}>
           {this.props.children}
         </Link>

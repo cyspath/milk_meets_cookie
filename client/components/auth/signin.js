@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/auth_actions';
@@ -7,6 +7,9 @@ import * as actions from '../../actions/auth_actions';
 class Signin extends Component {
 
   componentWillMount() {
+    if (this.props.authenticated) { // if already authenicated, redirect to root
+      browserHistory.push('/');
+    }
     this.props.clearAuthError(); // first clear auth errors from clicking submit
   }
 
@@ -28,7 +31,7 @@ class Signin extends Component {
     const { handleSubmit, pristine, reset, submitting } = this.props
 
     return (
-      <div className="auth-form">
+      <div className={`${this.constructor.name}-component auth-form`}>
         <form onSubmit={handleSubmit(props => this.handleFormSubmit(props))} className="form-validation">
 
           <div className="form-title-row"><h1>Sign in to see who's in your area</h1></div>

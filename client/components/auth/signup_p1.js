@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import DropdownList from 'react-widgets/lib/DropdownList'
 
-class WelcomeForm extends Component {
+class SignupP1 extends Component {
   constructor(props) {
     super(props);
     this.selectList = [{ label: 'Woman', value: 'female' }, { label: 'Man', value: 'male' }];
@@ -24,7 +24,7 @@ class WelcomeForm extends Component {
 
 	render() {
     return (
-      <div className="auth-form">
+      <div className={`${this.constructor.name}-component auth-form`}>
         <form onSubmit={this.handleFormSubmit.bind(this)} className="form-validation">
 
           <div className="form-title-row"><h1>Join the best free dating site today</h1></div>
@@ -75,4 +75,4 @@ const renderDropdownList = ({ input, ...rest }) => (
   </div>
 )
 
-export default WelcomeForm;
+export default SignupP1;

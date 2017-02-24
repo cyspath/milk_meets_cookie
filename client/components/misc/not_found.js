@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 export default () => (
-  <div className="not-found">
+  <div className="notFound-component">
     <div className="container">
       <div className="row">
         <div className="col-md-12">

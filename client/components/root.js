@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Navbar from './nav/navbar';
+import Navbar from './layout/navbar/navbar';
 import { connect } from 'react-redux';
 import * as actions from '../actions/auth_actions';
 
@@ -7,6 +7,8 @@ class Root extends Component {
   componentWillMount() {
     if (this.props.authenticated) {
       this.props.getCurrentUser();
+      // require_auth will update state.auth.currentUser
+      //  Root will inherit props from require_auth
     }
   }
 
@@ -20,10 +22,4 @@ class Root extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    authenticated: state.auth.authenticated,
-    // currentUser: state.auth.currentUser
-  };
-}
 export default connect(null, actions)(Root);

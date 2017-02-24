@@ -27,7 +27,7 @@ class Navbar extends Component {
       ];
     } else {
       return (
-        <ul className="nav navbar-nav navbar-right">
+        <ul className={`${this.constructor.name}-component nav navbar-nav navbar-right`}>
           <li className="nav-item">
             <Link to="/signin"><i className="fa fa-sign-in"></i> Sign In</Link>
           </li>
