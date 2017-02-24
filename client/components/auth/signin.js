@@ -69,7 +69,10 @@ const renderInputField = ({ input, label, type }) => (
 )
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.error, authenticated: state.auth.authenticated };
+  return {
+    errorMessage: state.auth.error,
+    authenticated: state.auth.authenticated,
+  };
 }
 
 const form = reduxForm({

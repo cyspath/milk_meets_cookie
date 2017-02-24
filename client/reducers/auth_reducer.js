@@ -3,21 +3,21 @@ import {
   UNAUTH_USER,
   AUTH_ERROR,
   CLEAR_AUTH_ERROR,
-  FETCH_MESSAGE
+  CURRENT_USER,
 } from '../actions/types';
 
 export default function(state = {}, action) {
   switch (action.type) {
     case AUTH_USER:
-      return { ...state, authenticated: true, currentUser: action.payload.currentUser };
+      return { ...state, authenticated: true, currentUser: {} };
     case UNAUTH_USER:
-      return { ...state, authenticated: false };
+      return { ...state, authenticated: false, currentUser: undefined };
     case AUTH_ERROR:
       return { ...state, error: action.payload };
     case CLEAR_AUTH_ERROR:
       return { ...state, error: undefined };
-    case FETCH_MESSAGE:
-      return { ...state, message: action.payload };
+    case CURRENT_USER:
+      return { ...state, currentUser: action.payload };
     default:
       return state;
   }

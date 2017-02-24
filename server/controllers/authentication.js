@@ -7,20 +7,12 @@ const tokenForUser = (user) => {
   return jwt.encode({ sub: user.id, iat: timestamp }, config.jwtSecret);
 };
 
-exports.getUser = (req, res, next) => {
-  console.log('Authentication.getUser');
-  res.send({
-    currentUser: req.user
-  });
+exports.currentUser = (req, res, next) => {
+  res.send({ currentUser: req.user });
 }
 
 exports.signin = (req, res, next) => {
-  console.log('Authentication.signin');
-
-  res.send({
-    currentUser: req.user,
-    token: tokenForUser(req.user)
-  });
+  res.send({ token: tokenForUser(req.user), currentUser: req.user });
 }
 
 exports.signup = (req, res, next) => {
@@ -43,10 +35,7 @@ exports.signup = (req, res, next) => {
         province: params.province,
         city: params.city,
       }).then((user) => {
-        res.send({
-          currentUser: user,
-          token: tokenForUser(user)
-        });
+        res.send({ token: tokenForUser(user), currentUser: req.user });
       }).catch((err) => {
         console.log("500 Error: ", err.name);
         res.status(500).send({ error: err.name });
