@@ -3,8 +3,6 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from './components/app';
 import Root from './components/root';
-import Welcome from './components/welcome'
-import Feature from './components/feature';
 
 // auth
 import SignupMain from './components/auth/signup_main';
@@ -12,9 +10,10 @@ import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
 import RequreAuth from './components/auth/require_auth';
 
-// features
-import Inbox from './components/inbox/inbox';
-import Profile from './components/user/profile';
+// main pages
+import Home from './components/home/main'
+import Inbox from './components/inbox/main';
+import Profile from './components/user/main';
 
 // misc
 import NotFound from './components/misc/not_found';
@@ -26,10 +25,9 @@ export default (
     <Route path="signin" component={Signin} />
     <Route path="signout" component={Signout} />
     <Route path="/" component={RequreAuth(Root)}>
-      <IndexRoute component={Welcome} />
+      <IndexRoute component={Home} />
       <Route path="messages" component={RequreAuth(Inbox)}></Route>
       <Route path="profile" component={RequreAuth(Profile)}></Route>
-      <Route path="feature" component={RequreAuth(Feature)} />
     </Route>
     <Route path="*" component={NotFound} />
   </Route>

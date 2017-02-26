@@ -18,6 +18,7 @@ module.exports = (app) => {
 
   // Utility Controller
   app.get('/api/utility/seed_data', Controller.Utility.seedData);
+  app.post('/api/utility/seed_data_dump', Controller.Utility.seedDataDump);
 
 
 
