@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/home_actions';
 
 class Home extends Component {
-  // componentWillMount() {
-  //   this.props.fetchMessage();
-  // }
+  componentWillMount() {
+    this.props.fetchUsers({a:1});
+  }
   //
   // render() {
   //   return (
@@ -13,6 +13,7 @@ class Home extends Component {
   //   )
   // }
   render() {
+    console.log(this.props.currentUser);
     return (
       <div>this is  home page</div>
     )
@@ -20,7 +21,9 @@ class Home extends Component {
 }
 
 function mapStateToProps(state) {
-  return { message: state.auth.message };
+  return {
+    currentUser: state.auth.currentUser
+  };
 }
 
 export default connect(mapStateToProps, actions)(Home);

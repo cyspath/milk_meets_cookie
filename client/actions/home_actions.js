@@ -1,18 +1,19 @@
 import axios from 'axios';
+import { jwtHeader } from './utils';
 import {
-  FETCH_MESSAGE
+  FETCH_USERS
 } from './types';
 
-export function fetchMessage() {
+export function fetchUsers(params) {
+  console.log('action: fetchUsers');
   return function(dispatch) {
-    axios.get('/message', {
-      headers: { authorization: localStorage.getItem('token') }
+    axios
+    .get('/api/home/fetch_users', jwtHeader(params))
+    .then(resp => {
+      dispatch({ type: FETCH_USERS, payload: resp.data.users });
     })
-    .then((resp) => {
-      dispatch({
-        type: FETCH_MESSAGE,
-        payload: resp.data.message
-      });
+    .catch((err) => {
+      dispatch(authError(err.response.data.error))
     });
   }
 }

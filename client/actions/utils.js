@@ -1,3 +1,3 @@
-export let jwtHeader = () => {
-  return { headers: { authorization: localStorage.getItem('token') } }
+export let jwtHeader = (params) => {
+  return Object.assign({ headers: { authorization: localStorage.getItem('token') } }, params);
 }

@@ -1,8 +1,7 @@
 const path = require('path');
-const passportService = require('./server/services/passport');
 const passport = require('passport');
-
-const Controller = require('./server/controllers/index');
+const passportService = require('./services/passport');
+const Controller = require('./controllers/index');
 
 // no need for cookie based session for user, but since we are using jwt
 // we dont wnat passport to use the cookie sesion default
@@ -15,6 +14,8 @@ module.exports = (app) => {
   app.post('/api/signin', requireLocal, Controller.Authentication.signin);
   app.post('/api/signup', Controller.Authentication.signup);
 
+  // Home Controller
+  app.get('/api/home/fetch_users', requireJwt, Controller.Home.fetchUsers);
 
   // Utility Controller
   app.get('/api/utility/seed_data', Controller.Utility.seedData);
