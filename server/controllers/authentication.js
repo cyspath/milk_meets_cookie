@@ -12,14 +12,11 @@ exports.currentUser = (req, res, next) => {
 }
 
 exports.signin = (req, res, next) => {
-  res.send({ token: tokenForUser(req.user), currentUser: req.user });
+  res.send({ token: tokenForUser(req.user) });
 }
 
 exports.signup = (req, res, next) => {
   const params = req.body;
-  // if (Object.values(params).includes(null || undefined)) {
-  //   return res.status(422).send({ error: 'Missing information'});
-  // }
   User
   .findOne({ where: { email: params.email } })
   .then((existingUser) => {
@@ -35,7 +32,7 @@ exports.signup = (req, res, next) => {
         province: params.province,
         city: params.city,
       }).then((user) => {
-        res.send({ token: tokenForUser(user), currentUser: req.user });
+        res.send({ token: tokenForUser(user) });
       }).catch((err) => {
         console.log("500 Error: ", err.name);
         res.status(500).send({ error: err.name });

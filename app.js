@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan'); // logging framework
-const routes = require('./server/routes');
+const routes = require('./routes');
 const sassMiddleware = require('node-sass-middleware');
 var path = require('path');
 

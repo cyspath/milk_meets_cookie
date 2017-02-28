@@ -1,29 +1,40 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/home_actions';
 
 class Home extends Component {
   componentWillMount() {
-    this.props.fetchUsers({a:1});
+    this.props.fetchUsers({});
   }
-  //
-  // render() {
-  //   return (
-  //     <div>{this.props.message}</div>
-  //   )
-  // }
+
+  renderUsers() {
+    // console.log(this.props.users);
+    return this.props.users.map((user) => {
+      return (
+        <div key={user.id}>
+          <Link to={"user/" + user.id}>
+            <div>{user.email}</div>
+            <div>age: {user.dob}</div>
+            <div>sex: {user.sex}</div>
+            <div>wants to meet: {user.looking_for}</div>
+          </Link>
+        </div>
+      );
+    });
+  }
+
   render() {
-    console.log(this.props.currentUser);
     return (
-      <div>this is  home page</div>
+      <div className={`${this.constructor.name}-component`}>
+        {this.renderUsers()}
+      </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  return {
-    currentUser: state.auth.currentUser
-  };
+  return { users: state.usersReducer.users };
 }
 
 export default connect(mapStateToProps, actions)(Home);

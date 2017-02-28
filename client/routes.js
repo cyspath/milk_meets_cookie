@@ -12,8 +12,9 @@ import RequreAuth from './components/auth/require_auth';
 
 // main pages
 import Home from './components/home/main'
+import UserDetail from './components/user/main';
 import Inbox from './components/inbox/main';
-import Profile from './components/user/main';
+import Profile from './components/profile/main';
 
 // misc
 import NotFound from './components/misc/not_found';
@@ -26,6 +27,7 @@ export default (
     <Route path="signout" component={Signout} />
     <Route path="/" component={RequreAuth(Root)}>
       <IndexRoute component={Home} />
+      <Route path="user/:id" component={RequreAuth(UserDetail)}></Route>
       <Route path="messages" component={RequreAuth(Inbox)}></Route>
       <Route path="profile" component={RequreAuth(Profile)}></Route>
     </Route>
