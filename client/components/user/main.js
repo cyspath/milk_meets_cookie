@@ -10,9 +10,10 @@ class UserDetail extends Component {
   renderUserDetail() {
     return (
       <div>
-        <h1>User Detail:</h1>
+        <h1>{this.props.user.username}</h1>
+        <img src={this.props.user.avatar_url} alt="=("/>
         <div>{this.props.user.email}</div>
-        <div>age: {this.props.user.dob}</div>
+        <div>age: {this.props.user.age}</div>
         <div>sex: {this.props.user.sex}</div>
         <div>wants to meet: {this.props.user.looking_for}</div>
       </div>

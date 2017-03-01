@@ -1,3 +1,4 @@
+const toonAvatar = require('cartoon-avatar');
 const faker = require('faker');
 // faker.locale = 'zh_CN';
 
@@ -13,6 +14,8 @@ const userSeedData = (n = 100) => {
   const users = [
     {
       username: "SpicySashimi",
+      province: '山东',
+      city: '青岛市',
       dob: new Date('1987-12-17'),
       email: 'lvlichaelly@gmail.com',
       password: 'Password1',
@@ -20,12 +23,11 @@ const userSeedData = (n = 100) => {
       looking_for: 'female',
       firstname: "Mike",
       lastname: "Li",
-      province: '山东',
-      city: '青岛市',
+      avatar_url: toonAvatar.generate_avatar({ gender: 'male', id: 1 }),
     },
   ];
 
-  let user, location, contextualCard;
+  let user, location, contextualCard, sex, avatarUrl;
   const locations = [
     { province: '北京市', city: '朝阳区' },
     { province: '山东', city: '青岛市' },
@@ -33,17 +35,20 @@ const userSeedData = (n = 100) => {
   for (var i = 1; i < n; i++) {
     contextualCard = faker.helpers.contextualCard();
     location = selectRandom(locations);
+    sex =  selectRandom(['female', 'male']);
+    avatarUrl = toonAvatar.generate_avatar({ gender: sex, id: i + 1 });
     user = {
       username: contextualCard.username,
+      province: location.province,
+      city: location.city,
       dob: faker.date.between('1965-01-01', '1999-12-31'), // https://github.com/Marak/faker.js/wiki/Dates
       email: contextualCard.email,
       password: faker.internet.password(),
-      sex: selectRandom(['female', 'male']),
+      sex: sex,
       looking_for: selectRandom(['female', 'male']),
       firstname: contextualCard.name,
       lastname: faker.name.lastName(),
-      province: location.province,
-      city: location.city,
+      avatar_url: avatarUrl,
     }
     users.push(user);
   }

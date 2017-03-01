@@ -15,6 +15,7 @@ class Home extends Component {
         <div key={user.id}>
           <Link to={"user/" + user.id}>
             <h3>{user.username}</h3>
+            <img src={user.avatar_url} alt="=("/>
             <div>{user.email}</div>
             <div>age: {user.dob}</div>
             <div>sex: {user.sex}</div>

@@ -4,6 +4,7 @@ exports.fetchUserDetail = (req, res, next) => {
   const id = req.params.id;
   User.findOne({ where: { id }})
   .then((userDetail) => {
+    // const data = Object.assign(userDetail, userDetail.age());
     res.send({ userDetail });
   })
   .catch((err) => {

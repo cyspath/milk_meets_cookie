@@ -11,6 +11,7 @@ module.exports = function(sequelize, DataTypes) {
     looking_for:                { type: DataTypes.STRING },
     firstname:                  { type: DataTypes.STRING },
     lastname:                   { type: DataTypes.STRING },
+    avatar_url:                 { type: DataTypes.STRING },
     password_digest:            { type: DataTypes.STRING, validate: { notEmpty: true } },
   	password:                   { type: DataTypes.VIRTUAL, allowNull: false, validate: { notEmpty: true, len: [3, Infinity] } },
   }, {
@@ -43,6 +44,9 @@ module.exports = function(sequelize, DataTypes) {
       },
       generateHash: (password) => {
         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+      },
+      age: function() {
+        this.age = Math.floor((new Date() - this.dob) / 31536000000);
       },
     }
 
