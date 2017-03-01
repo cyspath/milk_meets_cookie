@@ -39,11 +39,11 @@ export function signinUser({ email, password }) {
   }
 }
 
-export function signupUser({ dob, email, password, sex, lookingFor, province, city }) {
+export function signupUser({ username, dob, email, password, sex, lookingFor, province, city }) {
   console.log('action: sign up');
   return function(dispatch) {
     axios
-    .post('/api/signup', { dob, email, password, sex, lookingFor, province, city })
+    .post('/api/signup', { username, dob, email, password, sex, lookingFor, province, city })
     .then(resp => {
       dispatch({ type: AUTH_USER }); // update state to indicate user-auth'ed
       localStorage.setItem('token', resp.data.token); // save JWT

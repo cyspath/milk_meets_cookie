@@ -12,30 +12,36 @@ const seedData = (nUsers) => {
 const userSeedData = (n = 100) => {
   const users = [
     {
-      dob: new Date('1987-12-17'), // https://github.com/Marak/faker.js/wiki/Dates
+      username: "SpicySashimi",
+      dob: new Date('1987-12-17'),
       email: 'lvlichaelly@gmail.com',
       password: 'Password1',
       sex: 'male',
       looking_for: 'female',
+      firstname: "Mike",
+      lastname: "Li",
       province: '山东',
       city: '青岛市',
     },
   ];
 
-  let user;
-  let location;
+  let user, location, contextualCard;
   const locations = [
     { province: '北京市', city: '朝阳区' },
     { province: '山东', city: '青岛市' },
   ]
   for (var i = 1; i < n; i++) {
+    contextualCard = faker.helpers.contextualCard();
     location = selectRandom(locations);
     user = {
+      username: contextualCard.username,
       dob: faker.date.between('1965-01-01', '1999-12-31'), // https://github.com/Marak/faker.js/wiki/Dates
-      email: faker.internet.email(),
+      email: contextualCard.email,
       password: faker.internet.password(),
       sex: selectRandom(['female', 'male']),
       looking_for: selectRandom(['female', 'male']),
+      firstname: contextualCard.name,
+      lastname: faker.name.lastName(),
       province: location.province,
       city: location.city,
     }

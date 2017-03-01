@@ -63,6 +63,11 @@ class SignupP2 extends Component {
           <div className="form-title-row"><h1>Register now to see who's in your area</h1></div>
 
           <div className="form-row">
+            <label><span>Username</span></label>
+            <Field name="username" type="text" placeholder="your public handle" component={renderInputField}/>
+          </div>
+
+          <div className="form-row">
             <label><span>Birthdate</span></label>
             <div className="form-input-container form-input-date">
               <Field name="month" placeholder="MM" className="dob-input dob-input__month" component={renderDateField}/>
@@ -95,12 +100,12 @@ class SignupP2 extends Component {
 
           <div className="form-row">
             <label><span>Email</span></label>
-            <Field name="email" type="email" component={renderInputField}/>
+            <Field name="email" type="email" placeholder="user@example.com" component={renderInputField}/>
           </div>
 
           <div className="form-row">
             <label><span>Password</span></label>
-            <Field name="password" type="password" component={renderInputField}/>
+            <Field name="password" type="password" placeholder="at least 6 characters" component={renderInputField}/>
           </div>
 
           {this.renderAlert()}
@@ -120,10 +125,10 @@ class SignupP2 extends Component {
   }
 }
 
-const renderInputField = ({ input, label, type, meta: { touched, error, warning } }) => (
+const renderInputField = ({ input, label, placeholder, type, meta: { touched, error, warning } }) => (
   <div className="form-input-container">
     <div className={touched && error ? "form-invalid-data" : ""}>
-      <input {...input} placeholder={label} type={type}/>
+      <input {...input} placeholder={placeholder} type={type}/>
       <span className="form-invalid-data-info">{error}</span>
     </div>
   </div>
@@ -152,6 +157,11 @@ const validate = values => {
   // if (!values.city) {
   //   errors.city = 'where are you?'
   // }
+
+  // username
+  if (!values.username) {
+    errors.username = 'Please enter an username'
+  }
 
   // email
   if (!values.email) {

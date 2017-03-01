@@ -24,6 +24,7 @@ exports.signup = (req, res, next) => {
       res.status(422).send({ error: 'Email is in use' });
     else // if does not exist, create and save record
       User.create({
+        username: params.username,
         dob: params.dob,
         email: params.email,
         password: params.password,

@@ -16,7 +16,7 @@ class Navbar extends Component {
         </ul>,
         <ul className="nav navbar-nav navbar-right" key={2}>
           <li className="dropdown">
-            <a className="dropdown-toggle" data-toggle="dropdown" href="#">{this.props.currentUser.email}<span className="caret"></span></a>
+            <a className="dropdown-toggle" data-toggle="dropdown" href="#">{this.props.currentUser.username}<span className="caret"></span></a>
             <ul className="dropdown-menu">
               <li><Link to="/messages"><i className="fa fa-envelope-square"></i> Messages</Link></li>
               <li><Link to="/profile"><i className="fa fa-user-circle"></i> Profile</Link></li>

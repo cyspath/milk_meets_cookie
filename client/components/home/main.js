@@ -14,10 +14,12 @@ class Home extends Component {
       return (
         <div key={user.id}>
           <Link to={"user/" + user.id}>
+            <h3>{user.username}</h3>
             <div>{user.email}</div>
             <div>age: {user.dob}</div>
             <div>sex: {user.sex}</div>
             <div>wants to meet: {user.looking_for}</div>
+            <br></br>
           </Link>
         </div>
       );
