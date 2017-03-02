@@ -10,7 +10,7 @@ export function fetchUserDetail(id) {
     axios
     .get('/api/user/' + id, jwtHeader())
     .then(resp => {
-      dispatch({ type: FETCH_USER_DETAIL, payload: resp.data.userDetail });
+      dispatch({ type: FETCH_USER_DETAIL, payload: resp.data.user });
     })
     .catch((err) => {
       console.log(err.response.data.error);

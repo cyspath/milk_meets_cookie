@@ -3,9 +3,9 @@ const User = require('../models').User;
 exports.fetchUserDetail = (req, res, next) => {
   const id = req.params.id;
   User.findOne({ where: { id }})
-  .then((userDetail) => {
-    // const data = Object.assign(userDetail, userDetail.age());
-    res.send({ userDetail });
+  .then((user) => {
+    user.updateAttributes();
+    res.send({ user });
   })
   .catch((err) => {
     console.log("500 Error: ", err.name);

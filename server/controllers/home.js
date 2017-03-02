@@ -9,6 +9,7 @@ exports.fetchUsers = (req, res, next) => {
     sex: currentUser.looking_for,
   }})
   .then((users) => {
+    users.forEach((u) => { u.updateAttributes() });
     res.send({ users });
   })
   .catch((err) => {

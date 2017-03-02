@@ -7,6 +7,7 @@ module.exports = function(sequelize, DataTypes) {
     province:                   { type: DataTypes.STRING },
     city:                       { type: DataTypes.STRING },
     dob:                        { type: DataTypes.DATE },
+    age:                        { type: DataTypes.VIRTUAL },
     sex:                        { type: DataTypes.STRING },
     looking_for:                { type: DataTypes.STRING },
     firstname:                  { type: DataTypes.STRING },
@@ -45,8 +46,9 @@ module.exports = function(sequelize, DataTypes) {
       generateHash: (password) => {
         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
       },
-      age: function() {
+      updateAttributes: function() {
         this.age = Math.floor((new Date() - this.dob) / 31536000000);
+        return this;
       },
     }
 
