@@ -6,6 +6,10 @@ body.app-body, html {
   letter-spacing: 0.5px;
   background-color: $background;
   color: $background-text-medium;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 .error {

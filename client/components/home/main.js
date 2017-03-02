@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/home_actions';
-import UserBlock from './user_block';
+import UserCard from './user_card';
 
 class Home extends Component {
   componentWillMount() {
@@ -12,7 +12,7 @@ class Home extends Component {
     // console.log(this.props.users);
     return this.props.users.map((user) => {
       return (
-        <UserBlock key={user.id} {...user} />
+        <UserCard key={user.id} {...user} />
       );
     });
   }
