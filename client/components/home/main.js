@@ -9,7 +9,6 @@ class Home extends Component {
   }
 
   renderUsers() {
-    // console.log(this.props.users);
     return this.props.users.map((user) => {
       return (
         <UserCard key={user.id} {...user} />

@@ -30,10 +30,9 @@ module.exports = function(sequelize, DataTypes) {
 
     classMethods: {
       associate: (models) => {
-        User.hasMany(models.Image, {
-          foreignKey: 'userId',
-          as: 'images',
-        });
+        User.hasMany(models.Image, { as: 'images', foreignKey: 'user_id' });
+        User.hasMany(models.Like, {  as: 'likes', foreignKey: 'liker_user_id' });
+        User.belongsToMany(models.User, { as: 'likedUsers', through: 'likes', foreignKey: 'liked_user_id' });
       },
     },
 
