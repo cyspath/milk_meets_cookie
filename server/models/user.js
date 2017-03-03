@@ -27,15 +27,23 @@ module.exports = function(sequelize, DataTypes) {
         return callback(null, options);
       },
     },
-
     classMethods: {
       associate: (models) => {
-        User.hasMany(models.Image, { as: 'images', foreignKey: 'user_id' });
-        User.hasMany(models.Like, {  as: 'likes', foreignKey: 'liker_user_id' });
-        User.belongsToMany(models.User, { as: 'likedUsers', through: 'likes', foreignKey: 'liked_user_id' });
+        // User.hasMany(models.Image, { as: 'images', foreignKey: 'user_id' });
+        // User.belongsToMany(models.Like, {  as: 'likes', foreignKey: 'liker_user_id' });
+        // User.belongsToMany(models.Image, { as: 'likedUsers', through: models.Like, foreignKey: 'interested_user_id', targetKey: 'liked_user_id' });
+        // User.belongsToMany(models.User, { as: 'interestedUsers', through: models.Like, foreignKey: 'liked_user_id', targetKey: 'interested_user_id' });
+        // User.belongsToMany(models.User, { as: 'likedUsers', through: 'interested_liked', foreignKey: 'interested_user_id' });
+        // User.belongsToMany(models.User, { as: 'interestedUsers', through: 'interested_liked', foreignKey: 'liked_user_id' });
+        User.belongsToMany(models.Image, {
+            through: models.Like,
+            as: "userImagesss"
+        });
       },
     },
-
+    // getterMethods: {
+    //   address: function()  { return this.state + ', ' + this.country }
+    // },
     instanceMethods: {
       comparePassword: function(candidatePassword, cb) {
         return bcrypt.compare(candidatePassword, this.password_digest, (err, isMatch) => {
