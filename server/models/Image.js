@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: (models) => {
         Image.belongsTo(models.User, {
-          foreignKey: 'userId',
+          foreignKey: 'user_id',
           onDelete: 'CASCADE',
         });
       },

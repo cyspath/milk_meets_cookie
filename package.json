@@ -25,6 +25,8 @@
     "axios": "^0.15.3",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.16.0",
+    "cartoon-avatar": "^1.0.2",
+    "faker": "^4.1.0",
     "fs": "0.0.1-security",
     "jwt-simple": "^0.5.0",
     "moment": "^2.17.1",

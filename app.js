@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan'); // logging framework
-const router = require('./router');
+const routes = require('./routes');
 const sassMiddleware = require('node-sass-middleware');
 var path = require('path');
 
@@ -26,6 +26,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json({ type: '*/*' })); // any incoming request regardless of type will be parsed as json
 
 // Router
-router(app);
+routes(app);
 
 module.exports = app;

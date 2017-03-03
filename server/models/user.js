@@ -7,10 +7,12 @@ module.exports = function(sequelize, DataTypes) {
     province:                   { type: DataTypes.STRING },
     city:                       { type: DataTypes.STRING },
     dob:                        { type: DataTypes.DATE },
+    age:                        { type: DataTypes.VIRTUAL },
     sex:                        { type: DataTypes.STRING },
     looking_for:                { type: DataTypes.STRING },
     firstname:                  { type: DataTypes.STRING },
     lastname:                   { type: DataTypes.STRING },
+    avatar_url:                 { type: DataTypes.STRING },
     password_digest:            { type: DataTypes.STRING, validate: { notEmpty: true } },
   	password:                   { type: DataTypes.VIRTUAL, allowNull: false, validate: { notEmpty: true, len: [3, Infinity] } },
   }, {
@@ -28,10 +30,9 @@ module.exports = function(sequelize, DataTypes) {
 
     classMethods: {
       associate: (models) => {
-        User.hasMany(models.Image, {
-          foreignKey: 'userId',
-          as: 'images',
-        });
+        User.hasMany(models.Image, { as: 'images', foreignKey: 'user_id' });
+        User.hasMany(models.Like, {  as: 'likes', foreignKey: 'liker_user_id' });
+        User.belongsToMany(models.User, { as: 'likedUsers', through: 'likes', foreignKey: 'liked_user_id' });
       },
     },
 
@@ -43,6 +44,10 @@ module.exports = function(sequelize, DataTypes) {
       },
       generateHash: (password) => {
         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+      },
+      updateAttributes: function() {
+        this.age = Math.floor((new Date() - this.dob) / 31536000000);
+        return this;
       },
     }
 

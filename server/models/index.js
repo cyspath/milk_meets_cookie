@@ -34,21 +34,19 @@ Object.keys(db).forEach((modelName) => {
   }
 });
 
-// to re-create the tables
+//// to re-create the tables
 
-// sequelize
-//   .sync({force: true})
-//   .then(function() {
-//     console.log(config.database, ': recreated tables');
-//   })
-//   .catch(function(err) {
-//     console.log(err);
-//   })
-//
+sequelize
+  .sync({force: true})
+  .then(function() {
+    console.log(config.database, ': recreated tables');
+  })
+  .catch(function(err) {
+    console.log(err);
+  })
+
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
-console.log('Loaded models/index.js');
 
 module.exports = db;

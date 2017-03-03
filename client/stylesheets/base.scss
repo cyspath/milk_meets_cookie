@@ -1,9 +1,30 @@
-body, html {
+body.app-body, html {
   height: 100%;
   background-repeat: no-repeat;
   font-family: Helvetica, sans-serif;
   font-size: 14px;
   letter-spacing: 0.5px;
+  background-color: $background;
+  color: $background-text-medium;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  button {
+    outline: none;
+    text-transform: none;
+    display: inline-block;
+    -webkit-transition-property: background-color,color,border;
+    -moz-transition-property: background-color,color,border;
+    transition-property: background-color,color,border;
+    -webkit-transition-duration: 75ms;
+    -moz-transition-duration: 75ms;
+    transition-duration: 75ms;
+    -webkit-transition-timing-function: ease;
+    -moz-transition-timing-function: ease;
+    transition-timing-function: ease;
+    cursor: pointer;
+  }
 }
 
 .error {

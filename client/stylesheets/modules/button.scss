@@ -1,0 +1,38 @@
+.flat-btn {
+  border: none;
+  padding: 0;
+  vertical-align: top;
+  width: 120px;
+  height: 42px;
+  line-height: 41px;
+  font-size: 15px;
+  white-space: nowrap;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.flat-btn.like-btn {
+  background-color: transparent;
+  border: 1px solid #ccd0d9;
+  color: $background-text-light;
+  i {
+    margin-right: 8px;
+    color: $background-text-fade;
+  }
+  &:hover {
+    background-color: #f7f8f9;
+  }
+}
+
+.flat-btn.like-btn.active {
+  background-color: #ffc25f;
+  color: #fff;
+  i {
+    color: #fff;
+  }
+  &:hover {
+    background-color:#ffb640;
+  }
+}

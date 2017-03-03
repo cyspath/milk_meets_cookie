@@ -1,8 +1,11 @@
-const todos = require('./todos');
-const todoItems = require('./todoitems');
-const users = require('./users');
+const Authentication = require('./authentication');
+const Home = require('./home');
+const User = require('./user');
+const Utility = require('./utility');
 
 module.exports = {
-  todos,
-  todoItems,
+  Authentication,
+  Home,
+  User,
+  Utility,
 };
