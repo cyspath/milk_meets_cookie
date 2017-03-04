@@ -4,9 +4,9 @@ import { Link } from 'react-router'
 class UserCard extends Component {
   constructor() {
    super();
-   this.state = {
-     liked: false,
-   };
+  //  this.state = {
+  //    liked: this.props.liked,
+  //  };
   }
 
   handleLike() {
@@ -30,9 +30,9 @@ class UserCard extends Component {
               <div className="userinfo">{user.age} · {user.province} {user.city}</div>
             </div>
           </Link>
-          <button onClick={this.handleLike.bind(this)} className={`like-btn flat-btn ${this.state.liked && 'active'}`}>
+          <button onClick={this.handleLike.bind(this)} className={`like-btn flat-btn ${user.liked && 'active'}`}>
             <i className="fa fa-star"></i>
-            <span>Like</span>
+            <span>{user.liked ? 'Liked' : 'Like'}</span>
           </button>
         </div>
       </div>

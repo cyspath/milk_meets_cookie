@@ -10,6 +10,7 @@ export function fetchUsers(params) {
     axios
     .get('/api/home/fetch_users', jwtHeader(params))
     .then(resp => {
+      console.log(resp.data.users);
       dispatch({ type: FETCH_USERS, payload: resp.data.users });
     })
     .catch((err) => {

@@ -7,7 +7,6 @@ module.exports = function(sequelize, DataTypes) {
     province:                   { type: DataTypes.STRING },
     city:                       { type: DataTypes.STRING },
     dob:                        { type: DataTypes.DATE },
-    age:                        { type: DataTypes.VIRTUAL },
     sex:                        { type: DataTypes.STRING },
     looking_for:                { type: DataTypes.STRING },
     firstname:                  { type: DataTypes.STRING },
@@ -15,6 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     avatar_url:                 { type: DataTypes.STRING },
     password_digest:            { type: DataTypes.STRING, validate: { notEmpty: true } },
   	password:                   { type: DataTypes.VIRTUAL, allowNull: false, validate: { notEmpty: true, len: [3, Infinity] } },
+    liked:                      { type: DataTypes.VIRTUAL },
   }, {
     underscored: true,
     hooks: {
@@ -23,34 +23,27 @@ module.exports = function(sequelize, DataTypes) {
         user.password_digest = user.generateHash(user.password);
         return callback(null, options);
       },
+      beforeBulkCreate: (users, options, callback) => {
+        users.forEach((user) => {
+          user.email = user.email.toLowerCase();
+          user.password_digest = user.generateHash(user.password);
+        })
+        return callback(null, options);
+      },
       beforeUpdate: (user, options, callback) => {
         return callback(null, options);
       },
     },
     classMethods: {
       associate: (models) => {
-        // User.hasMany(models.Image, { as: 'images', foreignKey: 'user_id' });
-        // User.belongsToMany(models.Like, {  as: 'likes', foreignKey: 'liker_user_id' });
-        // User.belongsToMany(models.Image, { as: 'likedUsers', through: models.Like, foreignKey: 'interested_user_id', targetKey: 'liked_user_id' });
-        // User.belongsToMany(models.User, { as: 'interestedUsers', through: models.Like, foreignKey: 'liked_user_id', targetKey: 'interested_user_id' });
-        User.belongsToMany(models.User, { as: 'LikedUser', through: models.Like, foreignKey: 'interested_user_id' });
-        User.belongsToMany(models.User, { as: 'InterestedUser', through: models.Like, foreignKey: 'liked_user_id' });
-
-        // User.belongsToMany(models.User, {
-        //     as: "likedUsers",
-        //     through: models.Like,
-        //     foreignKey: 'interested_user_id'
-        // });
-        // User.belongsToMany(models.User, {
-        //     as: "interestedUsers",
-        //     through: models.Like,
-        //     foreignKey: 'liked_user_id'
-        // });
+        User.hasMany(models.Image);
+        User.belongsToMany(models.User, { as: 'LikedUsers', through: models.Like, foreignKey: 'interested_user_id' });
+        User.belongsToMany(models.User, { as: 'InterestedUsers', through: models.Like, foreignKey: 'liked_user_id' });
       },
     },
-    // getterMethods: {
-    //   address: function()  { return this.state + ', ' + this.country }
-    // },
+    getterMethods: {
+      age: function()  { return Math.floor((new Date() - this.dob) / 31536000000) },
+    },
     instanceMethods: {
       comparePassword: function(candidatePassword, cb) {
         return bcrypt.compare(candidatePassword, this.password_digest, (err, isMatch) => {
@@ -60,8 +53,8 @@ module.exports = function(sequelize, DataTypes) {
       generateHash: (password) => {
         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
       },
-      updateAttributes: function() {
-        this.age = Math.floor((new Date() - this.dob) / 31536000000);
+      updatedLiked: function(likedIds) {
+        this.liked = likedIds.has(this.id);
         return this;
       },
     }
