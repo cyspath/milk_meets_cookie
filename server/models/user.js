@@ -33,12 +33,19 @@ module.exports = function(sequelize, DataTypes) {
         // User.belongsToMany(models.Like, {  as: 'likes', foreignKey: 'liker_user_id' });
         // User.belongsToMany(models.Image, { as: 'likedUsers', through: models.Like, foreignKey: 'interested_user_id', targetKey: 'liked_user_id' });
         // User.belongsToMany(models.User, { as: 'interestedUsers', through: models.Like, foreignKey: 'liked_user_id', targetKey: 'interested_user_id' });
-        // User.belongsToMany(models.User, { as: 'likedUsers', through: 'interested_liked', foreignKey: 'interested_user_id' });
-        // User.belongsToMany(models.User, { as: 'interestedUsers', through: 'interested_liked', foreignKey: 'liked_user_id' });
-        User.belongsToMany(models.Image, {
-            through: models.Like,
-            as: "userImagesss"
-        });
+        User.belongsToMany(models.User, { as: 'LikedUser', through: models.Like, foreignKey: 'interested_user_id' });
+        User.belongsToMany(models.User, { as: 'InterestedUser', through: models.Like, foreignKey: 'liked_user_id' });
+
+        // User.belongsToMany(models.User, {
+        //     as: "likedUsers",
+        //     through: models.Like,
+        //     foreignKey: 'interested_user_id'
+        // });
+        // User.belongsToMany(models.User, {
+        //     as: "interestedUsers",
+        //     through: models.Like,
+        //     foreignKey: 'liked_user_id'
+        // });
       },
     },
     // getterMethods: {

@@ -34,17 +34,31 @@ Object.keys(db).forEach((modelName) => {
   }
 });
 
+//// to drop tables
+
+sequelize.drop().then(function () {
+  console.log('Database: tables dropped');
+  //// to re-create the tables
+  sequelize
+    .sync()
+    .then(function() {
+      console.log('Database: tables recreated');
+    })
+    .catch(function(err) {
+      console.log(err);
+    })
+})
+
 //// to re-create the tables
 
-sequelize
-  .sync({force: true})
-  .then(function() {
-    console.log(config.database, ': recreated tables');
-  })
-  .catch(function(err) {
-    console.log(err);
-  })
-
+// sequelize
+//   .sync({force: true})
+//   .then(function() {
+//     console.log(config.database, ': recreated tables');
+//   })
+//   .catch(function(err) {
+//     console.log(err);
+//   })
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
