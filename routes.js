@@ -19,6 +19,7 @@ module.exports = (app) => {
 
   // User Controller
   app.get('/api/user/:id', requireJwt, Controller.User.fetchUserDetail);
+  app.post('/api/user/toggle_like_user', requireJwt, Controller.User.toggleLikeUser);
 
   // Utility Controller
   app.get('/api/utility/seed_data', Controller.Utility.seedData);

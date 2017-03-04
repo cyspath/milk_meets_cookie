@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
+import * as actions from '../../actions/user_actions';
 
 class UserCard extends Component {
   constructor() {
    super();
-  //  this.state = {
-  //    liked: this.props.liked,
-  //  };
   }
 
   handleLike() {
-    const liked = !this.state.liked;
-    this.setState({
-      liked
-    });
+    let active = this.props.liked ? false : true;
+    actions.likeUser({
+      active: active,
+      liked_user_id: this.props.id
+    }).then((resp) => {
+      debugger
+    })
   }
 
   render() {

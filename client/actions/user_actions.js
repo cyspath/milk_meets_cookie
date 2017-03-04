@@ -17,3 +17,8 @@ export function fetchUserDetail(id) {
     });
   }
 }
+
+export function likeUser(params) {
+  console.log('action: likeUser', params);
+  return axios.post('/api/user/toggle_like_user', params, jwtHeader());
+}

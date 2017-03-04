@@ -1,5 +1,4 @@
 const User = require('../models').User;
-const Image = require('../models').Like;
 
 exports.fetchUsers = (req, res, next) => {
   const currentUser = req.user;
