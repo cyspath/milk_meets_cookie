@@ -6,22 +6,7 @@ import {
   UNAUTH_USER,
   AUTH_ERROR,
   CLEAR_AUTH_ERROR,
-  CURRENT_USER
 } from './types';
-
-export function getCurrentUser() {
-  console.log('action: getCurrentUser');
-  return function(dispatch) {
-    axios
-    .get('/api/current_user', jwtHeader())
-    .then(resp => {
-      dispatch({ type: CURRENT_USER, payload: resp.data.currentUser });
-    })
-    .catch((err) => {
-      dispatch(authError(err.response.data.error))
-    });
-  }
-}
 
 export function signinUser({ email, password }) {
   console.log('action: sign in');

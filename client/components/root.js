@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from './layout/navbar/navbar';
 import { connect } from 'react-redux';
-import * as actions from '../actions/auth_actions';
+import * as actions from '../actions/user_actions';
 
 class Root extends Component {
   componentWillMount() {

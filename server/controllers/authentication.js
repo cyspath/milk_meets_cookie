@@ -7,10 +7,6 @@ const tokenForUser = (user) => {
   return jwt.encode({ sub: user.id, iat: timestamp }, config.jwtSecret);
 };
 
-exports.currentUser = (req, res, next) => {
-  res.send({ currentUser: req.user });
-}
-
 exports.signin = (req, res, next) => {
   res.send({ token: tokenForUser(req.user) });
 }

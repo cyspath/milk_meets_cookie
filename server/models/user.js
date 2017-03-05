@@ -14,7 +14,6 @@ module.exports = function(sequelize, DataTypes) {
     avatar_url:                 { type: DataTypes.STRING },
     password_digest:            { type: DataTypes.STRING, validate: { notEmpty: true } },
   	password:                   { type: DataTypes.VIRTUAL, allowNull: false, validate: { notEmpty: true, len: [3, Infinity] } },
-    liked:                      { type: DataTypes.VIRTUAL },
   }, {
     underscored: true,
     hooks: {
@@ -52,10 +51,6 @@ module.exports = function(sequelize, DataTypes) {
       },
       generateHash: (password) => {
         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-      },
-      updatedLiked: function(likedIds) {
-        this.liked = likedIds.has(this.id);
-        return this;
       },
     }
 

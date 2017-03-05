@@ -1,11 +1,17 @@
 const User = require('../models').User;
 const Like = require('../models').Like;
 
+exports.currentUser = (req, res, next) => {
+  const user = req.user;
+  user.getLikedUsers().then((likedUsers) => {
+    res.send({ currentUser: user, likedUserIds: likedUsers.map((u) => u.id) });
+  })
+}
+
 exports.fetchUserDetail = (req, res, next) => {
   const id = req.params.id;
   User.findOne({ where: { id }})
   .then((user) => {
-    user.updateAttributes();
     res.send({ user });
   })
   .catch((err) => {

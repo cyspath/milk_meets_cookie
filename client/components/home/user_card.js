@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
+import { connect } from 'react-redux';
 import * as actions from '../../actions/user_actions';
 
 class UserCard extends Component {
@@ -7,18 +8,18 @@ class UserCard extends Component {
    super();
   }
 
-  handleLike() {
-    let active = this.props.liked ? false : true;
-    actions.likeUser({
-      active: active,
-      liked_user_id: this.props.id
-    }).then((resp) => {
-      debugger
-    })
+  handleToggleLike() {
+    let active = this.likedStatus() ? false : true;
+    this.props.toggleLikeUser({ active: active, liked_user_id: this.props.id });
+  }
+
+  likedStatus() {
+    return this.props.likedUserIds.has(this.props.id);
   }
 
   render() {
-    const user = this.props;
+    let user = this.props;
+    let liked = this.likedStatus();
     return (
       <div className={`${this.constructor.name}-component user-card-wrapper`}>
         <div className="user-card">
@@ -31,9 +32,9 @@ class UserCard extends Component {
               <div className="userinfo">{user.age} · {user.province} {user.city}</div>
             </div>
           </Link>
-          <button onClick={this.handleLike.bind(this)} className={`like-btn flat-btn ${user.liked && 'active'}`}>
+          <button onClick={this.handleToggleLike.bind(this)} className={`like-btn flat-btn ${liked && 'active'}`}>
             <i className="fa fa-star"></i>
-            <span>{user.liked ? 'Liked' : 'Like'}</span>
+            <span>{liked ? 'Liked' : 'Like'}</span>
           </button>
         </div>
       </div>
@@ -41,4 +42,8 @@ class UserCard extends Component {
   }
 }
 
-export default UserCard;
+function mapStateToProps(state) {
+  return { likedUserIds: state.usersReducer.likedUserIds };
+}
+
+export default connect(mapStateToProps, actions)(UserCard);

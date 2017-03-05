@@ -10,7 +10,6 @@ const requireLocal = passport.authenticate('local', { session: false });
 
 module.exports = (app) => {
   // Authenication Controller
-  app.get('/api/current_user', requireJwt, Controller.Authentication.currentUser);
   app.post('/api/signin', requireLocal, Controller.Authentication.signin);
   app.post('/api/signup', Controller.Authentication.signup);
 
@@ -18,6 +17,7 @@ module.exports = (app) => {
   app.get('/api/home/fetch_users', requireJwt, Controller.Home.fetchUsers);
 
   // User Controller
+  app.get('/api/current_user', requireJwt, Controller.User.currentUser);
   app.get('/api/user/:id', requireJwt, Controller.User.fetchUserDetail);
   app.post('/api/user/toggle_like_user', requireJwt, Controller.User.toggleLikeUser);
 

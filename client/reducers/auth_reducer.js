@@ -3,7 +3,6 @@ import {
   UNAUTH_USER,
   AUTH_ERROR,
   CLEAR_AUTH_ERROR,
-  CURRENT_USER,
 } from '../actions/types';
 
 export default function(state = {}, action) {
@@ -16,8 +15,6 @@ export default function(state = {}, action) {
       return { ...state, error: action.payload };
     case CLEAR_AUTH_ERROR:
       return { ...state, error: undefined };
-    case CURRENT_USER:
-      return { ...state, currentUser: action.payload };
     default:
       return state;
   }
