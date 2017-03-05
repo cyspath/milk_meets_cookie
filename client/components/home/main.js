@@ -19,7 +19,9 @@ class Home extends Component {
   render() {
     return (
       <div className={`${this.constructor.name}-component`}>
-        {this.renderUsers()}
+        <div className="breathable-container">
+          {this.renderUsers()}
+        </div>
       </div>
     )
   }

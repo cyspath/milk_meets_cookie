@@ -16,7 +16,9 @@ class Root extends Component {
     return (
       <div className={`${this.constructor.name}-component`}>
         <Navbar {...this.props} />
-        {this.props.children}
+        <div className="main-content">
+          {this.props.children}
+        </div>
       </div>
     );
   }
