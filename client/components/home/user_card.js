@@ -5,7 +5,7 @@ import * as actions from '../../actions/user_actions';
 
 class UserCard extends Component {
   constructor() {
-   super();
+    super();
   }
 
   handleToggleLike() {

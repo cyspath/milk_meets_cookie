@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/home_actions';
 import UserCard from './user_card';
+import SearchBox from './search_box';
 
 class Home extends Component {
   componentWillMount() {
@@ -20,6 +21,7 @@ class Home extends Component {
     return (
       <div className={`${this.constructor.name}-component`}>
         <div className="breathable-container">
+          <SearchBox />
           {this.renderUsers()}
         </div>
       </div>

@@ -20,6 +20,7 @@ const usersData = (n = 100) => {
     province: '山东',
     city: '青岛市',
     dob: new Date('1987-12-17'),
+    height: 182,
     email: 'lvlichaelly@gmail.com',
     password: 'Password1',
     sex: 'male',
@@ -45,6 +46,7 @@ const usersData = (n = 100) => {
       province: location.province,
       city: location.city,
       dob: faker.date.between('1965-01-01', '1999-12-31'), // https://github.com/Marak/faker.js/wiki/Dates
+      height: Math.floor(Math.random() * 35 + 150),
       email: contextualCard.email,
       password: faker.internet.password(),
       sex: sex,
