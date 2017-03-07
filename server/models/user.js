@@ -48,12 +48,14 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     classMethods: {
+
       associate: (models) => {
         User.hasMany(models.Image);
         User.hasOne(models.SearchPreference);
         User.belongsToMany(models.User, { as: 'LikedUsers', through: models.Like, foreignKey: 'interested_user_id' });
         User.belongsToMany(models.User, { as: 'InterestedUsers', through: models.Like, foreignKey: 'liked_user_id' });
       },
+
     },
     getterMethods: {
       age: function()  { return Math.floor((new Date() - this.dob) / 31536000000) },
@@ -77,6 +79,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultPreference: (user) => {
         return ({ province: user.province, city: user.city, sex: user.looking_for, looking_for: user.sex });
       },
+
 
     }
 

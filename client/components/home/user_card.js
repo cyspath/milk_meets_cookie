@@ -29,7 +29,7 @@ class UserCard extends Component {
             </div>
             <div className="user-card__text-box">
               <div className="username">{user.username}</div>
-              <div className="userinfo">{user.age} · {user.province} {user.city}</div>
+              <div className="userinfo">{user.age} · {user.province} {user.city} {user.height}cm</div>
             </div>
           </Link>
           <button onClick={this.handleToggleLike.bind(this)} className={`like-btn flat-btn ${liked && 'active'}`}>
