@@ -6,7 +6,7 @@ import SearchBox from './search_box';
 
 class Home extends Component {
   componentWillMount() {
-    this.props.fetchUsers({ age_high: 20 }); // based on preset default or user's last search pref
+    this.props.fetchUsers({}); // based on preset default or user's last search pref
   }
 
   renderUsers() {

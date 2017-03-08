@@ -8,6 +8,7 @@ import {
 const INITIAL_STATE = {
   currentUser: {},
   likedUserIds: new Set([]),
+  searchPreference: {},
   users: [],
   userDetail: {},
 };
@@ -23,7 +24,8 @@ export default function(state = INITIAL_STATE, action) {
     case FETCH_USERS:
       return {
         ...state,
-        users: action.payload
+        users: action.payload.users,
+        searchPreference: action.payload.searchPreference
       };
     case FETCH_USER_DETAIL:
       return {

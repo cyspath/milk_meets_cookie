@@ -9,11 +9,10 @@ exports.fetchUsers = (req, res, next) => {
   } else {
     queryUserNewPreference(req, res, currentUser);
   }
-
 }
 
 const queryUserNewPreference = (req, res, user) => {
-  const query = Object.assign(req.query, { omitNull: true });
+  const query = updateQueryParams(req.query);
   user
     .getSearchPreference()
     .then((sp) => {
@@ -24,7 +23,7 @@ const queryUserNewPreference = (req, res, user) => {
           User
             .findAll(queryParam)
             .then((users) => {
-              res.send({ users });
+              res.send({ users, searchPreference: sp });
             })
             .catch((err) => {
               console.log("500 Error: ", err.name);
@@ -36,7 +35,10 @@ const queryUserNewPreference = (req, res, user) => {
           res.status(500).send({ error: err.name });
         });
     })
-
+    .catch((err) => {
+      console.log("500 Error: ", err.name);
+      res.status(500).send({ error: err.name });
+    });
 }
 
 const queryUsersExistingPreference = (req, res, user) => {
@@ -48,7 +50,7 @@ const queryUsersExistingPreference = (req, res, user) => {
       User
         .findAll(queryParam)
         .then((users) => {
-          res.send({ users });
+          res.send({ users, searchPreference: sp });
         })
         .catch((err) => {
           console.log("500 Error: ", err.name);
@@ -59,4 +61,18 @@ const queryUsersExistingPreference = (req, res, user) => {
       console.log("500 Error: ", err.name);
       res.status(500).send({ error: err.name });
     });
+}
+
+const updateQueryParams = (params) => {
+  return {
+    sex: params.sex || null,
+    looking_for: params.looking_for || null,
+    province: params.province || null,
+    city: params.city || null,
+    age_low: Number(params.age_low) || null,
+    age_high: Number(params.age_high) || null,
+    height_low: Number(params.height_low) || null,
+    height_high: Number(params.height_high) || null,
+    omitNull: true
+  }
 }

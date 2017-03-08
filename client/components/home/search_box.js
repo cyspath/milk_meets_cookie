@@ -7,16 +7,21 @@ import * as actions from '../../actions/home_actions';
 class SearchBox extends Component {
   constructor() {
     super();
-    this.lookingFor =  [{ label: 'Woman', value: 'female' }, { label: 'Man', value: 'male' }];
+    this.sexOptions =  [{ label: 'Woman', value: 'female' }, { label: 'Man', value: 'male' }];
+    this.ageOptions = this.generateAgeOptions();
+  }
+
+  generateAgeOptions() {
+    const options = [];
+    for (var i = 18; i <= 99; i++) {
+      options.push(i)
+    }
+    return options;
   }
 
   handleFormSubmit(formProps) {
-    this.props.fetchUsers(formProps);
-    // const params = Object.assign(formProps, this.props.searchCriteria);
-    // params.dob = new Date(`${params.month}/${params.day}/${params.year}`)
-    // params.province = params.province.value
-    // params.city = params.city.value
-    // this.props.signupUser(params);
+    debugger
+    // this.props.fetchUsers(formProps);
   }
 
   handleChange(option) {
@@ -24,68 +29,60 @@ class SearchBox extends Component {
   }
 
   render() {
-    // <DropdownList
-    //   name="lookingFor"
-    //   data={this.lookingFor}
-    //   onChange={this.handleProvinceChange.bind(this)}
-    //   defaultValue={this.props.currentUser.looking_for}
-    //   valueField="value"
-    //   textField="label"/>
-
-              // <Field
-              //   name="lookingFor"
-              //   component={renderDropdownList}
-              //   defaultValue={this.props.currentUser.looking_for}
-              //   data={this.lookingFor}
-              //   valueField="value"
-              //   textField="label"/>
-
     const { handleSubmit, pristine, reset, submitting } = this.props
     return (
       <div className={`${this.constructor.name}-component`}>
         <form onSubmit={handleSubmit(props => this.handleFormSubmit(props))} className="">
 
-            <DropdownList
-              name="lookingFor"
-              data={this.lookingFor}
-              onChange={this.handleChange.bind(this)}
-              value={this.props.currentUser.looking_for}
+          <div>
+            <Field
+              name="sex"
+              component={renderDropdownList}
+              data={this.sexOptions}
               valueField="value"
               textField="label"/>
+          </div>
 
-          <button type="submit" className="btn btn-primary">Sign Up!</button>
+          <div>
+            <Field
+              name="age_low"
+              type="number"
+              component={renderDropdownList}
+              data={this.ageOptions}
+              valueField="value"
+              textField="label" />
+          </div>
+
+          <div>to</div>
+
+          <div>
+            <Field
+              name="age_high"
+              type="number"
+              component={renderDropdownList}
+              data={this.ageOptions}
+              valueField="value"
+              textField="label" />
+          </div>
+
+          <button type="submit" className="btn btn-primary">Search</button>
         </form>
       </div>
     );
   }
 }
 
-
 const renderDropdownList = ({ input, meta, ...rest }) =>
      <DropdownList {...input} {...rest} />
 
-// const DropdownListField = ({ input, meta, ...rest }) => {
-//   function handleChange(option) {
-//     debugger
-//     let value = option;
-//     const { valueField } = { input, meta, ...rest }
-//     if (valueField) {
-//     	value = option[valueField]
-//     }
-//     input.onChange(value)
-//   }
-//   return (
-//     <DropdownList {...input} {...rest} value={input.value} onChange={handleChange} />
-//   )
-// }
-
 function mapStateToProps(state) {
-  return { currentUser: state.usersReducer.currentUser };
+  return { initialValues: state.usersReducer.searchPreference };
 }
 
 const form = reduxForm({
   form: 'searchBox',
-  fields: ['lookingFor']
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: true
 });
 
 export default connect(mapStateToProps, actions)(form(SearchBox));

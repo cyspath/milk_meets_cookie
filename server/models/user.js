@@ -35,13 +35,13 @@ module.exports = function(sequelize, DataTypes) {
         return callback(null, options);
       },
       afterCreate: (user, options, callback) => {
-        let pref = user.defaultPreference(user);
+        let pref = user.defaultPreference();
         user.createSearchPreference(pref);
         return callback(null, options);
       },
       afterBulkCreate: (users, options, callback) => {
         users.forEach((user) => {
-          let pref = user.defaultPreference(user);
+          let pref = user.defaultPreference();
           user.createSearchPreference(pref);
         })
         return callback(null, options);
@@ -76,9 +76,33 @@ module.exports = function(sequelize, DataTypes) {
         return sex === 'male' ? 'female' : 'male';
       },
 
-      defaultPreference: (user) => {
-        return ({ province: user.province, city: user.city, sex: user.looking_for, looking_for: user.sex });
+      defaultPreference: function() {
+        const age = this.defaultAge();
+        const height_low = this.looking_for === 'female' ? 150 : 160;
+        const height_high = this.looking_for === 'female' ? 180 : 190;
+        return ({
+          sex: this.looking_for,
+          looking_for: this.sex,
+          province: this.province,
+          city: this.city,
+          age_low: age.age_low,
+          age_high: age.age_high,
+          height_low,
+          height_high,
+        });
       },
+
+      defaultAge: function() {
+        let age_low, age_high;
+        if (this.looking_for === 'male') {
+          age_low = ( this.age - 5) < 18 ? 18 : ( this.age - 5);
+          age_high = ( this.age + 10) < 18 ? 18 : ( this.age + 10);
+        } else {
+          age_low = ( this.age - 10) < 18 ? 18 : ( this.age - 10);
+          age_high = ( this.age + 5) < 18 ? 18 : ( this.age + 5);
+        }
+        return { age_low, age_high }
+      }
 
 
     }
