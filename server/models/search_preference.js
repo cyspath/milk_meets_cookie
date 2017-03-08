@@ -11,6 +11,11 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     underscored: true,
     tableName: 'search_preferences',
+    hooks: {
+      beforeUpdate: (sp, options, callback) => {
+        return callback(null, options);
+      }
+    },
     instanceMethods: {
 
       toQueryParam: function() {
@@ -43,15 +48,13 @@ module.exports = function(sequelize, DataTypes) {
 
       toDobLow: function(age)  {
         const dob = new Date();
-        const n = Number(age);
-        dob.setFullYear(dob.getFullYear() - (age + 1));
+        dob.setFullYear(dob.getFullYear() - (Number(age) + 1));
         return dob
       },
 
       toDobHigh: function(age)  {
         const dob = new Date();
-        const n = Number(age);
-        dob.setFullYear(dob.getFullYear() - (age - 1));
+        dob.setFullYear(dob.getFullYear() - (Number(age) - 1));
         return dob
       },
 
