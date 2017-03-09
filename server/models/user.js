@@ -82,7 +82,7 @@ module.exports = function(sequelize, DataTypes) {
         const height_high = this.looking_for === 'female' ? 180 : 190;
         return ({
           sex: this.looking_for,
-          looking_for: this.sex,
+          looking_for: null,
           province: this.province,
           city: this.city,
           age_low: age.age_low,

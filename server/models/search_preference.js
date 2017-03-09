@@ -54,7 +54,7 @@ module.exports = function(sequelize, DataTypes) {
 
       toDobHigh: function(age)  {
         const dob = new Date();
-        dob.setFullYear(dob.getFullYear() - (Number(age) - 1));
+        dob.setFullYear(dob.getFullYear() - Number(age));
         return dob
       },
 
