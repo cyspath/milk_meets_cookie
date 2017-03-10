@@ -8,13 +8,24 @@
   min-height: 60px;
 
   .search-box-row {
+    @include transition-all;
     height: 40px;
+  }
+
+  .search-box-row.slide-hidden {
+    overflow: hidden;
+    max-height: 0px;
+  }
+
+  .search-box-row.slide-down {
+    overflow: visible;
+    max-height: 40px;
   }
 
   .search-box-item-label {
     display: block;
     float: left;
-    font-size: 16px;
+    font-size: 17px;
     margin-top: 8px;
   }
 
@@ -36,24 +47,29 @@
   }
 
   .search-box-item-sex {
-    width: 77px;
+    width: 76px;
   }
   .search-box-item-age {
-    width: 65px;
+    width: 39px;
   }
-  // .search-box-item-height {
-  //   width: 85px;
-  // }
+  .search-box-item-height {
+    width:74px;
+  }
 
   .rw-widget.rw-dropdownlist {
     background-color: transparent;
     border-color: transparent;
     padding: 0px 8px;
     .rw-input {
-      font-size: 16px;
-      padding: 0px 0px;
+      font-size: 17px;
+      padding: 0px;
       color: $primary-text-medium;
-      font-weight: bold;
+      border-radius: 0px;
+      border-bottom: 1px dashed $primary-text-medium;
+      height: 30px;
+      &:hover {
+        border-bottom: 1px solid $primary-text-medium;
+      }
     }
     .rw-i {
       color: $primary-text-medium;

@@ -82,13 +82,14 @@ class SearchBox extends Component {
 
           </div>
 
-          <div className={`search-box-row ${!this.state.expand && 'hide'}`}>
+          <div className={`search-box-row ${this.state.expand ? 'slide-down' : 'slide-hidden'}`}>
 
             <div className="search-box-item-label"><span>height</span></div>
             <div className="search-box-item-wrapper">
               <Field
                 name="height_low"
                 type="number"
+                className="search-box-item-height"
                 component={renderDropdownList}
                 data={this.heightOptions}
                 valueComponent={UnitInput}
@@ -102,6 +103,7 @@ class SearchBox extends Component {
               <Field
                 name="height_high"
                 type="number"
+                className="search-box-item-height"
                 component={renderDropdownList}
                 data={this.heightOptions}
                 valueComponent={UnitInput}
