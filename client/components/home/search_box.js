@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, getFormValues } from 'redux-form';
 import DropdownList from 'react-widgets/lib/DropdownList'
 import * as actions from '../../actions/home_actions';
+import ProvinceCity from '../../modules/province_city/province_city';
 
 class SearchBox extends Component {
   constructor() {
@@ -10,13 +11,19 @@ class SearchBox extends Component {
     this.sexOptions =  [{ label: 'women', value: 'female' }, { label: 'men', value: 'male' }];
     this.ageOptions = generateRangeOptions(18, 100);
     this.heightOptions = generateRangeOptions(150, 200);
-    this.state = { expand: false }
+    this.provinceOptions = ProvinceCity.query().map((p) => { return { value: p, label: p } });
+    this.state = {
+      expand: false,
+      province: undefined,
+      cityOptions: [],
+    }
   }
 
   handleFormSubmit(formProps) {
-    if (formProps.sex.value) {
-      formProps.sex = formProps.sex.value;
-    }
+    formProps.sex = formProps.sex && formProps.sex.value ? formProps.sex.value : formProps.sex
+    formProps.province = formProps.province && formProps.province.value ? formProps.province.value : formProps.province
+    formProps.city = formProps.city && formProps.city.value ? formProps.city.value : formProps.city
+
     this.props.fetchUsers(formProps);
   }
 
@@ -24,7 +31,26 @@ class SearchBox extends Component {
     this.setState({ expand: !this.state.expand });
   }
 
+  handleProvinceChange(option) {
+    this.props.formValues.city = null;
+    // this.setState({
+    //   cityOptions: ProvinceCity.query(option.value).map((p) => { return { value: p, label: p } }),
+    // })
+  }
+
+  handleCityToggle() {
+    if (!this.props.formValues.province) {
+      return;
+    }
+    const province = this.props.formValues.province.value ? this.props.formValues.province.value : this.props.formValues.province;
+    this.setState({
+      cityOptions: ProvinceCity.query(province).map((p) => { return { value: p, label: p } }),
+    })
+  }
+
   render() {
+    console.log(this.props.searchPreference);
+    console.log(this.props.initialValues);
     const { handleSubmit, pristine, reset, submitting } = this.props
     return (
       <div className={`${this.constructor.name}-component`}>
@@ -33,6 +59,7 @@ class SearchBox extends Component {
           <div className="search-box-row">
 
             <div className="search-box-item-label"><span>Show</span></div>
+
             <div className="search-box-item-wrapper">
               <Field
                 name="sex"
@@ -44,7 +71,8 @@ class SearchBox extends Component {
             </div>
 
             <div className="search-box-item-label"><span>between ages</span></div>
-            <div className="search-box-item-wrapper search-box-item-wrapper__age">
+
+            <div className="search-box-item-wrapper">
               <Field
                 name="age_low"
                 type="number"
@@ -64,6 +92,32 @@ class SearchBox extends Component {
                 className="search-box-item-age"
                 component={renderDropdownList}
                 data={this.ageOptions}
+                valueField="value"
+                textField="label" />
+            </div>
+
+            <div className="search-box-item-label"><span>located</span></div>
+
+            <div className="search-box-item-wrapper">
+              <Field
+                name="province"
+                placeholder="province"
+                className="search-box-item-province"
+                onChange={this.handleProvinceChange.bind(this)}
+                component={renderDropdownList}
+                data={this.provinceOptions}
+                valueField="value"
+                textField="label" />
+            </div>
+
+            <div className="search-box-item-wrapper">
+              <Field
+                name="city"
+                placeholder="city"
+                className="search-box-item-city"
+                onToggle={this.handleCityToggle.bind(this)}
+                component={renderDropdownList}
+                data={this.state.cityOptions}
                 valueField="value"
                 textField="label" />
             </div>
@@ -130,7 +184,10 @@ class UnitInput extends Component {
 }
 
 function mapStateToProps(state) {
-  return { initialValues: state.usersReducer.searchPreference };
+  return {
+    initialValues: state.usersReducer.searchPreference,
+    formValues: getFormValues('searchBox')(state)
+  };
 }
 
 const form = reduxForm({

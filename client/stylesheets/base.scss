@@ -38,6 +38,10 @@ body.app-body, html {
   }
 }
 
+i.fa {
+  @include cursor-hand;
+}
+
 .error {
   color: red;
 }
