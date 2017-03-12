@@ -1,12 +1,11 @@
 module.exports = function(sequelize, DataTypes) {
-  const Like = sequelize.define('Like', {}, {
+  const Like = sequelize.define('Like', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    active: { type: DataTypes.BOOLEAN, defaultValue: true },
+  }, {
     underscored: true,
-    classMethods: {
-      associate: (models) => {
-        Like.belongsTo(models.User, { foreignKey: 'liker_user_id' });
-        Like.belongsTo(models.User, { foreignKey: 'liked_user_id' });
-      },
-    },
+    defaultScope: { where: { active: true },
+  },
   });
   return Like;
 };

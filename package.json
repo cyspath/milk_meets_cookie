@@ -48,7 +48,8 @@
     "redux-form": "6.5.0",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",
-    "sequelize": "^3.29.0"
+    "sequelize": "^3.29.0",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",

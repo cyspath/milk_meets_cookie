@@ -1,3 +1,18 @@
+.Home-component {
+  .breathable-container {
+    margin: 0 auto;
+    max-width: 1200px;
+    @media only screen and (max-width: 1256px) {
+      width: 900px;
+    }
+    @media only screen and (max-width: 956px) {
+      width: 600px;
+    }
+    @media only screen and (max-width: 656px) {
+      width: 300px;
+    }
+  }
+}
 
 .user-card-wrapper {
   float: left;
@@ -14,6 +29,7 @@
   box-shadow: 0 1px 4px rgba(0,0,0,0.1);
   text-align: center;
   color: $background-text-default;
+  background-color: #fff;
   font-size: 15px;
   img {
     width: 100%;

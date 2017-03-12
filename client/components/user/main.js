@@ -7,6 +7,15 @@ class UserDetail extends Component {
     this.props.fetchUserDetail(this.props.params.id);
   }
 
+  handleToggleLike() {
+    let active = this.likedStatus() ? false : true;
+    this.props.toggleLikeUser({ active: active, liked_user_id: this.props.user.id });
+  }
+
+  likedStatus() {
+    return this.props.likedUserIds.has(this.props.user.id);
+  }
+
   renderUserDetail() {
     return (
       <div>
@@ -21,16 +30,24 @@ class UserDetail extends Component {
   }
 
   render() {
+    let liked = this.likedStatus();
     return (
       <div className={`${this.constructor.name}-component`}>
         {this.renderUserDetail()}
+        <button onClick={this.handleToggleLike.bind(this)} className={`like-btn flat-btn ${liked && 'active'}`}>
+          <i className="fa fa-star"></i>
+          <span>{liked ? 'Liked' : 'Like'}</span>
+        </button>
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  return { user: state.usersReducer.userDetail };
+  return {
+    user: state.usersReducer.userDetail,
+    likedUserIds: state.usersReducer.likedUserIds
+  };
 }
 
 export default connect(mapStateToProps, actions)(UserDetail);

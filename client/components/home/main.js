@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/home_actions';
 import UserCard from './user_card';
+import SearchBox from './search_box';
 
 class Home extends Component {
   componentWillMount() {
-    this.props.fetchUsers({});
+    this.props.fetchUsers({}); // based on preset default or user's last search pref
   }
 
   renderUsers() {
@@ -19,7 +20,10 @@ class Home extends Component {
   render() {
     return (
       <div className={`${this.constructor.name}-component`}>
-        {this.renderUsers()}
+        <div className="breathable-container">
+          <SearchBox />
+          {this.renderUsers()}
+        </div>
       </div>
     )
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from './layout/navbar/navbar';
 import { connect } from 'react-redux';
-import * as actions from '../actions/auth_actions';
+import * as actions from '../actions/user_actions';
 
 class Root extends Component {
   componentWillMount() {
@@ -16,7 +16,9 @@ class Root extends Component {
     return (
       <div className={`${this.constructor.name}-component`}>
         <Navbar {...this.props} />
-        {this.props.children}
+        <div className="main-content">
+          {this.props.children}
+        </div>
       </div>
     );
   }

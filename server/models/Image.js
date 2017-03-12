@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
   const Image =  sequelize.define('Image', {
     url: DataTypes.STRING,
-    userAvatar: { type: DataTypes.BOOLEAN, defaultValue: false }
+    user_avatar: { type: DataTypes.BOOLEAN, defaultValue: false }
   }, {
     underscored: true,
     classMethods: {

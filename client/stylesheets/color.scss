@@ -1,10 +1,11 @@
 // Main colors
-$primary: #104da1;
+$primary: #104da1; // blue theme
+// $primary: #ee3888; // pink theme
 $background: #fafbfd;
 
 // Text (from light to dark)
-
-// $background-text-fade: #aeb4bf;
+$background-text-hover-light: #d5e0f8;
+$background-text-fade: #aeb4bf;
 $primary-text-light: #fff;
 $primary-text-medium: #e4edfd;
 $primary-text-dark: #d6e1f9;
@@ -14,3 +15,6 @@ $background-text-fade: #aeb4bf;
 $background-text-light: #949aa6;
 $background-text-medium: #5e6573;
 $background-text-dark: #474d59;
+
+$white: #fff;
+$black: #000;
