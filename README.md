@@ -6,10 +6,10 @@ sparkline
 redux-promise
 
 to be used?
-wigets for redux form :http://redux-form.com/6.0.0-rc.5/examples/react-widgets/
+chat/socket/redux/express http://beatscodeandlife.ghost.io/react-socket-io-part-i-real-time-chat-application/
+
 Forms: http://demo.tutorialzine.com/2015/07/7-clean-and-responsive-forms/
 redux thunk: https://github.com/gaearon/redux-thunk  use function instead of norma obj when returning from an redux action for async
-db framework:https://blog.ragingflame.co.za/2014/7/21/using-nodejs-with-mysql
 architecture http://docs.sequelizejs.com/en/1.7.0/articles/express/
 
 fa icons: http://fontawesome.io/icons/

@@ -49,8 +49,6 @@ class SearchBox extends Component {
   }
 
   render() {
-    console.log(this.props.searchPreference);
-    console.log(this.props.initialValues);
     const { handleSubmit, pristine, reset, submitting } = this.props
     return (
       <div className={`${this.constructor.name}-component`}>
