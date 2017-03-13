@@ -23,7 +23,7 @@ class UserDetail extends Component {
         <img src={this.props.user.avatar_url} alt="=("/>
         <div>{this.props.user.email}</div>
         <div>age: {this.props.user.age}</div>
-        <div>sex: {this.props.user.sex}</div>
+        <div>gender: {this.props.user.gender}</div>
         <div>wants to meet: {this.props.user.looking_for}</div>
       </div>
     );

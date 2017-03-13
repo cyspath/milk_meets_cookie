@@ -24,7 +24,7 @@ exports.signup = (req, res, next) => {
         dob: params.dob,
         email: params.email,
         password: params.password,
-        sex: params.sex,
+        gender: params.gender,
         looking_for: params.lookingFor,
         province: params.province,
         city: params.city,

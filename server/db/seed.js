@@ -23,14 +23,14 @@ const usersData = (n = 100) => {
     height: 182,
     email: 'lvlichaelly@gmail.com',
     password: 'Password1',
-    sex: 'male',
+    gender: 'male',
     looking_for: 'female',
     firstname: "Mike",
     lastname: "Li",
     avatar_url: toonAvatar.generate_avatar({ gender: 'male', id: 1 }),
   })
 
-  let user, location, contextualCard, sex, looking_for, avatarUrl;
+  let user, location, contextualCard, gender, looking_for, avatarUrl;
   const locations = [
     { province: '北京市', city: '朝阳区' },
     { province: '山东', city: '青岛市' },
@@ -38,8 +38,8 @@ const usersData = (n = 100) => {
   for (var i = 1; i < n; i++) {
     contextualCard = faker.helpers.contextualCard();
     location = selectRandom(locations);
-    [sex, looking_for] =  selectRandom([['female', 'male'], ['male', 'female']]);
-    avatarUrl = toonAvatar.generate_avatar({ gender: sex, id: i + 1 });
+    [gender, looking_for] =  selectRandom([['female', 'male'], ['male', 'female']]);
+    avatarUrl = toonAvatar.generate_avatar({ gender: gender, id: i + 1 });
     user = {
       id: i + 1,
       username: contextualCard.username,
@@ -49,7 +49,7 @@ const usersData = (n = 100) => {
       height: Math.floor(Math.random() * 35 + 150),
       email: contextualCard.email,
       password: faker.internet.password(),
-      sex: sex,
+      gender: gender,
       looking_for: looking_for,
       firstname: contextualCard.name,
       lastname: faker.name.lastName(),
@@ -63,7 +63,7 @@ const usersData = (n = 100) => {
 const likesData = () => {
   const likedUsers = [];
   for (var i = 0; i < users.length; i++) { // creates 6 liked users
-    if (likedUsers.length < 6 && users[i].sex === 'female') {
+    if (likedUsers.length < 6 && users[i].gender === 'female') {
       likedUsers.push(users[i]);
     }
   }

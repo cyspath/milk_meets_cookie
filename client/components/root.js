@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Navbar from './layout/navbar/navbar';
 import { connect } from 'react-redux';
 import * as actions from '../actions/user_actions';
+import Navbar from './layout/navbar/navbar';
+import ChatBox from './chat/chat_box';
 
 class Root extends Component {
   componentWillMount() {
@@ -19,6 +20,7 @@ class Root extends Component {
         <div className="main-content">
           {this.props.children}
         </div>
+        <ChatBox />
       </div>
     );
   }

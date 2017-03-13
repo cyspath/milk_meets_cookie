@@ -65,7 +65,7 @@ const queryUsersExistingPreference = (req, res, user) => {
 
 const updateQueryParams = (params) => {
   return {
-    sex: params.sex || null,
+    gender: params.gender || null,
     looking_for: params.looking_for || null,
     province: params.province || null,
     city: params.city || null,

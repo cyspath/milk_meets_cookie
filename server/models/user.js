@@ -8,16 +8,25 @@ module.exports = function(sequelize, DataTypes) {
     city:                       { type: DataTypes.STRING },
     dob:                        { type: DataTypes.DATE },
     height:                     { type: DataTypes.INTEGER },
-    sex:                        { type: DataTypes.STRING },
+    gender:                     { type: DataTypes.STRING },
     looking_for:                { type: DataTypes.STRING },
     firstname:                  { type: DataTypes.STRING },
     lastname:                   { type: DataTypes.STRING },
-    avatar_url:                 { type: DataTypes.STRING },
+    avatar_url:                 { type: DataTypes.STRING, defaultValue: 'images/default-user.png' },
+    avatar_uploaded:            { type: DataTypes.BOOLEAN, defaultValue: false },
     password_digest:            { type: DataTypes.STRING, validate: { notEmpty: true } },
   	password:                   { type: DataTypes.VIRTUAL, allowNull: false, validate: { notEmpty: true, len: [3, Infinity] } },
   }, {
     underscored: true,
     tableName: 'users',
+    indexes: [
+      { method: 'BTREE', fields: ['province'] },
+      { method: 'BTREE', fields: ['city'] },
+      { method: 'BTREE', fields: ['dob'] },
+      { method: 'BTREE', fields: ['height'] },
+      { method: 'BTREE', fields: ['gender'] },
+      { method: 'BTREE', fields: ['looking_for'] }
+    ],
     hooks: {
       beforeCreate: (user, options, callback) => {
         user.email = user.email.toLowerCase();
@@ -72,8 +81,8 @@ module.exports = function(sequelize, DataTypes) {
         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
       },
 
-      oppositeSex: (sex) => {
-        return sex === 'male' ? 'female' : 'male';
+      oppositeGender: (gender) => {
+        return gender === 'male' ? 'female' : 'male';
       },
 
       defaultPreference: function() {
@@ -81,7 +90,7 @@ module.exports = function(sequelize, DataTypes) {
         const height_low = this.looking_for === 'female' ? 150 : 160;
         const height_high = this.looking_for === 'female' ? 180 : 190;
         return ({
-          sex: this.looking_for,
+          gender: this.looking_for,
           looking_for: null,
           province: this.province,
           city: this.city,

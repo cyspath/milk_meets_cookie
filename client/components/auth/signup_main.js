@@ -9,7 +9,7 @@ class SignupMain extends Component {
    super();
    this.state = {
      step: 1,
-     searchCriteria: { sex: "female", lookingFor: "male" }
+     searchCriteria: { gender: "female", lookingFor: "male" }
    };
   }
 

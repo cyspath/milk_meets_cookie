@@ -26,3 +26,13 @@
   cursor: pointer;
   cursor: hand;
 }
+
+@mixin shadow-1 {
+  box-shadow: 0 0 0 1px rgba(0,17,53,0.16), 0 0 5px 0 rgba(0,17,53,0.16);
+}
+
+@mixin elipsis-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

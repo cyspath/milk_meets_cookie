@@ -8,7 +8,7 @@ import ProvinceCity from '../../modules/province_city/province_city';
 class SearchBox extends Component {
   constructor() {
     super();
-    this.sexOptions =  [{ label: 'women', value: 'female' }, { label: 'men', value: 'male' }];
+    this.genderOptions =  [{ label: 'women', value: 'female' }, { label: 'men', value: 'male' }];
     this.ageOptions = generateRangeOptions(18, 100);
     this.heightOptions = generateRangeOptions(150, 200);
     this.provinceOptions = ProvinceCity.query().map((p) => { return { value: p, label: p } });
@@ -20,7 +20,7 @@ class SearchBox extends Component {
   }
 
   handleFormSubmit(formProps) {
-    formProps.sex = formProps.sex && formProps.sex.value ? formProps.sex.value : formProps.sex
+    formProps.gender = formProps.gender && formProps.gender.value ? formProps.gender.value : formProps.gender
     formProps.province = formProps.province && formProps.province.value ? formProps.province.value : formProps.province
     formProps.city = formProps.city && formProps.city.value ? formProps.city.value : formProps.city
 
@@ -60,10 +60,10 @@ class SearchBox extends Component {
 
             <div className="search-box-item-wrapper">
               <Field
-                name="sex"
-                className="search-box-item-sex"
+                name="gender"
+                className="search-box-item-gender"
                 component={renderDropdownList}
-                data={this.sexOptions}
+                data={this.genderOptions}
                 valueField="value"
                 textField="label"/>
             </div>

@@ -35,8 +35,9 @@
     width: 100%;
   }
   .user-card__text-box {
-    margin: 15px 0;
+    margin: 15px 20px;
     .username {
+      @include elipsis-text;
       font-size: 22px;
       margin-bottom: 10px;
     }

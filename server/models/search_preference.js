@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
   const SearchPreference = sequelize.define('SearchPreference', {
-    sex:                        { type: DataTypes.STRING },
+    gender:                        { type: DataTypes.STRING },
     looking_for:                { type: DataTypes.STRING },
     province:                   { type: DataTypes.STRING },
     city:                       { type: DataTypes.STRING },
@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
 
       toQueryParam: function() {
         const queryParam = { where: {} };
-        const whereKeys = [ 'sex', 'looking_for', 'province', 'city'];
+        const whereKeys = [ 'gender', 'looking_for', 'province', 'city'];
         whereKeys.forEach((key) => {
           if (this[key]) {
             queryParam.where[key] = this[key];
@@ -36,11 +36,11 @@ module.exports = function(sequelize, DataTypes) {
         }
         // height
         if (this.height_low && this.height_high) {
-          queryParam.where.height = { $between: [this.height_low, this.height_high] }
+          queryParam.where.height = { $or: [{ $eq: null }, { $between: [this.height_low, this.height_high] }] }
         } else if (this.height_high) {
-          queryParam.where.height = { lte: this.height_high }
+          queryParam.where.height = { $or: [{ $eq: null }, { lte: this.height_high }] }
         } else if (this.height_low) {
-          queryParam.where.height = { gte: this.height_low }
+          queryParam.where.height = { $or: [{ $eq: null }, { gte: this.height_low }] }
         }
 
         return queryParam;
