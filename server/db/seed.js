@@ -28,6 +28,7 @@ const usersData = (n = 100) => {
     firstname: "Mike",
     lastname: "Li",
     avatar_url: toonAvatar.generate_avatar({ gender: 'male', id: 1 }),
+    avatar_uploaded: true,
   })
 
   let user, location, contextualCard, gender, looking_for, avatarUrl;
@@ -40,20 +41,35 @@ const usersData = (n = 100) => {
     location = selectRandom(locations);
     [gender, looking_for] =  selectRandom([['female', 'male'], ['male', 'female']]);
     avatarUrl = toonAvatar.generate_avatar({ gender: gender, id: i + 1 });
-    user = {
-      id: i + 1,
-      username: contextualCard.username,
-      province: location.province,
-      city: location.city,
-      dob: faker.date.between('1965-01-01', '1999-12-31'), // https://github.com/Marak/faker.js/wiki/Dates
-      height: Math.floor(Math.random() * 35 + 150),
-      email: contextualCard.email,
-      password: faker.internet.password(),
-      gender: gender,
-      looking_for: looking_for,
-      firstname: contextualCard.name,
-      lastname: faker.name.lastName(),
-      avatar_url: avatarUrl,
+    if (Math.random() > 0.15) {
+      user = {
+        id: i + 1,
+        username: contextualCard.username,
+        province: location.province,
+        city: location.city,
+        dob: faker.date.between('1965-01-01', '1999-12-31'), // https://github.com/Marak/faker.js/wiki/Dates
+        height: Math.floor(Math.random() * 35 + 150),
+        email: contextualCard.email,
+        password: faker.internet.password(),
+        gender: gender,
+        looking_for: looking_for,
+        firstname: contextualCard.name,
+        lastname: faker.name.lastName(),
+        avatar_url: avatarUrl,
+        avatar_uploaded: true,
+      }
+    } else { // 15% users will have no avatar uploaded, no height, no frist and last name
+      user = {
+        id: i + 1,
+        username: contextualCard.username,
+        province: location.province,
+        city: location.city,
+        dob: faker.date.between('1965-01-01', '1999-12-31'), // https://github.com/Marak/faker.js/wiki/Dates
+        email: contextualCard.email,
+        password: faker.internet.password(),
+        gender: gender,
+        looking_for: looking_for,
+      }
     }
     users.push(user);
   }

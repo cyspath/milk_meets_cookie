@@ -2,18 +2,19 @@ const bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(sequelize, DataTypes) {
   const User = sequelize.define('User', {
-    username:                   { type: DataTypes.STRING },
+    username:                   { type: DataTypes.STRING, allowNull: false },
     email:                      { type: DataTypes.STRING, allowNull: false, unique: true, validate: { isEmail: true } },
-    province:                   { type: DataTypes.STRING },
-    city:                       { type: DataTypes.STRING },
-    dob:                        { type: DataTypes.DATE },
+    province:                   { type: DataTypes.STRING, allowNull: false },
+    city:                       { type: DataTypes.STRING, allowNull: false },
+    dob:                        { type: DataTypes.DATE, allowNull: false },
     height:                     { type: DataTypes.INTEGER },
-    gender:                     { type: DataTypes.STRING },
-    looking_for:                { type: DataTypes.STRING },
+    gender:                     { type: DataTypes.STRING, allowNull: false },
+    looking_for:                { type: DataTypes.STRING, allowNull: false },
     firstname:                  { type: DataTypes.STRING },
     lastname:                   { type: DataTypes.STRING },
     avatar_url:                 { type: DataTypes.STRING, defaultValue: 'images/default-user.png' },
-    avatar_uploaded:            { type: DataTypes.BOOLEAN, defaultValue: false },
+    avatar_uploaded:            { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
+    last_online:                { type: DataTypes.DATE, defaultValue: DataTypes.NOW, allowNull: false },
     password_digest:            { type: DataTypes.STRING, validate: { notEmpty: true } },
   	password:                   { type: DataTypes.VIRTUAL, allowNull: false, validate: { notEmpty: true, len: [3, Infinity] } },
   }, {
