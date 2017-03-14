@@ -4,13 +4,30 @@ import { Field, reduxForm } from 'redux-form';
 import * as actions from '../../actions/chat_actions';
 
 class ChatBox extends Component {
-  constructor() {
-    super();
-  }
-
-  handleFormSubmit(formProps) {
-    this.props.fetchUsers(formProps);
-  }
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //      input: '',
+  //    }
+  //   this.handleOnChange = this.handleOnChange.bind(this)
+  //   this.handleOnSubmit = this.handleOnSubmit.bind(this)
+  //   this._handleMessageEvent = this._handleMessageEvent.bind(this)
+  // }
+  //
+  // componentDidMount(){
+  //  this._handleMessageEvent()
+  // }
+  //
+  // _handleMessageEvent(){
+  //   socket.on('chat message', (inboundMessage) => {
+  //     this.props.newMessage({user: 'test_user', message: inboundMessage})
+  //     })
+  //   }
+  //
+  // handleFormSubmit(formProps) {
+  //   // this.props.fetchUsers(formProps);
+  //   socket.emit('chat message', { message: formProps.message })
+  // }
 
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props
@@ -44,10 +61,6 @@ function mapStateToProps(state) {
   };
 }
 
-const form = reduxForm({
-  form: 'chatBox',
-  // enableReinitialize: true,
-  // keepDirtyOnReinitialize: true
-});
+const form = reduxForm({ form: 'chatBox' });
 
 export default connect(mapStateToProps, actions)(form(ChatBox));

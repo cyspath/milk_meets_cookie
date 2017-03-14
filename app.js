@@ -49,7 +49,9 @@ server.listen(port, function(err) {
 const io = socket(server);
 
 io.on('connection', function(socket) {
-  console.log('a user connected')
+  socket.on('chat message', function(message) {
+    socket.broadcast.emit('chat message', message)
+  })
 })
 
 module.exports = app;
