@@ -4,6 +4,10 @@ used:
 axios ajax call
 redux-promise
 
+http://beatscodeandlife.ghost.io/react-socket-io-part-i-real-time-chat-application/
+https://github.com/antoinfive/react-chat/blob/master/tools/server.js
+https://github.com/SophieDeBenedetto/react-redux-starter-kit/blob/master/package.json
+
 to be used?
 chat/socket/redux/express http://beatscodeandlife.ghost.io/react-socket-io-part-i-real-time-chat-application/
 

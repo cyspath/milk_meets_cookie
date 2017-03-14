@@ -1,8 +1,11 @@
 const express = require('express');
+const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan'); // logging framework
 const routes = require('./routes');
 const sassMiddleware = require('node-sass-middleware');
+const socket = require('socket.io');
+
 var path = require('path');
 
 // var favicon = require('serve-favicon');
@@ -27,5 +30,26 @@ app.use(bodyParser.json({ type: '*/*' })); // any incoming request regardless of
 
 // Router
 routes(app);
+
+// Server
+const server = http.createServer(app);
+
+const port = parseInt(process.env.PORT, 10) || 3000;
+app.set('port', port);
+
+server.listen(port, function(err) {
+  if (err) {
+    console.log('error', err);
+  } else {
+    console.log(`MMC server is running at localhost:${port}`);
+  }
+});
+
+// Socket.io
+const io = socket(server);
+
+io.on('connection', function(socket) {
+  console.log('a user connected')
+})
 
 module.exports = app;
