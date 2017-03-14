@@ -1,8 +1,7 @@
-# 情有可缘
+# Milk Meets Cookie
 
 used:
 axios ajax call
-sparkline
 redux-promise
 
 to be used?
@@ -33,70 +32,73 @@ Task.find({ where: { id: id } }, include: ['User'])
     task.getUser(); // does not trigger a new query
   });
 
+## Features
 
-Voice-activated music player, which provides variety of useful information for every song that plays.
+### Authenication
+
+* Customed authenication using local username & password and passport-jwt strategies
+* ReduxForm 6.5.0 combined with React-Widgets used for a smooth flow and intuitive form validations
+
+### Home Page
+
+* Dynamic UI for both desktop and mobile views
+* A cool search box, with searchable columns indexed
+* "Like" functionality
+* Chatting functionality
+
 
 ## Tech Stack
 
 ### Front-End
 
 * [React](https://facebook.github.io/react/) along with [Redux](https://github.com/reactjs/redux) for rendering page views state container maintenance
-* [D3.js](https://d3js.org/) - library for visualizing data
 * [Bootstrap](http://getbootstrap.com/) - a mobile first front-end framework
 
 ### Back-End
 
-* [Node.js](https://nodejs.org/en/) with [Express](http://expressjs.com/) for serving pages and handling api requests
+* [Node.js](https://nodejs.org/en/) with [Express](http://expressjs.com/) for serving pages and handling internal api requests
 * [mySQL](https://www.mysql.com/) as a database
 * [Sequelize](http://sequelizejs.com/) - an ORM for Node.js
-* [Annyang](https://talater.com/) - SpeechRecognition library
+* [passport-jwt](https://github.com/themikenicholson/passport-jwt) - a Passport strategy for authenticating with a JSON Web Token
 
 ### Testing
 
-* [Mocha](https://mochajs.org/) - test framework
-* [Shouldjs](https://shouldjs.github.io/) and [Supertest](https://github.com/visionmedia/supertest) for API tests
+<!-- * [Mocha](https://mochajs.org/) - test framework
+* [Shouldjs](https://shouldjs.github.io/) and [Supertest](https://github.com/visionmedia/supertest) for API tests -->
 
 ### Dev/Build Tools
 
-* [Webpack](https://webpack.github.io/) and [Babel](https://babeljs.io/) for transpiling
+<!-- * [Webpack](https://webpack.github.io/) and [Babel](https://babeljs.io/) for transpiling -->
 
 ## File Structure
 
-    hackify/
+    app/
     |
-    |--db/
-    |   |--schema
+    |--bin/
+    |   |--www
     |   |
-    |--public/
-    |   |--assets/
-    |   |--styles/
-    |   |
-    |--spec/
-    |   |--client/
-    |   |--server/
-    |   |
-    |--server/
-    |   |--helpers
-    |   |
-    |--src/
+    |--client/
+    |   |--actions/
     |   |--components/
     |   |--modules/
-    |   |--redux/
-    |   |--visualization/
+    |   |--reducers/
+    |   |--stylesheets/
+    |   |
+    |--public/
+    |   |--fonts/
+    |   |--images/
+    |   |--index.html
+    |   |
+    |--server/
+    |   |--controllers/
+    |   |--db/
+    |   |--migrations/
+    |   |--models
+    |   |--routes/
+    |   |--services/
+
 
 ## Installing Dependencies
-
-- Mocha for testing
-
-```
-$ npm install mocha -g
-```
-
-- Webpack for building
-
-```
-$ npm install webpack -g
-```
 
 - Dependencies installation
 
@@ -106,13 +108,8 @@ $ npm install
 
 ## Starting the App
 
-From the root directory, run ```npm start``` to start the server
-Navigate to ```http://localhost:8080```
+From the root directory:
+run ```npm start``` to start the server
+run ```npm run watch``` to start the webpack compiler
 
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for guidelines.
-
-## License
-
-MIT
+Navigate to ```http://localhost:3000```
