@@ -61,6 +61,7 @@ Task.find({ where: { id: id } }, include: ['User'])
 ### Back-End
 
 * [Node.js](https://nodejs.org/en/) with [Express](http://expressjs.com/) for serving pages and handling internal api requests
+* [Socket.io](https://socket.io/get-started/chat/) enables real-time bidirectional event-based communication (chat portion)
 * [mySQL](https://www.mysql.com/) as a database
 * [Sequelize](http://sequelizejs.com/) - an ORM for Node.js
 * [passport-jwt](https://github.com/themikenicholson/passport-jwt) - a Passport strategy for authenticating with a JSON Web Token

@@ -24,7 +24,7 @@ app.use(express.static(__dirname + '/public'))
 app.set('models', require('./server/models/'));
 
 // App Setup
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json({ type: '*/*' })); // any incoming request regardless of type will be parsed as json
 
@@ -48,10 +48,30 @@ server.listen(port, function(err) {
 // Socket.io
 const io = socket(server);
 
-io.on('connection', function(socket) {
-  socket.on('chat message', function(message) {
-    socket.broadcast.emit('chat message', message)
-  })
-})
+const onlineUsers = {};
+
+io.on('connection', function(socket){
+
+  socket.on('online', (userId) => {
+    console.log(`[socket.io] user ${userId} ${socket.id} connected`);
+
+    onlineUsers[userId] = socket.id;
+  	io.emit('userList', onlineUsers, userId);
+  });
+
+  socket.on('chat message', (data) => {
+    console.log(`[socket.io] message received: ${data.message}`);
+
+  	socket.broadcast.to(onlineUsers[data.receiver]).emit('chat message', data);
+  });
+
+  socket.on('disconnect', () => {
+    console.log(`[socket.io] user disconnected: ${socket.id}`);
+
+		onlineUsers[socket.id] = null;
+  	io.emit('exit', onlineUsers, socket.id);
+  });
+
+});
 
 module.exports = app;

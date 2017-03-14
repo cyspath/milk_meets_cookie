@@ -12,10 +12,46 @@
   </head>
   <body class="app-body">
     <div id="root"></div>
-    <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
-    <script> 
+    <!-- <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script> -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- <script>
       var socket = io();
+    </script> -->
+
+
+
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+
+    <script>
+      var sender = prompt('sender Id')
+      var receiver = prompt('receiver Id')
+      $(function () {
+        var socket = io();
+
+        socket.emit('online', sender);
+
+        $('form').submit(function(){
+
+          let message = $('#m').val();
+          socket.emit('chat message', { sender: sender, receiver: receiver, message: message });
+          $('#messages').append($('<li>').text(`user ${sender}: ${message}`));
+
+          $('#m').val('');
+          return false;
+        });
+
+        socket.on('chat message', function(data) {
+          console.log(data);
+          $('#messages').append($('<li>').text(`user ${data.sender}: ${data.message}`));
+        });
+
+      });
     </script>
-    <script src="bundle.js"></script>
+
+
+    <!-- <script src="bundle.js"></script> -->
   </body>
 </html>
