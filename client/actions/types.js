@@ -11,3 +11,8 @@ export const FETCH_USERS = 'fetch_users';
 export const CURRENT_USER = 'current_user';
 export const FETCH_USER_DETAIL = 'fetch_user_detail';
 export const TOGGLE_LIKE_USER = 'toggle_like_user';
+
+// chat
+export const OPEN_CHAT = 'open_chat';
+export const SEND_MESSAGE = 'send_message';
+export const RECEIVE_MESSAGE = 'receive_message';

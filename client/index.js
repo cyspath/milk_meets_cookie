@@ -7,7 +7,8 @@ import reduxThunk from 'redux-thunk';
 import reducers from './reducers';
 import routes from './routes';
 import * as actions from './actions/auth_actions';
-import { AUTH_USER } from './actions/types';
+import { AUTH_USER, RECEIVE_MESSAGE } from './actions/types';
+import socket from './socketio_client';
 
 // middlewares
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
@@ -18,6 +19,10 @@ const token = localStorage.getItem('token'); // pull token first, if token we au
 if (token) { // update application state
   store.dispatch({ type: AUTH_USER }); // dispatch method we used before actually belong to store
 }
+
+socket.on('chat message', (data) => {
+  store.dispatch({ type: RECEIVE_MESSAGE, payload: data });
+})
 
 ReactDOM.render(
   <Provider store={store}>

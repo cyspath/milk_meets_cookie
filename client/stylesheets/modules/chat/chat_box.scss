@@ -24,6 +24,16 @@
     z-index: 1;
     background-color: $white;
     width: 100%;
+    .header-avatar img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+    }
+    .header-username {
+      font-size: 18px;
+      padding-left: 15px;
+      vertical-align: middle;
+    }
   }
 
   .messages {

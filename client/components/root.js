@@ -1,29 +1,55 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/user_actions';
+import _ from 'underscore';
+import * as userActions from '../actions/user_actions';
+import * as chatActions from '../actions/chat_actions';
 import Navbar from './layout/navbar/navbar';
 import ChatBox from './chat/chat_box';
+import socket from '../socketio_client';
 
 class Root extends Component {
   componentWillMount() {
     if (this.props.authenticated) {
-      this.props.getCurrentUser();
+      this.props.getCurrentUser(socket);
       // require_auth will update state.auth.currentUser
       //  Root will inherit props from require_auth
     }
   }
+  //
+  // _handleMessageEvent(){
+  //   debugger
+  //   socket.on('chat message', (data) => {
+  //     debugger
+  //     // this.setState({ messages: this.state.messages.concat([data]) })
+  //   })
+  // }
+  //
+
+  renderChatBox() {
+    if (!_.isEmpty(this.props.chatTargetUser)) {
+      return(<ChatBox targetUser={this.props.chatTargetUser}/>)
+    }
+  }
 
   render() {
+    let chatBox = this.renderChatBox();
     return (
       <div className={`${this.constructor.name}-component`}>
         <Navbar {...this.props} />
         <div className="main-content">
           {this.props.children}
         </div>
-        <ChatBox />
+        {chatBox}
       </div>
     );
   }
 }
 
-export default connect(null, actions)(Root);
+function mapStateToProps(state) {
+  return {
+    chatTargetUser: state.chatReducer.targetUser,
+  };
+}
+
+const actions = Object.assign(userActions, chatActions);
+export default connect(mapStateToProps, actions)(Root);

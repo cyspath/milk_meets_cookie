@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/user_actions';
+import * as userActions from '../../actions/user_actions';
+import * as chatActions from '../../actions/chat_actions';
 
 class UserDetail extends Component {
   componentWillMount() {
@@ -14,6 +15,10 @@ class UserDetail extends Component {
 
   likedStatus() {
     return this.props.likedUserIds.has(this.props.user.id);
+  }
+
+  handleToggleChat() {
+    this.props.openChat(this.props.user);
   }
 
   renderUserDetail() {
@@ -38,6 +43,9 @@ class UserDetail extends Component {
           <i className="fa fa-star"></i>
           <span>{liked ? 'Liked' : 'Like'}</span>
         </button>
+        <button onClick={this.handleToggleChat.bind(this)} className={`flat-btn`}>
+          <span>Chat</span>
+        </button>
       </div>
     )
   }
@@ -50,4 +58,5 @@ function mapStateToProps(state) {
   };
 }
 
+const actions = Object.assign(userActions, chatActions);
 export default connect(mapStateToProps, actions)(UserDetail);

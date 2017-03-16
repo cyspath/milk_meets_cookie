@@ -50,19 +50,19 @@ const io = socket(server);
 
 const onlineUsers = {};
 
-io.on('connection', function(socket){
+io.on('connection', (socket) => {
 
-  socket.on('online', (userId) => {
-    console.log(`[socket.io] user ${userId} ${socket.id} connected`);
+  socket.on('online', (user) => {
+    console.log(`[socket.io] user ${user.id} ${user.username} ${socket.id} connected`);
 
-    onlineUsers[userId] = socket.id;
-  	io.emit('userList', onlineUsers, userId);
+    onlineUsers[user.id] = socket.id;
+  	io.emit('userList', onlineUsers, user);
   });
 
   socket.on('chat message', (data) => {
     console.log(`[socket.io] message received: ${data.message}`);
 
-  	socket.broadcast.to(onlineUsers[data.receiver]).emit('chat message', data);
+  	socket.broadcast.to(onlineUsers[data.receiver.id]).emit('chat message', data);
   });
 
   socket.on('disconnect', () => {

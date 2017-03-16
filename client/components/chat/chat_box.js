@@ -4,42 +4,51 @@ import { Field, reduxForm } from 'redux-form';
 import * as actions from '../../actions/chat_actions';
 
 class ChatBox extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //      input: '',
-  //    }
-  //   this.handleOnChange = this.handleOnChange.bind(this)
-  //   this.handleOnSubmit = this.handleOnSubmit.bind(this)
-  //   this._handleMessageEvent = this._handleMessageEvent.bind(this)
-  // }
-  //
-  // componentDidMount(){
-  //  this._handleMessageEvent()
-  // }
-  //
+  constructor() {
+    super();
+  }
+  // //
+  // // componentDidMount(){
+  // //  this._handleMessageEvent()
+  // // }
+  // //
   // _handleMessageEvent(){
-  //   socket.on('chat message', (inboundMessage) => {
-  //     this.props.newMessage({user: 'test_user', message: inboundMessage})
-  //     })
-  //   }
-  //
-  // handleFormSubmit(formProps) {
-  //   // this.props.fetchUsers(formProps);
-  //   socket.emit('chat message', { message: formProps.message })
+  //   deubb
+  //   this.props.socket.on('chat message', (data) => {
+  //     debugger
+  //     this.setState({ messages: this.state.messages.concat([data]) })
+  //   })
   // }
+
+  handleFormSubmit(formProps) {
+    debugger
+    const data = { sender: this.props.currentUser, receiver: this.props.targetUser, message: formProps.message };
+    this.props.sendMessage(data);
+  }
+
+  renderMessages() {
+    return this.props.messages.map((m) => {
+      return (
+        <div>
+          <span>{m.sender.username}: </span>
+          <span>{m.message}</span>
+        </div>
+      )
+    });
+  }
 
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props
     return (
       <div className={`${this.constructor.name}-component`}>
         <div className="header">
-          <div className="header-avatar">
+          <span className="header-avatar">
             <img src={this.props.targetUser.avatar_url} alt=""/>
-          </div>
+          </span>
+          <span className="header-username">{this.props.targetUser.username}</span>
         </div>
         <div className="messages">
-
+          {this.renderMessages()}
         </div>
         <div className="compose-message">
           <form onSubmit={handleSubmit(props => this.handleFormSubmit(props))}>
@@ -56,6 +65,7 @@ class ChatBox extends Component {
 
 function mapStateToProps(state) {
   return {
+    currentUser: state.usersReducer.currentUser,
     targetUser: state.chatReducer.targetUser,
     messages: state.chatReducer.messages
   };

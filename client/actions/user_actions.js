@@ -6,13 +6,14 @@ import {
   TOGGLE_LIKE_USER,
 } from './types';
 
-export function getCurrentUser() {
+export function getCurrentUser(socket) {
   console.log('action: getCurrentUser');
   return function(dispatch) {
     axios
     .get('/api/current_user', jwtHeader())
     .then(resp => {
       console.log(resp.data);
+      socket.emit('online', resp.data.currentUser);
       dispatch({ type: CURRENT_USER, payload: resp.data });
     })
     .catch((err) => {
