@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
 import * as actions from '../../actions/chat_actions';
 
 class ChatBox extends Component {
   constructor() {
     super();
+    this.state = { message: '' };
   }
   // //
   // // componentDidMount(){
@@ -20,10 +20,17 @@ class ChatBox extends Component {
   //   })
   // }
 
-  handleFormSubmit(formProps) {
-    debugger
-    const data = { sender: this.props.currentUser, receiver: this.props.targetUser, message: formProps.message };
-    this.props.sendMessage(data);
+  handleTextChange(e) {
+    this.setState({ message: e.target.value });
+  }
+
+  handleFormSubmit(e) {
+    e.preventDefault();
+    if (this.state.message.trim() !== '') {
+      const data = { sender: this.props.currentUser, receiver: this.props.targetUser, message: this.state.message };
+      this.props.sendMessage(data);
+    }
+    this.setState({ message: '' });
   }
 
   renderMessages() {
@@ -38,7 +45,6 @@ class ChatBox extends Component {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props
     return (
       <div className={`${this.constructor.name}-component`}>
         <div className="header">
@@ -51,9 +57,9 @@ class ChatBox extends Component {
           {this.renderMessages()}
         </div>
         <div className="compose-message">
-          <form onSubmit={handleSubmit(props => this.handleFormSubmit(props))}>
+          <form onSubmit={this.handleFormSubmit.bind(this)}>
               <div>
-                <Field name="message" component="textarea" placeholder="Compose your message"/>
+                <textarea placeholder="Compose your message" value={this.state.message} onChange={this.handleTextChange.bind(this)} />
               </div>
             <button type="submit" className="btn btn-primary">Send</button>
           </form>
@@ -65,12 +71,8 @@ class ChatBox extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.usersReducer.currentUser,
-    targetUser: state.chatReducer.targetUser,
     messages: state.chatReducer.messages
   };
 }
 
-const form = reduxForm({ form: 'chatBox' });
-
-export default connect(mapStateToProps, actions)(form(ChatBox));
+export default connect(mapStateToProps, actions)(ChatBox);

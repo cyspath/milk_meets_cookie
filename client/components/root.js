@@ -27,7 +27,7 @@ class Root extends Component {
 
   renderChatBox() {
     if (!_.isEmpty(this.props.chatTargetUser)) {
-      return(<ChatBox targetUser={this.props.chatTargetUser}/>)
+      return(<ChatBox currentUser={this.props.currentUser} targetUser={this.props.chatTargetUser}/>)
     }
   }
 
