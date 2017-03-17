@@ -14,5 +14,7 @@ export const TOGGLE_LIKE_USER = 'toggle_like_user';
 
 // chat
 export const OPEN_CHAT = 'open_chat';
+export const CLOSE_CHAT = 'close_chat';
+export const FETCH_CHATS = 'fetch_chats';
 export const SEND_MESSAGE = 'send_message';
 export const RECEIVE_MESSAGE = 'receive_message';

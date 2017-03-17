@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router'
 import * as actions from '../../actions/chat_actions';
 
 class ChatBox extends Component {
@@ -7,18 +8,10 @@ class ChatBox extends Component {
     super();
     this.state = { message: '' };
   }
-  // //
-  // // componentDidMount(){
-  // //  this._handleMessageEvent()
-  // // }
-  // //
-  // _handleMessageEvent(){
-  //   deubb
-  //   this.props.socket.on('chat message', (data) => {
-  //     debugger
-  //     this.setState({ messages: this.state.messages.concat([data]) })
-  //   })
-  // }
+
+  componentDidMount() {
+    this.props.fetchChats(this.props.targetUser);
+  }
 
   handleTextChange(e) {
     this.setState({ message: e.target.value });
@@ -48,10 +41,13 @@ class ChatBox extends Component {
     return (
       <div className={`${this.constructor.name}-component`}>
         <div className="header">
-          <span className="header-avatar">
-            <img src={this.props.targetUser.avatar_url} alt=""/>
-          </span>
-          <span className="header-username">{this.props.targetUser.username}</span>
+          <Link to={"user/" + this.props.targetUser.id}>
+            <span className="header-avatar">
+              <img src={this.props.targetUser.avatar_url} alt=""/>
+            </span>
+            <span className="header-username">{this.props.targetUser.username}</span>
+          </Link>
+          <i className="fa fa-times" onClick={() => this.props.closeChat()}></i>
         </div>
         <div className="messages">
           {this.renderMessages()}

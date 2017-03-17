@@ -15,15 +15,6 @@ class Root extends Component {
       //  Root will inherit props from require_auth
     }
   }
-  //
-  // _handleMessageEvent(){
-  //   debugger
-  //   socket.on('chat message', (data) => {
-  //     debugger
-  //     // this.setState({ messages: this.state.messages.concat([data]) })
-  //   })
-  // }
-  //
 
   renderChatBox() {
     if (!_.isEmpty(this.props.chatTargetUser)) {

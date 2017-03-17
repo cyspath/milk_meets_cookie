@@ -1,13 +1,33 @@
+import axios from 'axios';
+import { jwtHeader } from './utils';
 import socket from '../socketio_client';
 import {
   OPEN_CHAT,
+  CLOSE_CHAT,
+  FETCH_CHATS,
   SEND_MESSAGE,
 } from './types';
 
 export function openChat(targetUser) {
-  console.log('action: openChat', targetUser);
+  console.log('action: openChat, targetUser:', targetUser.username);
   return function(dispatch) {
-    dispatch({ type: OPEN_CHAT, payload: targetUser });
+    dispatch({ type: OPEN_CHAT, payload: targetUser }); // first set current chat target user
+    axios
+    .get('/api/home/fetch_users', jwtHeader({})) // now retrieve the message history
+    .then(resp => {
+      console.log(resp.data);
+      dispatch({ type: FETCH_CHATS, payload: resp.data });
+    })
+    .catch((err) => {
+      dispatch(authError(err.response.data.error))
+    });
+  }
+}
+
+export function closeChat() {
+  console.log('action: closeChat');
+  return function(dispatch) {
+    dispatch({ type: CLOSE_CHAT });
   }
 }
 

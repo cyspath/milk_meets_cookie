@@ -31,8 +31,20 @@
     }
     .header-username {
       font-size: 18px;
-      padding-left: 15px;
+      padding-bottom: 2px;
+      margin-left: 15px;
       vertical-align: middle;
+      &:hover {
+        border-bottom: 2px solid $background-text-fade;
+      }
+    }
+    i.fa-times {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      opacity: 0.3;
+      padding: 10px;
     }
   }
 
