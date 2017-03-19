@@ -5,7 +5,6 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     underscored: true,
     defaultScope: { where: { active: true },
-  },
   });
   return Like;
 };
