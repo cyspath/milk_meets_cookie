@@ -5,6 +5,7 @@ const morgan = require('morgan'); // logging framework
 const routes = require('./routes');
 const sassMiddleware = require('node-sass-middleware');
 const socket = require('socket.io');
+const onlineUsers = require('./server/online_users');
 
 var path = require('path');
 
@@ -28,9 +29,6 @@ app.set('models', require('./server/models/'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json({ type: '*/*' })); // any incoming request regardless of type will be parsed as json
 
-// Router
-routes(app);
-
 // Server
 const server = http.createServer(app);
 
@@ -47,31 +45,9 @@ server.listen(port, function(err) {
 
 // Socket.io
 const io = socket(server);
+onlineUsers(io);
 
-const onlineUsers = {};
-
-io.on('connection', (socket) => {
-
-  socket.on('online', (user) => {
-    console.log(`[socket.io] user ${user.id} ${user.username} ${socket.id} connected`);
-
-    onlineUsers[user.id] = socket.id;
-  	io.emit('userList', onlineUsers, user);
-  });
-
-  socket.on('chat message', (data) => {
-    console.log(`[socket.io] message received: ${data.message}`);
-
-  	socket.broadcast.to(onlineUsers[data.receiver.id]).emit('chat message', data);
-  });
-
-  socket.on('disconnect', () => {
-    console.log(`[socket.io] user disconnected: ${socket.id}`);
-
-		onlineUsers[socket.id] = null;
-  	io.emit('exit', onlineUsers, socket.id);
-  });
-
-});
+// Router
+routes(app);
 
 module.exports = app;

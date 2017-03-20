@@ -16,6 +16,9 @@ module.exports = (app) => {
   // Home Controller
   app.get('/api/home/fetch_users', requireJwt, Controller.Home.fetchUsers);
 
+  // Chat Controller
+  app.get('/api/chat/fetch_messages', requireJwt, Controller.Chat.fetchMessages);
+
   // User Controller
   app.get('/api/current_user', requireJwt, Controller.User.currentUser);
   app.get('/api/user/:id', requireJwt, Controller.User.fetchUserDetail);

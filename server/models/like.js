@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     active: { type: DataTypes.BOOLEAN, defaultValue: true },
   }, {
     underscored: true,
-    defaultScope: { where: { active: true },
+    defaultScope: { where: { active: true } },
   });
   return Like;
 };

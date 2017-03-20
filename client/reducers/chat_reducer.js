@@ -1,7 +1,7 @@
 import {
   OPEN_CHAT,
   CLOSE_CHAT,
-  FETCH_CHATS,
+  FETCH_MESSAGES,
   SEND_MESSAGE,
   RECEIVE_MESSAGE,
 } from '../actions/types';
@@ -17,9 +17,8 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, targetUser: action.payload };
     case CLOSE_CHAT:
       return { ...state, targetUser: {} };
-    case FETCH_CHATS:
-      debugger
-      return { ...state };
+    case FETCH_MESSAGES:
+      return { ...state, messages: action.payload };
     case SEND_MESSAGE:
       return { ...state, messages: state.messages.concat([action.payload]) };
     case RECEIVE_MESSAGE:

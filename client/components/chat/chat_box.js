@@ -9,9 +9,9 @@ class ChatBox extends Component {
     this.state = { message: '' };
   }
 
-  componentDidMount() {
-    this.props.fetchChats(this.props.targetUser);
-  }
+  // componentDidMount() {
+  //   this.props.fetchChats(this.props.targetUser);
+  // }
 
   handleTextChange(e) {
     this.setState({ message: e.target.value });
@@ -20,7 +20,7 @@ class ChatBox extends Component {
   handleFormSubmit(e) {
     e.preventDefault();
     if (this.state.message.trim() !== '') {
-      const data = { sender: this.props.currentUser, receiver: this.props.targetUser, message: this.state.message };
+      const data = { sender_id: this.props.currentUser.id, receiver_id: this.props.targetUser.id, message: this.state.message };
       this.props.sendMessage(data);
     }
     this.setState({ message: '' });
@@ -29,12 +29,24 @@ class ChatBox extends Component {
   renderMessages() {
     return this.props.messages.map((m) => {
       return (
-        <div>
-          <span>{m.sender.username}: </span>
+        <div key={m.id}>
+          <span>{this.findSenderUsername(this.props.currentUser, this.props.targetUser, m.sender_id)}: </span>
           <span>{m.message}</span>
         </div>
       )
     });
+  }
+
+  findSenderUsername(currentUser, targetUser, sender_id) {
+    let username;
+    if (sender_id === targetUser.id) {
+      username = targetUser.username;
+    } else if (sender_id === currentUser.id) {
+      username = currentUser.username;
+    } else {
+      username = 'Unknown(error)';
+    }
+    return username;
   }
 
   render() {
