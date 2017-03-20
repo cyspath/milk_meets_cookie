@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import * as actions from '../../actions/chat_actions';
@@ -6,15 +7,28 @@ import * as actions from '../../actions/chat_actions';
 class ChatBox extends Component {
   constructor() {
     super();
-    this.state = { message: '' };
+    this.state = { message: '', enterToSend: true };
   }
 
-  // componentDidMount() {
-  //   this.props.fetchChats(this.props.targetUser);
-  // }
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    const node = ReactDOM.findDOMNode(this.messagesEnd);
+    node.scrollIntoView({behavior: "smooth"});
+  }
 
   handleTextChange(e) {
     this.setState({ message: e.target.value });
+  }
+
+  handleEnterToSendToggle(e) {
+    this.setState({ enterToSend: !this.state.enterToSend });
   }
 
   handleFormSubmit(e) {
@@ -28,25 +42,30 @@ class ChatBox extends Component {
 
   renderMessages() {
     return this.props.messages.map((m) => {
-      return (
-        <div key={m.id}>
-          <span>{this.findSenderUsername(this.props.currentUser, this.props.targetUser, m.sender_id)}: </span>
-          <span>{m.message}</span>
-        </div>
-      )
+      if (m.sender_id === this.props.currentUser.id) {
+        return (
+          <div key={m.id} className="message yours">
+            <span>{m.message}</span>
+          </div>
+        )
+      } else if (m.sender_id === this.props.targetUser.id) {
+        return (
+          <div key={m.id} className="message theirs">
+            <span>{m.message}</span>
+          </div>
+        )
+      } else {
+        return <div>Bad data</div>
+      }
     });
   }
 
-  findSenderUsername(currentUser, targetUser, sender_id) {
-    let username;
-    if (sender_id === targetUser.id) {
-      username = targetUser.username;
-    } else if (sender_id === currentUser.id) {
-      username = currentUser.username;
+  renderInput() {
+    if (this.state.enterToSend) {
+      return <input className="message-box" placeholder="Enter your message" value={this.state.message} onChange={this.handleTextChange.bind(this)} />
     } else {
-      username = 'Unknown(error)';
+      return <textarea className="message-box" placeholder="Compose your message" value={this.state.message} onChange={this.handleTextChange.bind(this)} />
     }
-    return username;
   }
 
   render() {
@@ -62,14 +81,22 @@ class ChatBox extends Component {
           <i className="fa fa-times" onClick={() => this.props.closeChat()}></i>
         </div>
         <div className="messages">
-          {this.renderMessages()}
+          <div className="messages-list">
+            {this.renderMessages()}
+            <div style={ {float:"left", clear: "both"} } ref={(el) => { this.messagesEnd = el; }}></div>
+          </div>
         </div>
         <div className="compose-message">
           <form onSubmit={this.handleFormSubmit.bind(this)}>
-              <div>
-                <textarea placeholder="Compose your message" value={this.state.message} onChange={this.handleTextChange.bind(this)} />
-              </div>
-            <button type="submit" className="btn btn-primary">Send</button>
+            <div>{this.renderInput()}</div>
+
+            {!this.state.enterToSend && <button type="submit" className="btn btn-primary">Send</button>}
+
+            <div className="enter-to-send" onClick={this.handleEnterToSendToggle.bind(this)}>
+              <span>Press enter to send  </span>
+              <i className={`fa ${this.state.enterToSend ? 'fa-check-square-o' : 'fa-square-o'}`}></i>
+            </div>
+
           </form>
         </div>
       </div>

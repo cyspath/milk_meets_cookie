@@ -40,6 +40,7 @@ body.app-body, html {
 
 i.fa {
   @include cursor-hand;
+  vertical-align: middle;
 }
 
 .error {

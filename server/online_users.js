@@ -8,7 +8,7 @@ module.exports = (io) => {
       console.log(`[socket.io] user ${user.id} ${user.username} ${socket.id} connected`);
 
       onlineUsers[user.id] = socket.id;
-    	io.emit('userList', onlineUsers, user);
+    	io.emit('online', onlineUsers, user);
     });
 
     socket.on('chat message', (data) => {
