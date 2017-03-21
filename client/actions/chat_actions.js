@@ -10,7 +10,7 @@ import {
   FETCH_UNREAD_MESSAGES,
 } from './types';
 
-export function openChat(targetUser) {
+export function openChat(currentUser, targetUser) {
   console.log('action: openChat(and fetch_messages), targetUser:', targetUser.username);
   return function(dispatch) {
     dispatch({ type: OPEN_CHAT, payload: targetUser }); // first set current chat target user

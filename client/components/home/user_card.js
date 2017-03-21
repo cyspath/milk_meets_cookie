@@ -24,7 +24,7 @@ class UserCard extends Component {
       <div className={`${this.constructor.name}-component user-card-wrapper`}>
         <div className="user-card">
           <Link to={"user/" + user.id}>
-            <div>
+            <div className="user-card-img-wrapper">
               <img src={user.avatar_url} alt="=("/>
             </div>
             <div className="user-card__text-box">

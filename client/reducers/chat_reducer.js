@@ -44,10 +44,11 @@ export default function(state = INITIAL_STATE, action) {
       };
 
     case RECEIVE_MESSAGE:
+      var count = action.payload.sender_id === state.targetUser.id ? state.unreadCount : state.unreadCount + 1;
       return {
          ...state,
          messages: state.messages.concat([action.payload]),
-         unreadCount: state.unreadCount + 1
+         unreadCount: count
        };
 
     case FETCH_UNREAD_COUNT:

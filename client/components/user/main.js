@@ -18,14 +18,14 @@ class UserDetail extends Component {
   }
 
   handleToggleChat() {
-    this.props.openChat(this.props.user);
+    this.props.openChat(this.props.currentUser, this.props.user);
   }
 
   renderUserDetail() {
     return (
       <div>
         <h1>{this.props.user.username}</h1>
-        <img src={this.props.user.avatar_url} alt="=("/>
+        <div style={{width: '200px'}}><img src={this.props.user.avatar_url} alt="=("/></div>
         <div>{this.props.user.email}</div>
         <div>age: {this.props.user.age}</div>
         <div>gender: {this.props.user.gender}</div>
@@ -53,6 +53,7 @@ class UserDetail extends Component {
 
 function mapStateToProps(state) {
   return {
+    currentUser: state.usersReducer.currentUser,
     user: state.usersReducer.userDetail,
     likedUserIds: state.usersReducer.likedUserIds
   };
