@@ -2,16 +2,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import NavLink from './navbar_link';
-// <NavLink params={{ props: { ...this.props }, pathname: "/" }} >Home</NavLink>
-// <NavLink params={{ props: { ...this.props }, pathname: "/messages" }} >Messages</NavLink>
-// <NavLink params={{ props: { ...this.props }, pathname: "/profile" }} >Profile</NavLink>
+import * as actions from '../../../actions/chat_actions';
+
 class Navbar extends Component {
+  componentWillMount() {
+    this.props.fetchUnreadCount();
+  }
+
+  renderUnreadCount() {
+    if (this.props.unreadCount !== 0) {
+      return (
+        <div className="unread-count">{this.props.unreadCount}</div>
+      )
+    }
+  }
+
   renderLinks() {
     if (this.props.authenticated) {
       return [
         <ul className="nav navbar-nav" key={1}>
           <NavLink {...this.props} to="/">Home</NavLink>
-          <NavLink {...this.props} to="/messages">Messages</NavLink>
+          <NavLink {...this.props} to="/messages">Messages    {this.renderUnreadCount()}</NavLink>
           <NavLink {...this.props} to="/profile">Profile</NavLink>
         </ul>,
         <ul className="nav navbar-nav navbar-right" key={2}>
@@ -55,7 +66,8 @@ class Navbar extends Component {
 
 function mapStateToProps(state) {
   return {
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
+    unreadCount: state.chatReducer.unreadCount,
   }
 }
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, actions)(Navbar);

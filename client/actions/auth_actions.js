@@ -57,5 +57,6 @@ export function clearAuthError() {
 export function signoutUser() {
   console.log('action: sign out');
   localStorage.removeItem('token'); // remove JWT
+  browserHistory.push('/signin');
   return { type: UNAUTH_USER };
 }

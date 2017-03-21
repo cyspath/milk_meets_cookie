@@ -18,3 +18,5 @@ export const CLOSE_CHAT = 'close_chat';
 export const FETCH_MESSAGES = 'fetch_messages';
 export const SEND_MESSAGE = 'send_message';
 export const RECEIVE_MESSAGE = 'receive_message';
+export const FETCH_UNREAD_COUNT = 'fetch_unread_count';
+export const FETCH_UNREAD_MESSAGES = 'fetch_unread_messages';

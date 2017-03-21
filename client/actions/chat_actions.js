@@ -6,16 +6,17 @@ import {
   CLOSE_CHAT,
   FETCH_MESSAGES,
   SEND_MESSAGE,
+  FETCH_UNREAD_COUNT,
+  FETCH_UNREAD_MESSAGES,
 } from './types';
 
 export function openChat(targetUser) {
-  console.log('action: openChat, targetUser:', targetUser.username);
+  console.log('action: openChat(and fetch_messages), targetUser:', targetUser.username);
   return function(dispatch) {
     dispatch({ type: OPEN_CHAT, payload: targetUser }); // first set current chat target user
     axios
     .get('/api/chat/fetch_messages', jwtHeader({ targetUserId: targetUser.id })) // now retrieve the message history
     .then(resp => {
-      console.log(resp.data);
       dispatch({ type: FETCH_MESSAGES, payload: resp.data });
     })
     .catch((err) => {
@@ -39,18 +40,17 @@ export function sendMessage(data) {
   }
 }
 
-// export function fetchChats(targetUser) {
-//   console.log('action: fetchChats, targetUser:', targetUser.username);
-//   return function(dispatch) {
-//     dispatch({ type: OPEN_CHAT, payload: targetUser }); // first set current chat target user
-//     axios
-//     .get('/api/home/fetch_users', jwtHeader({})) // now retrieve the message history
-//     .then(resp => {
-//       console.log(resp.data);
-//       dispatch({ type: FETCH_MESSAGES, payload: resp.data });
-//     })
-//     .catch((err) => {
-//       dispatch(authError(err.response.data.error))
-//     });
-//   }
-// }
+export function fetchUnreadCount() {
+  console.log('action: fetchUnreadCount');
+  return function(dispatch) {
+    axios
+    .get('/api/chat/unread_count', jwtHeader())
+    .then(resp => {
+      console.log(resp.data);
+      dispatch({ type: FETCH_UNREAD_COUNT, payload: resp.data.unreadCount });
+    })
+    .catch((err) => {
+      dispatch(authError(err.response.data.error))
+    });
+  }
+}

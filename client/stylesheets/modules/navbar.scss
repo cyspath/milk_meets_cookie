@@ -1,5 +1,18 @@
 .Root-component {
   .navbar {
     margin-bottom: 0px;
+    .navbar-nav>li>a {
+      height: 50px;
+    }
+  }
+  .unread-count {
+    @include shadow-0;
+    color: $white;
+    background-color: $red;
+    padding: 2px 4px;
+    border-radius: 50%;
+    display: inline-block;
+    min-width: 24px;
+    text-align: center;
   }
 }

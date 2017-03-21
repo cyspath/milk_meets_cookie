@@ -4,6 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     sender_id:                  { type: DataTypes.INTEGER },
     receiver_id:                { type: DataTypes.INTEGER },
     message:                    { type: DataTypes.STRING },
+    read:                       { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
   }, {
     underscored: true,
     tableName: 'chats',
