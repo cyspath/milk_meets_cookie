@@ -20,3 +20,4 @@ export const SEND_MESSAGE = 'send_message';
 export const RECEIVE_MESSAGE = 'receive_message';
 export const FETCH_UNREAD_COUNT = 'fetch_unread_count';
 export const FETCH_UNREAD_MESSAGES = 'fetch_unread_messages';
+export const UPDATE_MESSAGES_TO_READ = 'update_messages_to_read';

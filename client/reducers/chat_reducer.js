@@ -6,6 +6,7 @@ import {
   RECEIVE_MESSAGE,
   FETCH_UNREAD_COUNT,
   FETCH_UNREAD_MESSAGES,
+  UPDATE_MESSAGES_TO_READ,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -52,9 +53,13 @@ export default function(state = INITIAL_STATE, action) {
         console.log('RECEIVE_MESSAGE: unread');
         count = state.unreadCount + 1;
       }
+      var messages = state.messages;
+      if (action.payload.sender_id === state.targetUser.id) {
+        messages = state.messages.concat([action.payload]);
+      }
       return {
          ...state,
-         messages: state.messages.concat([action.payload]),
+         messages: messages,
          unreadCount: count
        };
 
@@ -70,6 +75,14 @@ export default function(state = INITIAL_STATE, action) {
         unreadMessages: action.payload
       };
 
+    case UPDATE_MESSAGES_TO_READ:
+      var newMessages = updateMessagesToReadByIds(action.payload.updatedToReadIds, state.messages);
+      return {
+        ...state,
+        messages: newMessages,
+        unreadCount: action.payload.unreadCount
+      };
+
     default:
       return state;
   }
@@ -77,4 +90,15 @@ export default function(state = INITIAL_STATE, action) {
 
 const messageBoxFocused = () => {
   return document.activeElement === document.getElementById('message-box')
+};
+
+const updateMessagesToReadByIds = (ids, messages) => {
+  const setIds = new Set(ids);
+  const newMessages = messages.slice();
+  for (var i = 0; i < newMessages.length; i++) {
+    if (setIds.has(newMessages[i].id)) {
+      newMessages[i].read = true;
+    }
+  }
+  return newMessages;
 };

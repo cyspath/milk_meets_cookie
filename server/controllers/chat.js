@@ -40,6 +40,24 @@ exports.fetchUnreadCount =  (req, res, next) => {
     .catch((err) => { console.log("500 Error: ", err.name) });
 }
 
+exports.updateMessagesToRead = (req, res, next) => {
+  const ids = req.body.map((m) => m.id);
+  Chat
+    .update({ read: true }, { where: { id: { $in: ids } } })
+    .then((updatedCount) => {
+      console.log(updatedCount);
+      Chat
+        .findAll({
+          where: { receiver_id: req.user.id, read: false }
+        })
+        .then((messages) => {
+          res.send({ unreadCount: messages.length, updatedToReadIds: ids });
+        })
+        .catch((err) => { console.log("500 Error: ", err.name) });
+    })
+    .catch((err) => { console.log("500 Error: ", err.name) });
+}
+
 exports.fetchUnreadMessages =  (req, res, next) => {
   Chat
     .findAll({

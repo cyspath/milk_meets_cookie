@@ -40,6 +40,18 @@ class ChatBox extends Component {
     this.setState({ message: '' });
   }
 
+  handleComponentClick(e) { // clicking on chat box will mark newly received messages from targetUser to read
+    e.preventDefault();
+    const unreadMessages = this.props.messages.filter((m) => {
+      if (m.receiver_id === this.props.currentUser.id && !m.read) {
+        return m;
+      }
+    })
+    if (unreadMessages.length > 0) {
+      this.props.updateMessagesToRead(unreadMessages);
+    }
+  }
+
   renderMessages() {
     return this.props.messages.map((m) => {
       if (m.sender_id === this.props.currentUser.id) {
@@ -70,7 +82,7 @@ class ChatBox extends Component {
 
   render() {
     return (
-      <div className={`${this.constructor.name}-component`}>
+      <div className={`${this.constructor.name}-component`} onClick={this.handleComponentClick.bind(this)}>
         <div className="header">
           <Link to={"user/" + this.props.targetUser.id}>
             <span className="header-avatar">

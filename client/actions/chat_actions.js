@@ -8,6 +8,7 @@ import {
   SEND_MESSAGE,
   FETCH_UNREAD_COUNT,
   FETCH_UNREAD_MESSAGES,
+  UPDATE_MESSAGES_TO_READ,
 } from './types';
 
 export function openChat(currentUser, targetUser) {
@@ -46,8 +47,21 @@ export function fetchUnreadCount() {
     axios
     .get('/api/chat/unread_count', jwtHeader())
     .then(resp => {
-      console.log(resp.data);
       dispatch({ type: FETCH_UNREAD_COUNT, payload: resp.data.unreadCount });
+    })
+    .catch((err) => {
+      dispatch(authError(err.response.data.error))
+    });
+  }
+}
+
+export function updateMessagesToRead(messages) {
+  console.log('action: updateMessagesToRead');
+  return function(dispatch) {
+    axios
+    .post('/api/chat/update_messages_to_read', messages, jwtHeader())
+    .then(resp => {
+      dispatch({ type: UPDATE_MESSAGES_TO_READ, payload: resp.data });
     })
     .catch((err) => {
       dispatch(authError(err.response.data.error))
