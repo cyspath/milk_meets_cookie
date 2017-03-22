@@ -62,9 +62,9 @@ class ChatBox extends Component {
 
   renderInput() {
     if (this.state.enterToSend) {
-      return <input className="message-box" placeholder="Enter your message" value={this.state.message} onChange={this.handleTextChange.bind(this)} />
+      return <input id='message-box' className="message-box" placeholder="Enter your message" value={this.state.message} onChange={this.handleTextChange.bind(this)} />
     } else {
-      return <textarea className="message-box" placeholder="Compose your message" value={this.state.message} onChange={this.handleTextChange.bind(this)} />
+      return <textarea id='message-box' className="message-box" placeholder="Compose your message" value={this.state.message} onChange={this.handleTextChange.bind(this)} />
     }
   }
 

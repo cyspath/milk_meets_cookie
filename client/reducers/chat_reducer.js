@@ -44,7 +44,14 @@ export default function(state = INITIAL_STATE, action) {
       };
 
     case RECEIVE_MESSAGE:
-      var count = action.payload.sender_id === state.targetUser.id ? state.unreadCount : state.unreadCount + 1;
+      var count;
+      if (messageBoxFocused() && action.payload.sender_id === state.targetUser.id) {
+        console.log('RECEIVE_MESSAGE: read (message box focused, sender_id = targetUser.id)');
+        count = state.unreadCount;
+      } else {
+        console.log('RECEIVE_MESSAGE: unread');
+        count = state.unreadCount + 1;
+      }
       return {
          ...state,
          messages: state.messages.concat([action.payload]),
@@ -67,3 +74,7 @@ export default function(state = INITIAL_STATE, action) {
       return state;
   }
 }
+
+const messageBoxFocused = () => {
+  return document.activeElement === document.getElementById('message-box')
+};
