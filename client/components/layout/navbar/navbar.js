@@ -55,7 +55,10 @@ class Navbar extends Component {
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link className="navbar-brand" to="/">Cookie Meets Bagels</Link>
+            <Link className="navbar-brand" to="/">
+              <span><img src='images/logo1.png'/></span>
+              <span>mღc</span>
+            </Link>
           </div>
           {this.renderLinks()}
         </div>
