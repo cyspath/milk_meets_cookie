@@ -7,7 +7,7 @@ import reduxThunk from 'redux-thunk';
 import reducers from './reducers';
 import routes from './routes';
 import * as actions from './actions/auth_actions';
-import { AUTH_USER, RECEIVE_MESSAGE } from './actions/types';
+import { AUTH_USER, RECEIVE_MESSAGE, ONLINE_USERS } from './actions/types';
 import socket from './socketio_client';
 
 // middlewares
@@ -23,6 +23,11 @@ if (token) { // update application state
 socket.on('chat message', (data) => {
   store.dispatch({ type: RECEIVE_MESSAGE, payload: data });
 })
+
+socket.on('online users', (data) => {
+  store.dispatch({ type: ONLINE_USERS, payload: data });
+})
+
 
 ReactDOM.render(
   <Provider store={store}>

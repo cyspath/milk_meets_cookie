@@ -37,6 +37,9 @@ Task.find({ where: { id: id } }, include: ['User'])
   });
 
 ## Features
+* Real time online status and notification update
+* Chat feature made with socket.io, mimicking facebook style chat yet with better user UI experience via chatbox focusing/notification updating
+* implemented online indicator UI & used debouncing to prevent repeated emit calls such as users going online/offline for scalability
 
 ### Authenication
 

@@ -12,7 +12,11 @@ class Home extends Component {
   renderUsers() {
     return this.props.users.map((user) => {
       return (
-        <UserCard key={user.id} {...user} />
+        <UserCard
+          key={user.id}
+          likedUserIds={this.props.likedUserIds}
+          onlineUsers={this.props.onlineUsers}
+          {...user} />
       );
     });
   }
@@ -30,7 +34,11 @@ class Home extends Component {
 }
 
 function mapStateToProps(state) {
-  return { users: state.usersReducer.users };
+  return {
+    users: state.usersReducer.users,
+    likedUserIds: state.usersReducer.likedUserIds,
+    onlineUsers: state.usersReducer.onlineUsers
+  };
 }
 
 export default connect(mapStateToProps, actions)(Home);

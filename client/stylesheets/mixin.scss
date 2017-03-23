@@ -14,12 +14,29 @@
   transform: none;
 }
 
+// transitions
 @mixin transition-all() {
   -webkit-transition: all 0.3s ease;
-  -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
+}
+
+@mixin transition-2s {
+  -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  transition: all 2s ease;
+}
+
+@mixin transition-1s {
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+@mixin transition-default {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 @mixin cursor-hand {
