@@ -6,7 +6,7 @@ class SignupP1 extends Component {
   constructor(props) {
     super(props);
     this.selectList = [{ label: 'Woman', value: 'female' }, { label: 'Man', value: 'male' }];
-    this.state = { sex: 'female', lookingFor: 'male' };
+    this.state = { gender: 'female', lookingFor: 'male' };
   }
 
   handleFormSubmit(e) {
@@ -14,8 +14,8 @@ class SignupP1 extends Component {
     this.props.nextStep(this.state);
   }
 
-  handleSelectSex(option) {
-    this.setState({ sex: option.value })
+  handleSelectGender(option) {
+    this.setState({ gender: option.value })
   }
 
   handleSelectLookingFor(option) {
@@ -34,8 +34,8 @@ class SignupP1 extends Component {
             <div className="form-input-container form-input-select">
               <DropdownList
                 data={this.selectList}
-                defaultValue={this.state.sex}
-                onChange={this.handleSelectSex.bind(this)}
+                defaultValue={this.state.gender}
+                onChange={this.handleSelectGender.bind(this)}
                 valueField="value"
                 textField="label"/>
             </div>

@@ -31,12 +31,17 @@
   color: $background-text-default;
   background-color: #fff;
   font-size: 15px;
-  img {
-    width: 100%;
+  .user-card-img-wrapper {
+    height: 280px;
+    overflow: hidden;
+    img {
+      @include image-align-middle;
+    }
   }
   .user-card__text-box {
-    margin: 15px 0;
+    margin: 15px 20px;
     .username {
+      @include elipsis-text;
       font-size: 22px;
       margin-bottom: 10px;
     }

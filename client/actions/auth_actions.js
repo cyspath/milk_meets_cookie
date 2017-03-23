@@ -24,11 +24,11 @@ export function signinUser({ email, password }) {
   }
 }
 
-export function signupUser({ username, dob, email, password, sex, lookingFor, province, city }) {
+export function signupUser({ username, dob, email, password, gender, lookingFor, province, city }) {
   console.log('action: sign up');
   return function(dispatch) {
     axios
-    .post('/api/signup', { username, dob, email, password, sex, lookingFor, province, city })
+    .post('/api/signup', { username, dob, email, password, gender, lookingFor, province, city })
     .then(resp => {
       dispatch({ type: AUTH_USER }); // update state to indicate user-auth'ed
       localStorage.setItem('token', resp.data.token); // save JWT
@@ -57,5 +57,6 @@ export function clearAuthError() {
 export function signoutUser() {
   console.log('action: sign out');
   localStorage.removeItem('token'); // remove JWT
+  browserHistory.push('/signin');
   return { type: UNAUTH_USER };
 }

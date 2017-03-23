@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/user_actions';
+import * as userActions from '../../actions/user_actions';
+import * as chatActions from '../../actions/chat_actions';
 
 class UserDetail extends Component {
   componentWillMount() {
@@ -16,14 +17,18 @@ class UserDetail extends Component {
     return this.props.likedUserIds.has(this.props.user.id);
   }
 
+  handleToggleChat() {
+    this.props.openChat(this.props.currentUser, this.props.user);
+  }
+
   renderUserDetail() {
     return (
       <div>
         <h1>{this.props.user.username}</h1>
-        <img src={this.props.user.avatar_url} alt="=("/>
+        <div style={{width: '200px'}}><img src={this.props.user.avatar_url} alt="=("/></div>
         <div>{this.props.user.email}</div>
         <div>age: {this.props.user.age}</div>
-        <div>sex: {this.props.user.sex}</div>
+        <div>gender: {this.props.user.gender}</div>
         <div>wants to meet: {this.props.user.looking_for}</div>
       </div>
     );
@@ -38,6 +43,9 @@ class UserDetail extends Component {
           <i className="fa fa-star"></i>
           <span>{liked ? 'Liked' : 'Like'}</span>
         </button>
+        <button onClick={this.handleToggleChat.bind(this)} className={`flat-btn`}>
+          <span>Chat</span>
+        </button>
       </div>
     )
   }
@@ -45,9 +53,11 @@ class UserDetail extends Component {
 
 function mapStateToProps(state) {
   return {
+    currentUser: state.usersReducer.currentUser,
     user: state.usersReducer.userDetail,
     likedUserIds: state.usersReducer.likedUserIds
   };
 }
 
+const actions = Object.assign(userActions, chatActions);
 export default connect(mapStateToProps, actions)(UserDetail);

@@ -14,15 +14,57 @@
   transform: none;
 }
 
+// transitions
 @mixin transition-all() {
   -webkit-transition: all 0.3s ease;
-  -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
+}
+
+@mixin transition-2s {
+  -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  transition: all 2s ease;
+}
+
+@mixin transition-1s {
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+@mixin transition-default {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 @mixin cursor-hand {
   cursor: pointer;
   cursor: hand;
+}
+
+// shadows - increasing size/darkness
+@mixin shadow-0 {
+  -moz-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+}
+
+@mixin shadow-1 {
+  box-shadow: 0 0 0 1px rgba(0,17,53,0.16), 0 0 5px 0 rgba(0,17,53,0.16);
+}
+
+@mixin elipsis-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin image-align-middle {
+  display: block;
+  width:100%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }

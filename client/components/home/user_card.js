@@ -17,6 +17,14 @@ class UserCard extends Component {
     return this.props.likedUserIds.has(this.props.id);
   }
 
+  renderOnlineIndicator() {
+    if (this.props.onlineUsers[this.props.id]) {
+      return <div className="online-indicator online">Online</div>
+    } else {
+      return <div className="online-indicator">Offline</div>
+    }
+  }
+
   render() {
     let user = this.props;
     let liked = this.likedStatus();
@@ -24,12 +32,13 @@ class UserCard extends Component {
       <div className={`${this.constructor.name}-component user-card-wrapper`}>
         <div className="user-card">
           <Link to={"user/" + user.id}>
-            <div>
+            <div className="user-card-img-wrapper">
               <img src={user.avatar_url} alt="=("/>
             </div>
+            {this.renderOnlineIndicator()}
             <div className="user-card__text-box">
               <div className="username">{user.username}</div>
-              <div className="userinfo">{user.age} · {user.province} {user.city} {user.height}cm</div>
+              <div className="userinfo">{user.age} · {user.province} {user.city} {user.height && `${user.height}cm`}</div>
             </div>
           </Link>
           <button onClick={this.handleToggleLike.bind(this)} className={`like-btn flat-btn ${liked && 'active'}`}>
@@ -42,8 +51,4 @@ class UserCard extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { likedUserIds: state.usersReducer.likedUserIds };
-}
-
-export default connect(mapStateToProps, actions)(UserCard);
+export default connect(null, actions)(UserCard);

@@ -1,0 +1,152 @@
+.ChatBox-component {
+  @include shadow-1;
+  position: fixed;
+  overflow: hidden;
+  bottom: 0;
+  right: 20px;
+  width: 440px;
+  height: 400px;
+  background: $white;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  opacity: 1;
+  -webkit-transition: opacity 150ms linear;
+  -moz-transition: opacity 150ms linear;
+  transition: opacity 150ms linear;
+
+  .header {
+    position: absolute;
+    top: 0px;
+    height: 63px;
+    padding: 12px 20px 10px;
+    z-index: 1;
+    background-color: $white;
+    width: 100%;
+    .header-avatar img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+    }
+    .header-username {
+      font-size: 18px;
+      padding-bottom: 2px;
+      margin-left: 15px;
+      vertical-align: middle;
+      &:hover {
+        border-bottom: 2px solid $background-text-fade;
+      }
+    }
+    i.fa-times {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      opacity: 0.3;
+      padding: 10px;
+    }
+  }
+
+  .messages {
+    border-top: 1px solid $grey-1;
+    // border-bottom: 1px solid $grey-1;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    position: relative;
+    z-index: 2;
+    width: 400px;
+    height: 230px;
+    top: 63px;
+    left: 20px;
+    overflow-y: auto;
+    -webkit-transform: translateZ(0);
+    .messages-list {
+      // position: absolute;
+      // bottom: 0
+    }
+    .message {
+      max-width: 320px;
+      margin-top: 10px;
+      padding: 8px 15px;
+      border-radius: 3px;
+      position: relative;
+      clear: both;
+      &:before {
+        content: " ";
+        position: absolute;
+        bottom: 9px;
+      }
+    }
+    .message.theirs {
+      float: left;
+      margin-right: 84px;
+      margin-left: 16px;
+      color: $chat-grey-text;
+      background-color: $chat-grey;
+      &:before {
+        left: -12px;
+        height: 0;
+        width: 0;
+        border-top: 13px solid $chat-grey;
+        border-left: 13px solid transparent;
+      }
+    }
+    .message.yours {
+      float: right;
+      margin-right: 36px;
+      margin-left: 84px;
+      color: $white;
+      background-color: $chat-blue;
+      &:before {
+        right: -12px;
+        height: 0;
+        width: 0;
+        border-top: 13px solid $chat-blue;
+        border-right: 13px solid transparent;
+      }
+    }
+  }
+
+  .compose-message {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    width: 100%;
+    padding: 10 20px;
+    background: #fff;
+    bottom: 0;
+    textarea.message-box, input.message-box {
+      border: 1px solid $grey-1;
+      border-radius: 3px;
+      resize: none;
+      overflow: auto;
+      width: 100%;
+      padding: 10px;
+      height: 60px;
+      font-size: 15px;
+      line-height: 20px;
+      outline: 0;
+    }
+    textarea.message-box {
+      height: 55px;
+    }
+    input.message-box {
+      height: 40px;
+      margin-bottom: 10px;
+    }
+    .enter-to-send {
+      @include cursor-hand;
+      float: right;
+      margin-bottom: 5px;
+      opacity: 0.6;
+      padding-right: 20px;
+    }
+    button {
+      float: right;
+      padding: 2px 10px;
+      margin-top: 5px;
+    }
+  }
+}

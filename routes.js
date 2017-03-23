@@ -16,6 +16,12 @@ module.exports = (app) => {
   // Home Controller
   app.get('/api/home/fetch_users', requireJwt, Controller.Home.fetchUsers);
 
+  // Chat Controller
+  app.get('/api/chat/fetch_messages', requireJwt, Controller.Chat.fetchMessages);
+  app.get('/api/chat/unread_count', requireJwt, Controller.Chat.fetchUnreadCount);
+  app.get('/api/chat/unread_messages', requireJwt, Controller.Chat.fetchUnreadMessages);
+  app.post('/api/chat/update_messages_to_read', requireJwt, Controller.Chat.updateMessagesToRead);
+
   // User Controller
   app.get('/api/current_user', requireJwt, Controller.User.currentUser);
   app.get('/api/user/:id', requireJwt, Controller.User.fetchUserDetail);
