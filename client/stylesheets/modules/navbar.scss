@@ -1,5 +1,6 @@
 .Root-component {
   .navbar {
+    z-index: 100;
     margin-bottom: 0px;
     .navbar-nav>li>a {
       height: 50px;

@@ -14,6 +14,32 @@
   transform: none;
 }
 
+// layout
+@mixin layout-container {
+  position: relative;
+  max-width: 1000px;
+  padding-left: 60px;
+  padding-right: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  @media only screen and (max-width: 767px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@mixin mobile {
+  @media only screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
 // transitions
 @mixin transition-all() {
   -webkit-transition: all 0.3s ease;
