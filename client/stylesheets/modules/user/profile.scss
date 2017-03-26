@@ -24,6 +24,7 @@
       @include cursor-hand;
       @include shadow-1;
       @include transition-default;
+      z-index: 1;
       width: 200px;
       position: absolute;
       border-radius: 50%;
@@ -72,8 +73,23 @@
   }
 
   .profile-content {
+    min-height: 500px;
+    background: #c0c0c0;
     @include layout-container;
+    .inner-1 {
+      background-color: yellow;
+      min-height: 300px;
+      float: right;
 
+    }
+
+    .inner-2 {
+      background-color: orange;
+      min-height: 500px;
+      float: right;
+
+
+    }
   }
 
 }
@@ -114,6 +130,14 @@
       }
     }
 
+    .profile-content {
+      .inner-1 {
+        float: none;
+      }
+      .inner-2 {
+        float: none;
+      }
+    }
   }
 };
 // .row > div {

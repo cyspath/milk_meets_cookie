@@ -62,7 +62,16 @@ class UserDetail extends Component {
   renderContent() {
     return (
       <div className="profile-content">
+        <div className="row">
 
+          <div className="col-sm-5 inner-1">
+
+          </div>
+
+          <div className="col-sm-7 inner-2">
+          </div>
+
+        </div>
       </div>
     )
   }
