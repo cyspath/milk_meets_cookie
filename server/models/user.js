@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt-nodejs');
+const astrologySign = require('../services/astrology_sign');
 
 module.exports = function(sequelize, DataTypes) {
   const User = sequelize.define('User', {
@@ -7,11 +8,17 @@ module.exports = function(sequelize, DataTypes) {
     province:                   { type: DataTypes.STRING, allowNull: false },
     city:                       { type: DataTypes.STRING, allowNull: false },
     dob:                        { type: DataTypes.DATE, allowNull: false },
+    sign:                       { type: DataTypes.STRING },
     height:                     { type: DataTypes.INTEGER },
     gender:                     { type: DataTypes.STRING, allowNull: false },
     looking_for:                { type: DataTypes.STRING, allowNull: false },
-    firstname:                  { type: DataTypes.STRING },
-    lastname:                   { type: DataTypes.STRING },
+    status:                     { type: DataTypes.STRING, allowNull: false, defaultValue: 'Single' }, // Single, Seeing Someone, Married, Divorced
+    education:                  { type: DataTypes.STRING },
+    industry:                   { type: DataTypes.STRING },
+    income:                     { type: DataTypes.INTEGER },
+    smokes:                     { type: DataTypes.STRING }, // Doesn't smoke, Smokes occasionally, Smokes regularly
+    drinks:                     { type: DataTypes.STRING }, // Doesn't drink, Drinks socially, Drinks regularly
+    pets:                       { type: DataTypes.STRING }, // dogs,cats
     avatar_url:                 { type: DataTypes.STRING, defaultValue: 'images/default-user.png' },
     avatar_uploaded:            { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
     last_online:                { type: DataTypes.DATE, defaultValue: DataTypes.NOW, allowNull: false },
@@ -32,12 +39,14 @@ module.exports = function(sequelize, DataTypes) {
       beforeCreate: (user, options, callback) => {
         user.email = user.email.toLowerCase();
         user.password_digest = user.generateHash(user.password);
+        user.sign = astrologySign(user.dob);
         return callback(null, options);
       },
       beforeBulkCreate: (users, options, callback) => {
         users.forEach((user) => {
           user.email = user.email.toLowerCase();
           user.password_digest = user.generateHash(user.password);
+          user.sign = astrologySign(user.dob);
         })
         return callback(null, options);
       },

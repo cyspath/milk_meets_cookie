@@ -65,12 +65,55 @@ class UserDetail extends Component {
         <div className="row">
 
           <div className="col-sm-5 inner-1">
-
+            {this.renderUserDetails()}
           </div>
 
           <div className="col-sm-7 inner-2">
           </div>
 
+        </div>
+      </div>
+    )
+  }
+
+  renderUserDetails() {
+    const user = this.props.user;
+
+    const section1 = [];
+    if (user.gender === 'female') {
+      section1.push('Woman');
+    } else if (user.gender === 'male') {
+      section1.push('Man');
+    }
+    section1.push(user.status);
+    if (Number(user.height)) section1.push(`${user.height} cm`);
+    if (user.sign) section1.push(user.sign);
+
+    const section2 = [];
+    if (user.education) section2.push(`Has a ${user.education} degree`);
+    if (user.industry) section2.push(user.industry === 'Student' ? 'Currently a student' : `Works in ${user.industry}`);
+    if (Number(user.income)) section2.push(`Takes home $${user.income} a year`);
+
+    const section3 = [];
+    if (user.smokes) section3.push(user.smokes);
+    if (user.drinks) section3.push(user.drinks);
+    if (user.pets) section3.push(user.pets.split(',').map((p) => 'Has ' + p));
+
+    return (
+      <div>
+        <div>
+          <i className="fa fa-id-card-o"></i>
+          <span>{section1.join(', ')}</span>
+        </div>
+
+        <div>
+          {section2.length > 0 && <i className="fa fa-briefcase"></i>}
+          <span>{section2.join(', ')}</span>
+        </div>
+
+        <div>
+          {section2.length > 0 && <i className="fa fa-tags"></i>}
+          <span>{section3.join(', ')}</span>
         </div>
       </div>
     )
