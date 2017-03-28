@@ -1,5 +1,5 @@
 'use strict';
-import allCitys from './city';
+import allCitys from './china_data';
 
 exports.query = function (parent) {
     var cityList = allCitys;

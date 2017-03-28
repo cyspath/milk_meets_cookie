@@ -4,8 +4,10 @@ const Like = require('../models').Like;
 exports.currentUser = (req, res, next) => {
   const user = req.user;
   user.getLikedUsers().then((likedUsers) => {
-    res.send({ currentUser: user, likedUserIds: likedUsers.map((u) => u.id) });
-  })
+    user.getInterestedUsers().then((interestedUsers) => {
+      res.send({ currentUser: user, likedUserIds: likedUsers.map((u) => u.id), interestedUsers });
+    }).catch((err) => { res.send({ currentUser: user, likedUserIds: [], interestedUsers: [] }); });
+  }).catch((err) => { res.send({ currentUser: user, likedUserIds: [], interestedUsers: [] }); });
 }
 
 exports.fetchUserDetail = (req, res, next) => {

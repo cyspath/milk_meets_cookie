@@ -107,13 +107,13 @@ class UserDetail extends Component {
           <div className="text">{section1.join(', ')}</div>
         </div>
 
-        <div className="user-details-item">
-          {section2.length > 0 && <div className="fa fa-briefcase"></div>}
+        <div className={`user-details-item ${section2.length === 0 && "hide"}`}>
+          <div className="fa fa-briefcase"></div>
           <div className="text">{section2.join(', ')}</div>
         </div>
 
-        <div className="user-details-item">
-          {section2.length > 0 && <div className="fa fa-tags"></div>}
+        <div className={`user-details-item ${section3.length === 0 && "hide"}`}>
+          <div className="fa fa-tags"></div>
           <div className="text">{section3.join(', ')}</div>
         </div>
       </div>
@@ -135,7 +135,7 @@ class UserDetail extends Component {
           <strong>Looking for </strong>
           {`people ${section.join(', ')}`}
         </div>
-      )  
+      )
     }
   }
 

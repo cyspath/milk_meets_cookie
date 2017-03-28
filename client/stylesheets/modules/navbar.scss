@@ -2,9 +2,44 @@
   .navbar {
     z-index: 100;
     margin-bottom: 0px;
-    .navbar-nav>li>a {
-      height: 50px;
+    background-color: $primary;
+    height: 60px;
+    border-radius: 0px;
+    color: $primary-text-dark;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid rgba(157,186,242,0.25);
+
+    .navbar-nav > li > a, .navbar-nav > li > a:focus, .navbar-nav > li > a:hover {
+      color: inherit;
+      font-size: 17px;
+      height: 100%;
+      line-height: 30px;
+      background-color: transparent;
+      padding: 15px 30px;
+      .fa-comments {
+        font-size: 35px;
+        margin-top: -3px;
+      }
+      .fa-star {
+        font-size: 32px;
+      }
     }
+
+    .navbar-nav > li > a:hover {
+      color: $white;
+    }
+
+    .navbar-nav > li.active > a {
+      background-color:#114285;
+      .unread-count, .interested-count {
+        -moz-box-shadow: 0 0 0 3px #114285;
+        -webkit-box-shadow: 0 0 0 3px #114285;
+        box-shadow: 0 0 0 3px #114285;
+      }
+    }
+
     .navbar-brand>span>img {
       width: 100px;
       margin: -13px 10px 0 20px;
@@ -14,14 +49,49 @@
       transform: rotate(10deg);
     }
   }
-  .unread-count {
-    @include shadow-0;
+  .dropdown-toggle {
+    .img-container {
+      @include shadow-0;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      margin: -5px 10px 0 0;
+      display: inline-block;
+      img {
+        display: block;
+        width: 100%;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    .text-container {
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+  .unread-count, .interested-count {
+    -moz-box-shadow: 0 0 0 3px $primary;
+    -webkit-box-shadow: 0 0 0 3px $primary;
+    box-shadow: 0 0 0 3px $primary;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    line-height: 15px;
+    font-size: 15px;
+    height: 24px;
+    padding: 4px;
     color: $white;
-    background-color: $red;
-    padding: 2px 4px;
     border-radius: 50%;
-    display: inline-block;
     min-width: 24px;
     text-align: center;
+  }
+  .unread-count {
+    background-color: #ff597e;
+  }
+  .interested-count {
+    background-color: #4c7bd9;
   }
 }

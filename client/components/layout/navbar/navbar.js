@@ -17,19 +17,31 @@ class Navbar extends Component {
     }
   }
 
+  renderLikeCount() {
+    if (this.props.interestedUsers.length !== 0) {
+      return (
+        <div className="interested-count">{this.props.interestedUsers.length}</div>
+      )
+    }
+  }
+
   renderLinks() {
     if (this.props.authenticated) {
       return [
         <ul className="nav navbar-nav" key={1}>
-          <NavLink {...this.props} to="/">Home</NavLink>
-          <NavLink {...this.props} to="/messages">Messages    {this.renderUnreadCount()}</NavLink>
+          <NavLink {...this.props} to="/">Browse</NavLink>
+          <NavLink {...this.props} to="/messages"><i className="fa fa-comments"></i>{this.renderUnreadCount()}</NavLink>
+          <NavLink {...this.props} to="/likes"><i className="fa fa-star"></i>{this.renderLikeCount()}</NavLink>
           <NavLink {...this.props} to="/profile">Profile</NavLink>
         </ul>,
         <ul className="nav navbar-nav navbar-right" key={2}>
           <li className="dropdown">
-            <a className="dropdown-toggle" data-toggle="dropdown" href="#">{this.props.currentUser.username}<span className="caret"></span></a>
+            <a className="dropdown-toggle" data-toggle="dropdown" href="#">
+              <div className="img-container"><img src={this.props.currentUser.avatar_url} alt=""/></div>
+              <div className="text-container">{this.props.currentUser.username}</div>
+            </a>
             <ul className="dropdown-menu">
-              <li><Link to="/messages"><i className="fa fa-envelope-square"></i> Messages</Link></li>
+              <li><Link to="/messages"><i className="fa fa-comments"></i> Messages</Link></li>
               <li><Link to="/profile"><i className="fa fa-user-circle"></i> Profile</Link></li>
               <li><Link to="/signout"><i className="fa fa-sign-out"></i> Sign Out</Link></li>
             </ul>
@@ -71,6 +83,7 @@ function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
     unreadCount: state.chatReducer.unreadCount,
+    interestedUsers: state.usersReducer.interestedUsers
   }
 }
 export default connect(mapStateToProps, actions)(Navbar);

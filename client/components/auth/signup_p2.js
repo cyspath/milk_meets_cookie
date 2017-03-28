@@ -5,7 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import DropdownList from 'react-widgets/lib/DropdownList'
 import * as actions from '../../actions/auth_actions';
 import moment from 'moment';
-import ProvinceCity from '../../modules/province_city/province_city';
+import ProvinceCity from '../../modules/location/usa';
 
 class SignupP2 extends Component {
   constructor(props) {

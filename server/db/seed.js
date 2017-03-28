@@ -18,8 +18,8 @@ const usersData = (n = 100) => {
     {
       id: 1,
       username: "SpicySashimi",
-      province: '山东',
-      city: '青岛市',
+      province: 'California',
+      city: 'San Francisco',
       dob: new Date('1987-12-17'),
       height: 182,
       email: 'me@gmail.com',
@@ -32,8 +32,8 @@ const usersData = (n = 100) => {
     {
       id: 2,
       username: "AmberBear",
-      province: '山东',
-      city: '青岛市',
+      province: 'California',
+      city: 'San Francisco',
       dob: new Date('1990-01-01'),
       height: 170,
       email: 'g1@gmail.com',
@@ -52,8 +52,8 @@ const usersData = (n = 100) => {
     {
       id: 3,
       username: "pineapplesauce",
-      province: '山东',
-      city: '青岛市',
+      province: 'California',
+      city: 'San Francisco',
       dob: new Date('1992-06-15'),
       height: 163,
       email: 'g2@gmail.com',
@@ -67,8 +67,8 @@ const usersData = (n = 100) => {
 
   let user, location, contextualCard, gender, looking_for, avatarUrl;
   const locations = [
-    { province: '北京市', city: '朝阳区' },
-    { province: '山东', city: '青岛市' },
+    { province: 'Massachusetts', city: 'Boston' },
+    { province: 'California', city: 'San Francisco' },
   ]
   for (var i = 3; i < n; i++) {
     contextualCard = faker.helpers.contextualCard();

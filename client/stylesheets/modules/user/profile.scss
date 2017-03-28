@@ -34,6 +34,13 @@
       &:hover {
         border-radius: 5%;
       }
+      img {
+        display: block;
+        width: 100%;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
     }
 
     .online-indicator {
