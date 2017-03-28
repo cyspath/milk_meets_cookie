@@ -66,6 +66,7 @@ class UserDetail extends Component {
 
           <div className="col-sm-5 inner-1">
             {this.renderUserDetails()}
+            {this.renderUserPreference()}
           </div>
 
           <div className="col-sm-7 inner-2">
@@ -100,26 +101,46 @@ class UserDetail extends Component {
     if (user.pets) section3.push(user.pets.split(',').map((p) => 'Has ' + p));
 
     return (
-      <div>
-        <div>
-          <i className="fa fa-id-card-o"></i>
-          <span>{section1.join(', ')}</span>
+      <div className="user-details">
+        <div className="user-details-item">
+          <div className="fa fa-id-card-o"></div>
+          <div className="text">{section1.join(', ')}</div>
         </div>
 
-        <div>
-          {section2.length > 0 && <i className="fa fa-briefcase"></i>}
-          <span>{section2.join(', ')}</span>
+        <div className="user-details-item">
+          {section2.length > 0 && <div className="fa fa-briefcase"></div>}
+          <div className="text">{section2.join(', ')}</div>
         </div>
 
-        <div>
-          {section2.length > 0 && <i className="fa fa-tags"></i>}
-          <span>{section3.join(', ')}</span>
+        <div className="user-details-item">
+          {section2.length > 0 && <div className="fa fa-tags"></div>}
+          <div className="text">{section3.join(', ')}</div>
         </div>
       </div>
     )
   }
 
+  renderUserPreference() {
+    if (!this.props.user.searchPreference) return;
+    const sp = this.props.user.searchPreference;
+
+    const section = [];
+    if (sp.province && sp.city) section.push(`near ${sp.province} ${sp.city}`);
+    if (sp.age_low && sp.age_high) section.push(`ages ${sp.age_low} - ${sp.age_high}`);
+    if (sp.height_low && sp.height_high) section.push(`${sp.height_low}cm - ${sp.height_high}cm`);
+
+    if (section.length > 0) {
+      return (
+        <div className="user-preference">
+          <strong>Looking for </strong>
+          {`people ${section.join(', ')}`}
+        </div>
+      )  
+    }
+  }
+
   render() {
+    console.log(this.props.user);
     return (
       <div className={`${this.constructor.name}-component`}>
         <div className="profile-banner-container">{this.renderBanner()}</div>

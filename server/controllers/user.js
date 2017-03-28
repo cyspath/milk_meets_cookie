@@ -12,7 +12,15 @@ exports.fetchUserDetail = (req, res, next) => {
   const id = req.params.id;
   User.findOne({ where: { id }})
   .then((user) => {
-    res.send({ user });
+    user
+      .getSearchPreference()
+      .then((sp) => {
+        res.send({ user, searchPreference: sp });
+      })
+      .catch((err) => {
+        console.log("500 Error: ", err.name);
+        res.status(500).send({ error: err.name });
+      });
   })
   .catch((err) => {
     console.log("500 Error: ", err.name);

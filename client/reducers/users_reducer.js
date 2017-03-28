@@ -33,9 +33,10 @@ export default function(state = INITIAL_STATE, action) {
       };
 
     case FETCH_USER_DETAIL:
+      action.payload.user.searchPreference = action.payload.searchPreference;
       return {
         ...state,
-        userDetail: action.payload
+        userDetail: action.payload.user
       };
 
     case TOGGLE_LIKE_USER:

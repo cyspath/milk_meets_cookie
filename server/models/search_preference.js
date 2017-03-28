@@ -1,7 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
   const SearchPreference = sequelize.define('SearchPreference', {
     gender:                     { type: DataTypes.STRING },
-    looking_for:                { type: DataTypes.STRING },
     province:                   { type: DataTypes.STRING },
     city:                       { type: DataTypes.STRING },
     age_low:                    { type: DataTypes.INTEGER },

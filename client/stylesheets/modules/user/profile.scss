@@ -73,24 +73,42 @@
   }
 
   .profile-content {
-    min-height: 500px;
-    background: #c0c0c0;
     @include layout-container;
     padding-top: 60px;
     padding-bottom: 60px;
 
     .inner-1 {
-      background-color: yellow;
-      min-height: 300px;
       float: right;
       padding-left: 0px;
       padding-right: 0px;
+      font-size: 17px;
+
+      .user-details {
+        margin-bottom: 35px;
+        .user-details-item {
+          margin-bottom: 20px;
+          .fa {
+            display: inline-block;
+            width: 10%;
+            vertical-align: top;
+            color: $chat-blue;
+          }
+          .text {
+            display: inline-block;
+            width: 90%;
+          }
+        }
+      }
+
+      .user-preference {
+        border-radius: 3px;
+        padding: 25px;
+        background: $white;
+      }
 
     }
 
     .inner-2 {
-      background-color: orange;
-      min-height: 500px;
       float: right;
       padding-left: 0px;
       padding-right: 50px;
