@@ -129,7 +129,7 @@ class SearchBox extends Component {
             </div>
 
             <div className="search-box-btn-wrapper">
-              <button type="submit" className="btn btn-primary">Search</button>
+              <button type="submit" className="flat-btn blue">Search</button>
             </div>
 
           </div>

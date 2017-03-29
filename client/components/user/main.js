@@ -45,10 +45,10 @@ class UserDetail extends Component {
           </div>
 
           <div className="col-sm-4 inner-3">
-            <button onClick={this.handleToggleChat.bind(this)} className={`flat-btn`}>
+            <button onClick={this.handleToggleChat.bind(this)} className={`large blue flat-btn`}>
               <span>Message</span>
             </button>
-            <button onClick={this.handleToggleLike.bind(this)} className={`like-btn flat-btn ${liked && 'active'}`}>
+            <button onClick={this.handleToggleLike.bind(this)} className={`large clear flat-btn ${liked && 'active'}`}>
               <i className="fa fa-star"></i>
               <span>{liked ? 'Liked' : 'Like'}</span>
             </button>

@@ -6,7 +6,7 @@
   padding: 10px 20px;
 
   form {
-    max-width: 1200px;
+    max-width: 1180px;
     margin: 0 auto;
   }
 
@@ -44,6 +44,12 @@
 
   .search-box-btn-wrapper {
     float: right;
+    margin-top: 3px;
+    button {
+      width: auto;
+      padding: 5px 10px;
+      font-size: 17px;
+    }
   }
 
   .rw-dropdownlist>.rw-select {
