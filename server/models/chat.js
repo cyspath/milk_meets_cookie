@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     id:                         { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     sender_id:                  { type: DataTypes.INTEGER },
     receiver_id:                { type: DataTypes.INTEGER },
-    message:                    { type: DataTypes.STRING },
+    message:                    { type: DataTypes.TEXT },
     read:                       { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
   }, {
     underscored: true,

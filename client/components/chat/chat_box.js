@@ -102,7 +102,7 @@ class ChatBox extends Component {
           <form onSubmit={this.handleFormSubmit.bind(this)}>
             <div>{this.renderInput()}</div>
 
-            {!this.state.enterToSend && <button type="submit" className="btn btn-primary">Send</button>}
+            {!this.state.enterToSend && <button className="btn btn-primary" onClick={this.handleFormSubmit.bind(this)}>Send</button>}
 
             <div className="enter-to-send" onClick={this.handleEnterToSendToggle.bind(this)}>
               <span>Press enter to send  </span>
