@@ -24,6 +24,14 @@ module.exports = function(sequelize, DataTypes) {
     last_online:                { type: DataTypes.DATE, defaultValue: DataTypes.NOW, allowNull: false },
     password_digest:            { type: DataTypes.STRING, validate: { notEmpty: true } },
   	password:                   { type: DataTypes.VIRTUAL, allowNull: false, validate: { notEmpty: true, len: [3, Infinity] } },
+    p_self_summary:             { type: DataTypes.TEXT },
+    p_life_doing:               { type: DataTypes.TEXT },
+    p_good_at:                  { type: DataTypes.TEXT },
+    p_freetime_activies:        { type: DataTypes.TEXT },
+    p_important_things:         { type: DataTypes.TEXT },
+    p_thinking_about:           { type: DataTypes.TEXT },
+    p_match_criteria:           { type: DataTypes.TEXT },
+
   }, {
     underscored: true,
     tableName: 'users',
