@@ -3,14 +3,7 @@ logs
 *.log
 npm-debug.log*
 
-# Dependency directories
-node_modules
-dist
-
 server/config.js
-server/config/config.json
-.env
-public/youTube_API_KEY.js
 
 # Ignore Mac DS_Store files
 .DS_Store
@@ -18,3 +11,8 @@ public/youTube_API_KEY.js
 public/bundle.js
 public/bundle.js.map
 public/style.css
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
