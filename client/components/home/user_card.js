@@ -41,7 +41,7 @@ class UserCard extends Component {
               <div className="userinfo">{user.age} · {user.province} {user.city} {user.height && `${user.height}cm`}</div>
             </div>
           </Link>
-          <button onClick={this.handleToggleLike.bind(this)} className={`like-btn flat-btn ${liked && 'active'}`}>
+          <button onClick={this.handleToggleLike.bind(this)} className={`yellow flat-btn ${liked && 'active'}`}>
             <i className="fa fa-star"></i>
             <span>{liked ? 'Liked' : 'Like'}</span>
           </button>

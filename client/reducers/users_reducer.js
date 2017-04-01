@@ -9,6 +9,7 @@ import {
 const INITIAL_STATE = {
   currentUser: {},
   likedUserIds: new Set([]),
+  interestedUsers: [],
   searchPreference: {},
   users: [],
   userDetail: {},
@@ -22,7 +23,8 @@ export default function(state = INITIAL_STATE, action) {
       return {
         ...state,
         currentUser: action.payload.currentUser,
-        likedUserIds: new Set(action.payload.likedUserIds)
+        likedUserIds: new Set(action.payload.likedUserIds),
+        interestedUsers: action.payload.interestedUsers
       };
 
     case FETCH_USERS:
@@ -33,9 +35,10 @@ export default function(state = INITIAL_STATE, action) {
       };
 
     case FETCH_USER_DETAIL:
+      action.payload.user.searchPreference = action.payload.searchPreference;
       return {
         ...state,
-        userDetail: action.payload
+        userDetail: action.payload.user
       };
 
     case TOGGLE_LIKE_USER:

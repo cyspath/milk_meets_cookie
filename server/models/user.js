@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt-nodejs');
+const astrologySign = require('../services/astrology_sign');
 
 module.exports = function(sequelize, DataTypes) {
   const User = sequelize.define('User', {
@@ -7,16 +8,30 @@ module.exports = function(sequelize, DataTypes) {
     province:                   { type: DataTypes.STRING, allowNull: false },
     city:                       { type: DataTypes.STRING, allowNull: false },
     dob:                        { type: DataTypes.DATE, allowNull: false },
+    sign:                       { type: DataTypes.STRING },
     height:                     { type: DataTypes.INTEGER },
     gender:                     { type: DataTypes.STRING, allowNull: false },
     looking_for:                { type: DataTypes.STRING, allowNull: false },
-    firstname:                  { type: DataTypes.STRING },
-    lastname:                   { type: DataTypes.STRING },
+    status:                     { type: DataTypes.STRING, allowNull: false, defaultValue: 'Single' }, // Single, Seeing Someone, Married, Divorced
+    education:                  { type: DataTypes.STRING },
+    industry:                   { type: DataTypes.STRING },
+    income:                     { type: DataTypes.INTEGER },
+    smokes:                     { type: DataTypes.STRING }, // Doesn't smoke, Smokes occasionally, Smokes regularly
+    drinks:                     { type: DataTypes.STRING }, // Doesn't drink, Drinks socially, Drinks regularly
+    pets:                       { type: DataTypes.STRING }, // dogs,cats
     avatar_url:                 { type: DataTypes.STRING, defaultValue: 'images/default-user.png' },
     avatar_uploaded:            { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
     last_online:                { type: DataTypes.DATE, defaultValue: DataTypes.NOW, allowNull: false },
     password_digest:            { type: DataTypes.STRING, validate: { notEmpty: true } },
   	password:                   { type: DataTypes.VIRTUAL, allowNull: false, validate: { notEmpty: true, len: [3, Infinity] } },
+    p_self_summary:             { type: DataTypes.TEXT },
+    p_life_doing:               { type: DataTypes.TEXT },
+    p_good_at:                  { type: DataTypes.TEXT },
+    p_freetime_activies:        { type: DataTypes.TEXT },
+    p_important_things:         { type: DataTypes.TEXT },
+    p_thinking_about:           { type: DataTypes.TEXT },
+    p_match_criteria:           { type: DataTypes.TEXT },
+
   }, {
     underscored: true,
     tableName: 'users',
@@ -32,12 +47,14 @@ module.exports = function(sequelize, DataTypes) {
       beforeCreate: (user, options, callback) => {
         user.email = user.email.toLowerCase();
         user.password_digest = user.generateHash(user.password);
+        user.sign = astrologySign(user.dob);
         return callback(null, options);
       },
       beforeBulkCreate: (users, options, callback) => {
         users.forEach((user) => {
           user.email = user.email.toLowerCase();
           user.password_digest = user.generateHash(user.password);
+          user.sign = astrologySign(user.dob);
         })
         return callback(null, options);
       },
@@ -92,7 +109,6 @@ module.exports = function(sequelize, DataTypes) {
         const height_high = this.looking_for === 'female' ? 180 : 190;
         return ({
           gender: this.looking_for,
-          looking_for: null,
           province: this.province,
           city: this.city,
           age_low: age.age_low,

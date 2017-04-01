@@ -1,0 +1,180 @@
+.UserDetail-component {
+  position: relative;
+
+  .profile-banner-container {
+    background-color: #104da1;
+    background-image: -webkit-linear-gradient(#104da1,#0f4693);
+    background-image: linear-gradient(#104da1,#0f4693);
+    padding-top: 40px;
+  }
+
+  .profile-content-container {
+
+  }
+
+
+  .profile-banner {
+    @include layout-container;
+    color: $white;
+
+    .inner-1 {
+      height: 160px;
+    }
+    .inner-1 > div {
+      @include cursor-hand;
+      @include shadow-1;
+      @include transition-default;
+      z-index: 1;
+      width: 200px;
+      position: absolute;
+      border-radius: 50%;
+      overflow: hidden;
+      height: 200px;
+      left: -30px;
+      &:hover {
+        border-radius: 5%;
+      }
+      img {
+        display: block;
+        width: 100%;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    .online-indicator {
+      display: inline-block;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      margin-bottom: 15px;
+    }
+
+    .inner-2 {
+      height: 160px;
+      padding: 50px 0 0 70px;
+      .username {
+        @include elipsis-text;
+        font-size: 35px;
+        display: inline-block;
+        max-width: 90%;
+        margin-right: 15px;
+      }
+      .info {
+        font-size: 20px;
+        margin-top: 5px;
+        color: $primary-text-medium;
+      }
+    }
+
+    .inner-3 {
+      height: 160px;
+      padding: 50px 0;
+      button {
+        margin-left: 10px;
+        margin-bottom: 10px;
+        float: right;
+      }
+    }
+  }
+
+  .profile-content {
+    @include layout-container;
+    padding-top: 60px;
+    padding-bottom: 60px;
+
+    .inner-1 {
+      float: right;
+      padding-left: 0px;
+      padding-right: 0px;
+      font-size: 17px;
+
+      .user-details {
+        margin-bottom: 35px;
+        .user-details-item {
+          margin-bottom: 20px;
+          .fa {
+            display: inline-block;
+            width: 10%;
+            vertical-align: top;
+            color: $chat-blue;
+          }
+          .text {
+            display: inline-block;
+            width: 90%;
+          }
+        }
+      }
+
+      .user-preference {
+        border-radius: 3px;
+        padding: 25px;
+        background: $white;
+      }
+
+    }
+
+    .inner-2 {
+      float: right;
+      padding-left: 0px;
+      padding-right: 50px;
+
+    }
+  }
+
+}
+
+@include mobile {
+  .UserDetail-component {
+    .profile-banner-container {
+      padding-top: 20px;
+    }
+    .profile-banner {
+      .inner-1 {
+        height: 200px;
+      }
+      .inner-1 > div {
+        border-radius: 5%;
+        left: 0px;
+      }
+
+      .inner-2 {
+        padding: 0px;
+        height: auto;
+        .username {
+          font-size: 25px;
+        }
+        .info {
+          font-size: 15px;
+        }
+      }
+
+      .inner-3 {
+        height: auto;
+        padding: 20px 0;
+        button {
+          margin-right: 10px;
+          margin-left: 0px;
+          float: left;
+        }
+      }
+    }
+
+    .profile-content {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      .inner-1 {
+        float: none;
+      }
+      .inner-2 {
+        float: none;
+      }
+    }
+  }
+};
+// .row > div {
+//   height: 160px;
+//   color: white;
+//   border: 1px dotted black;
+// }

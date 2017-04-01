@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm, getFormValues } from 'redux-form';
 import DropdownList from 'react-widgets/lib/DropdownList'
 import * as actions from '../../actions/home_actions';
-import ProvinceCity from '../../modules/province_city/province_city';
+import ProvinceCity from '../../modules/location/usa';
 
 class SearchBox extends Component {
   constructor() {
@@ -129,7 +129,7 @@ class SearchBox extends Component {
             </div>
 
             <div className="search-box-btn-wrapper">
-              <button type="submit" className="btn btn-primary">Search</button>
+              <button type="submit" className="flat-btn blue">Search</button>
             </div>
 
           </div>

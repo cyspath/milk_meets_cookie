@@ -1,11 +1,14 @@
 .SearchBox-component {
-  margin: 0 10px 30px;
+  margin-bottom: 30px;
   background-color: $primary;
   color: $primary-text-medium;
-  border: 1px solid #d7d7d7;
-  border-radius: 6px;
+  border-bottom: 1px solid #d7d7d7;
   padding: 10px 20px;
-  min-height: 60px;
+
+  form {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
 
   .search-box-row {
     @include transition-all;
@@ -41,6 +44,12 @@
 
   .search-box-btn-wrapper {
     float: right;
+    margin-top: 3px;
+    button {
+      width: auto;
+      padding: 5px 10px;
+      font-size: 17px;
+    }
   }
 
   .rw-dropdownlist>.rw-select {
@@ -60,12 +69,12 @@
   }
   .search-box-item-province.rw-widget.rw-dropdownlist {
     .rw-popup-container {
-      min-width: 120px;
+      min-width: 200px;
     }
   }
   .search-box-item-city.rw-widget.rw-dropdownlist {
     .rw-popup-container {
-      min-width: 160px;
+      min-width: 300px;
     }
   }
 

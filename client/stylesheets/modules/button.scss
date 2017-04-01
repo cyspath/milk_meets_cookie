@@ -3,36 +3,89 @@
   padding: 0;
   vertical-align: top;
   width: 120px;
-  height: 42px;
-  line-height: 41px;
+  padding: 10px 20px;
   font-size: 15px;
   white-space: nowrap;
   color: #fff;
   text-align: center;
   overflow: hidden;
   border-radius: 2px;
+  border: 1px solid;
+  background-color: transparent;
+  i {
+    margin-top: -3px;
+    font-size: 18px;
+    margin-right: 8px;
+    color: inherit;
+  }
 }
 
-.flat-btn.like-btn {
-  background-color: transparent;
-  border: 1px solid #ccd0d9;
-  color: $background-text-light;
+// sequelize
+.flat-btn.large {
+  font-size: 17px;
   i {
-    margin-right: 8px;
-    color: $background-text-fade;
+    font-size: 20px;
   }
+}
+
+// COLOR YELLOW
+
+.flat-btn.yellow {
+  background-color: transparent;
+  color: $background-text-light;
+  border-color: #ccd0d9;
   &:hover {
     background-color: #f7f8f9;
+    i {
+      @include spin-effect;
+    }
   }
 }
 
-.flat-btn.like-btn.active {
-  background-color: #ffc25f;
-  color: #fff;
+.flat-btn.yellow.active {
+  background-color: #ffb640;
+  color: $white;
+  border-color: #ffb640;
   i {
-    color: #fff;
+    color: $white;
+  }
+}
+
+// COLOR CLEAR
+
+.flat-btn.clear {
+  color: $primary-text-medium;
+  border-color: rgba(228, 237, 253, 0.6);
+  i {
+    color: $primary-text-medium;
   }
   &:hover {
-    background-color:#ffb640;
+    color: $white;
+    border-color: $white;
+    i {
+      color: $white;
+      @include spin-effect;
+    }
+  }
+}
+
+.flat-btn.clear.active {
+  i {
+    color: #ffb640;
+  }
+  &:hover {
+    color: $white;
+  }
+}
+
+// BLUE
+
+.flat-btn.blue {
+  background-color: $chat-blue;
+  border-color: $chat-blue;
+  color: $white;
+  &:hover {
+    background-color: $chat-blue-hover;
+    border-color: $chat-blue-hover;
   }
 }
