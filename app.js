@@ -3,22 +3,30 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan'); // logging framework
 const routes = require('./routes');
-const sassMiddleware = require('node-sass-middleware');
 const socket = require('socket.io');
 const onlineUsers = require('./server/online_users');
-
-var path = require('path');
+const path = require('path');
 
 // var favicon = require('serve-favicon');
 
 const app = express();
 
+// sass
+const sassMiddleware = require('node-sass-middleware');
 app.use(sassMiddleware({
   src: __dirname + '/client/stylesheets',
   dest: __dirname + '/public',
   debug: true,
   outputStyle: 'compressed'
 }));
+
+// webpack
+if (process.env.NODE_ENV !== 'production') {
+  const webpackMiddleware = require('webpack-dev-middleware');
+  const webpack = require('webpack');
+  const webpackConfig = require('./webpack.config.js');
+  app.use(webpackMiddleware(webpack(webpackConfig), { noInfo: true }));
+}
 
 app.use(express.static(__dirname + '/public'))
 
@@ -39,7 +47,7 @@ server.listen(port, function(err) {
   if (err) {
     console.log('error', err);
   } else {
-    console.log(`MMC server is running at localhost:${port}`);
+    console.log(`Server (${process.env.NODE_ENV}) is running at localhost:${port}`);
   }
 });
 
