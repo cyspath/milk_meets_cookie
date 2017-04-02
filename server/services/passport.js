@@ -4,6 +4,7 @@ const config =  require('../config');
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const JwtStrategy = require('passport-jwt').Strategy;
 const LocalStrategy = require('passport-local');
+const secret = config[process.env.NODE_ENV].jwtSecret
 
 // Email and password login strategy
 const localOptions = { usernameField: 'email' };
@@ -38,7 +39,7 @@ const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
 // JWT login strategy
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-  secretOrKey: config.jwtSecret
+  secretOrKey: secret
 };
 const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
   console.log('# JwtStrategy: payload received', payload);

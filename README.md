@@ -1,40 +1,6 @@
-# Milk Meets Cookie
+# Milk Meets Cookie [Live Link](http://milk-meets-cookie-dev.us-west-1.elasticbeanstalk.com)
 
-used:
-axios ajax call
-redux-promise
-
-http://beatscodeandlife.ghost.io/react-socket-io-part-i-real-time-chat-application/
-https://github.com/antoinfive/react-chat/blob/master/tools/server.js
-https://github.com/SophieDeBenedetto/react-redux-starter-kit/blob/master/package.json
-
-to be used?
-chat/socket/redux/express http://beatscodeandlife.ghost.io/react-socket-io-part-i-real-time-chat-application/
-
-Forms: http://demo.tutorialzine.com/2015/07/7-clean-and-responsive-forms/
-redux thunk: https://github.com/gaearon/redux-thunk  use function instead of norma obj when returning from an redux action for async
-architecture http://docs.sequelizejs.com/en/1.7.0/articles/express/
-
-fa icons: http://fontawesome.io/icons/
-
-GOOD READS TO LEARN:
-- jwt https://blog.jscrambler.com/implementing-jwt-using-passport/
-
-run mongodb on windos"
-"C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe"
-run schema sql script `mysql -u root < db/schema.sql`
-
-prefetching:
-
-One thing ORMs are usually good at is minimizing queries. Sequelize offers a prefetching feature, allowing to group two queries in a single one using a JOIN. For instance, if you want to retrieve a Task together with the related User, write the query as follows:
-
-Task.find({ where: { id: id } }, include: ['User'])
-  .error(function(err) {
-    // error callback
-  })
-  .success(function(task) {
-    task.getUser(); // does not trigger a new query
-  });
+![Home Page screenshot](https://github.com/cyspath/milk_meets_cookie/blob/development/misc/screenshots/home1.PNG)
 
 ## Features
 * Real time online status and notification update
