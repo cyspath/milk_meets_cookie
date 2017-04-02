@@ -38,7 +38,7 @@ Task.find({ where: { id: id } }, include: ['User'])
 
 ## [Live Link] (http://milk-meets-cookie-dev.us-west-1.elasticbeanstalk.com/)
 
-![Alt text](misc/screenshots/home1 "Home Page")
+![Home Page screenshot](https://github.com/cyspath/milk_meets_cookie/blob/development/misc/screenshots/home1.PNG)
 
 ## Features
 * Real time online status and notification update
