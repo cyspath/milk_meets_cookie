@@ -1,10 +1,11 @@
 const jwt = require('jwt-simple');
 const config = require('../config');
 const User = require('../models').User;
+const secret = config[process.env.NODE_ENV].jwtSecret
 
 const tokenForUser = (user) => {
   const timestamp = new Date().getTime();
-  return jwt.encode({ sub: user.id, iat: timestamp }, config.jwtSecret);
+  return jwt.encode({ sub: user.id, iat: timestamp }, secret);
 };
 
 exports.signin = (req, res, next) => {
