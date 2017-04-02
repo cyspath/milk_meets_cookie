@@ -36,7 +36,9 @@ Task.find({ where: { id: id } }, include: ['User'])
     task.getUser(); // does not trigger a new query
   });
 
-http://milk-meets-cookie-dev.us-west-1.elasticbeanstalk.com/welcome
+## [Live Link] (http://milk-meets-cookie-dev.us-west-1.elasticbeanstalk.com/)
+
+![Alt text](misc/screenshots/home1 "Home Page")
 
 ## Features
 * Real time online status and notification update
