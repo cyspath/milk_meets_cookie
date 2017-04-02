@@ -36,6 +36,8 @@ Task.find({ where: { id: id } }, include: ['User'])
     task.getUser(); // does not trigger a new query
   });
 
+http://milk-meets-cookie-dev.us-west-1.elasticbeanstalk.com/welcome
+
 ## Features
 * Real time online status and notification update
 * Chat feature made with socket.io, mimicking facebook style chat yet with better user UI experience via chatbox focusing/notification updating
