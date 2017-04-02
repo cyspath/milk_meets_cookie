@@ -8,9 +8,10 @@ node_modules
 # Ignore Mac DS_Store files
 .DS_Store
 
-public/bundle.js
-public/bundle.js.map
-public/style.css
+
+# public/bundle.js
+# public/bundle.js.map
+# public/style.css
 
 # Elastic Beanstalk Files.elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
