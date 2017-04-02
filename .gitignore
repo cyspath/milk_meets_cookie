@@ -13,7 +13,6 @@ public/bundle.js
 public/bundle.js.map
 public/style.css
 
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
+# Elastic Beanstalk Files.elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
