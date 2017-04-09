@@ -14,6 +14,7 @@ export const TOGGLE_LIKE_USER = 'toggle_like_user';
 export const ONLINE_USERS = 'online_users';
 
 // chat
+export const FETCH_INBOX = 'fetch_inbox';
 export const OPEN_CHAT = 'open_chat';
 export const CLOSE_CHAT = 'close_chat';
 export const FETCH_MESSAGES = 'fetch_messages';

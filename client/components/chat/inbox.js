@@ -10,9 +10,9 @@ class Inbox extends Component {
   //   this.state = { show: false };
   // }
 
-  // componentDidMount() {
-  //   this.scrollToBottom();
-  // }
+  componentDidMount() {
+    this.props.fetchInbox();
+  }
   //
   // handleComponentClick(e) { // clicking on chat box will mark newly received messages from targetUser to read
   //   e.preventDefault();
