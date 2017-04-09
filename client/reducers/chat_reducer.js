@@ -5,7 +5,6 @@ import {
   SEND_MESSAGE,
   RECEIVE_MESSAGE,
   FETCH_UNREAD_COUNT,
-  FETCH_UNREAD_MESSAGES,
   UPDATE_MESSAGES_TO_READ,
 } from '../actions/types';
 
@@ -67,12 +66,6 @@ export default function(state = INITIAL_STATE, action) {
       return {
         ...state,
         unreadCount: action.payload
-      };
-
-    case FETCH_UNREAD_MESSAGES:
-      return {
-        ...state,
-        unreadMessages: action.payload
       };
 
     case UPDATE_MESSAGES_TO_READ:

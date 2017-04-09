@@ -1,0 +1,22 @@
+.Inbox-component {
+  @include shadow-1;
+  position: absolute;
+  top: 60px;
+  overflow: hidden;
+  width: 350px;
+  height: 400px;
+  background: $white;
+  border-radius: 3px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  opacity: 1;
+  -webkit-transition: opacity 150ms linear;
+  -moz-transition: opacity 150ms linear;
+  transition: opacity 150ms linear;
+  color: $chat-grey-text;
+  .header {
+    padding: 15px 20px;
+    font-size: 20px;
+    border-bottom: 1px solid $grey-1;
+  }
+}

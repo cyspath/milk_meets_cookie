@@ -2,11 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import NavLink from './navbar_link';
+import Inbox from '../../chat/inbox';
 import * as actions from '../../../actions/chat_actions';
 
 class Navbar extends Component {
+  constructor() {
+    super();
+    this.state = { showInbox: false };
+  }
+
   componentWillMount() {
     this.props.fetchUnreadCount();
+  }
+
+  showInbox() {
+    this.setState({ showInbox: !this.state.showInbox });
   }
 
   renderUnreadCount() {
@@ -30,7 +40,8 @@ class Navbar extends Component {
       return [
         <ul className="nav navbar-nav" key={1}>
           <NavLink {...this.props} to="/">Browse</NavLink>
-          <NavLink {...this.props} to="/messages"><i className="fa fa-comments"></i>{this.renderUnreadCount()}</NavLink>
+          <li onClick={this.showInbox.bind(this)}><a><i className="fa fa-comments"></i>{this.renderUnreadCount()}</a></li>
+          {this.state.showInbox && <Inbox />}
           <NavLink {...this.props} to="/likes"><i className="fa fa-star"></i>{this.renderLikeCount()}</NavLink>
           <NavLink {...this.props} to="/profile">Profile</NavLink>
         </ul>,
@@ -41,7 +52,7 @@ class Navbar extends Component {
               <div className="text-container">{this.props.currentUser.username}</div>
             </a>
             <ul className="dropdown-menu">
-              <li><Link to="/messages"><i className="fa fa-comments"></i> Messages</Link></li>
+              <li><a href="https://github.com/cyspath/milk_meets_cookie" target="_"><i className="fa fa-github"></i> Github Page</a></li>
               <li><Link to="/profile"><i className="fa fa-user-circle"></i> Profile</Link></li>
               <li><Link to="/signout"><i className="fa fa-sign-out"></i> Sign Out</Link></li>
             </ul>
