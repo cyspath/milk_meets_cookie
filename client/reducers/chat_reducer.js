@@ -1,4 +1,5 @@
 import {
+  FETCH_INBOX,
   OPEN_CHAT,
   CLOSE_CHAT,
   FETCH_MESSAGES,
@@ -13,10 +14,17 @@ const INITIAL_STATE = {
   messages: [],
   unreadCount: 0,
   unreadMessages: [],
+  inbox: [],
 };
 
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
+
+    case FETCH_INBOX:
+      return {
+        ...state,
+        inbox: action.payload
+      };
 
     case OPEN_CHAT:
       return {

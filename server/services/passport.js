@@ -1,10 +1,12 @@
 const passport = require('passport');
 const User = require('../models').User;
 const config =  require('../config');
+const env = process.env.NODE_ENV || 'development';
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const JwtStrategy = require('passport-jwt').Strategy;
 const LocalStrategy = require('passport-local');
-const secret = config[process.env.NODE_ENV].jwtSecret
+
+const secret = config[env].jwtSecret
 
 // Email and password login strategy
 const localOptions = { usernameField: 'email' };

@@ -17,8 +17,7 @@ export function fetchInbox() {
     axios
     .get('/api/chat/fetch_inbox', jwtHeader())
     .then(resp => {
-      console.log(resp.data);
-      dispatch({ type: FETCH_INBOX, payload: resp.data });
+      dispatch({ type: FETCH_INBOX, payload: resp.data.chatUsers });
     })
     .catch((err) => {
       dispatch(authError(err.response.data.error))

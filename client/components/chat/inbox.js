@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux';
-// import { Link } from 'react-router'
+import moment from 'moment';
 import * as actions from '../../actions/chat_actions';
 
 class Inbox extends Component {
@@ -26,7 +26,29 @@ class Inbox extends Component {
   //   }
   // }
   renderUsers() {
-
+    console.log(this.props.inbox);
+    if (this.props.inbox.length > 0) {
+      return this.props.inbox.map((user) => {
+        var date = moment(user.created_at).format("MMM DD, YYYY");
+        console.log(user);
+        return (
+          <div key={user.targetUser.id} className="inbox-item-container">
+            <div className="header-avatar col-sm-2 inner-1">
+              <img src={user.targetUser.avatar_url} alt=""/>
+            </div>
+            <div className="col-sm-6 inner-2">
+              <div className="inbox-username">{user.targetUser.username}</div>
+              <div className="inbox-message">{user.message}</div>
+            </div>
+            <div className="col-sm-4 inner-3">{date}</div>
+          </div>
+        )
+      })
+    } else {
+      return (
+        <div>No Messages</div>
+      )
+    }
   }
 
   render() {
@@ -43,7 +65,7 @@ class Inbox extends Component {
 
 function mapStateToProps(state) {
   return {
-    messages: state.chatReducer.messages
+    inbox: state.chatReducer.inbox
   };
 }
 

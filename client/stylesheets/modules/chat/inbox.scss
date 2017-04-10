@@ -4,7 +4,6 @@
   top: 60px;
   overflow: hidden;
   width: 350px;
-  height: 400px;
   background: $white;
   border-radius: 3px;
   -webkit-font-smoothing: antialiased;
@@ -18,5 +17,40 @@
     padding: 15px 20px;
     font-size: 20px;
     border-bottom: 1px solid $grey-1;
+  }
+  .users-list {
+    min-height: 50px;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+  .inbox-item-container {
+    @include clearfix;
+    @include cursor-hand;
+    padding: 20px 10px;
+    margin: 0 10px;
+    border-bottom: 1px solid $grey-1;
+    font-size: 15px;
+
+    .header-avatar img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+    }
+
+    .inner-2 {
+      .inbox-username {
+        color: #1e1e1e;
+        font-size: 17px;
+        font-weight: 500;
+      }
+      .inbox-message {
+        @include elipsis-text;
+        color: $background-text-light;
+      }
+    }
+    .inner-3 {
+      color: $grey-1;
+    }
+
   }
 }
