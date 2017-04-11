@@ -15,8 +15,8 @@ class Navbar extends Component {
     this.props.fetchUnreadCount();
   }
 
-  showInbox() {
-    this.setState({ showInbox: !this.state.showInbox });
+  toggleInbox(value) {
+    this.setState({ showInbox: value });
   }
 
   renderUnreadCount() {
@@ -40,8 +40,8 @@ class Navbar extends Component {
       return [
         <ul className="nav navbar-nav" key={1}>
           <NavLink {...this.props} to="/">Browse</NavLink>
-          <li onClick={this.showInbox.bind(this)}><a><i className="fa fa-comments"></i>{this.renderUnreadCount()}</a></li>
-          {this.state.showInbox && <Inbox />}
+          <li onClick={this.toggleInbox.bind(this, true)}><a><i className="fa fa-comments"></i>{this.renderUnreadCount()}</a></li>
+          {this.state.showInbox && <Inbox currentUser={this.props.currentUser} toggleInbox={this.toggleInbox.bind(this)}/>}
           <NavLink {...this.props} to="/likes"><i className="fa fa-star"></i>{this.renderLikeCount()}</NavLink>
           <NavLink {...this.props} to="/profile">Profile</NavLink>
         </ul>,

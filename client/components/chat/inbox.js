@@ -5,34 +5,29 @@ import moment from 'moment';
 import * as actions from '../../actions/chat_actions';
 
 class Inbox extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = { show: false };
-  // }
-
+  constructor() {
+    super();
+    this.closeInbox = () => { this.props.toggleInbox(false) };
+  }
   componentDidMount() {
     this.props.fetchInbox();
+    document.addEventListener('click', this.closeInbox, false);
   }
-  //
-  // handleComponentClick(e) { // clicking on chat box will mark newly received messages from targetUser to read
-  //   e.preventDefault();
-  //   const unreadMessages = this.props.messages.filter((m) => {
-  //     if (m.receiver_id === this.props.currentUser.id && !m.read) {
-  //       return m;
-  //     }
-  //   })
-  //   if (unreadMessages.length > 0) {
-  //     this.props.updateMessagesToRead(unreadMessages);
-  //   }
-  // }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.closeInbox, false);
+  }
+
+  handleToggleChat(targetUser) {
+    this.props.openChat(this.props.currentUser, targetUser);
+  }
+
   renderUsers() {
-    console.log(this.props.inbox);
     if (this.props.inbox.length > 0) {
       return this.props.inbox.map((user) => {
         var date = moment(user.created_at).format("MMM DD, YYYY");
-        console.log(user);
         return (
-          <div key={user.targetUser.id} className="inbox-item-container">
+          <div key={user.targetUser.id} className="inbox-item-container" onClick={this.handleToggleChat.bind(this, user.targetUser)}>
             <div className="header-avatar col-sm-2 inner-1">
               <img src={user.targetUser.avatar_url} alt=""/>
             </div>
@@ -41,6 +36,7 @@ class Inbox extends Component {
               <div className="inbox-message">{user.message}</div>
             </div>
             <div className="col-sm-4 inner-3">{date}</div>
+            {user.unreadCount > 0 && <div className="unread-count">{user.unreadCount}</div>}
           </div>
         )
       })

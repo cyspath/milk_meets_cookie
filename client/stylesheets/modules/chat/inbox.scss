@@ -2,7 +2,6 @@
   @include shadow-1;
   position: absolute;
   top: 60px;
-  overflow: hidden;
   width: 350px;
   background: $white;
   border-radius: 3px;
@@ -13,6 +12,19 @@
   -moz-transition: opacity 150ms linear;
   transition: opacity 150ms linear;
   color: $chat-grey-text;
+  &:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: -16px;
+    left: 155px;
+    height: 0;
+    width: 0;
+    border-top: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid $white;
+  }
   .header {
     padding: 15px 20px;
     font-size: 20px;
@@ -30,6 +42,7 @@
     margin: 0 10px;
     border-bottom: 1px solid $grey-1;
     font-size: 15px;
+    position: relative;
 
     .header-avatar img {
       height: 40px;
@@ -38,6 +51,7 @@
     }
 
     .inner-2 {
+      padding-left: 10px;
       .inbox-username {
         color: #1e1e1e;
         font-size: 17px;
@@ -51,6 +65,22 @@
     .inner-3 {
       color: $grey-1;
     }
+    .unread-count {
+      -moz-box-shadow: 0 0 0 3px $white;
+      -webkit-box-shadow: 0 0 0 3px $white;
+      box-shadow: 0 0 0 3px $white;
+      top: 15px;
+      right: auto;
+      left: 40px;
+    }
 
+  }
+  .arrow-up {
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #000;
   }
 }
