@@ -35,6 +35,11 @@
     max-height: 500px;
     overflow-y: auto;
   }
+  .inbox-item-container-empty {
+    padding: 20px 10px;
+    color:  $grey-1;
+    text-align: center;
+  }
   .inbox-item-container {
     @include clearfix;
     @include cursor-hand;

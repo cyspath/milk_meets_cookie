@@ -42,7 +42,7 @@ class Inbox extends Component {
       })
     } else {
       return (
-        <div>No Messages</div>
+        <div className="inbox-item-container-empty">Still no Messages... go and start a conversation!</div>
       )
     }
   }
