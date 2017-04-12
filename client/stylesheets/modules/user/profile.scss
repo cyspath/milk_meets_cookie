@@ -9,7 +9,18 @@
   }
 
   .profile-content-container {
-
+    .user-essay {
+      margin-bottom: 40px;
+      .user-essay-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+      .user-essay-text-row {
+        font-size: 15px;
+        margin-bottom: 10px;
+      }
+    }
   }
 
 
@@ -25,11 +36,11 @@
       @include shadow-1;
       @include transition-default;
       z-index: 1;
-      width: 200px;
+      width: 190px;
       position: absolute;
       border-radius: 50%;
       overflow: hidden;
-      height: 200px;
+      height: 190px;
       left: -30px;
       &:hover {
         border-radius: 5%;
@@ -53,7 +64,7 @@
 
     .inner-2 {
       height: 160px;
-      padding: 50px 0 0 70px;
+      padding: 50px 0 0 60px;
       .username {
         @include elipsis-text;
         font-size: 35px;
