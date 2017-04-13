@@ -87,3 +87,6 @@ run ```npm start``` to start the server
 run ```npm run watch``` to start the webpack compiler
 
 Navigate to ```http://localhost:3000```
+
+## Deployment (AWS elasticbeanstalk)
+Follow this [tutorial](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs_express.html) to deploy
