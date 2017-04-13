@@ -35,7 +35,7 @@ Object.keys(db).forEach((modelName) => {
 });
 
 const resetTables = () => {
-  sequelize.drop().then(function () {
+  return sequelize.drop().then(function () {
     console.log('Database: tables dropped');
     //// to re-create the tables
     sequelize
