@@ -70,6 +70,7 @@ class UserDetail extends Component {
           </div>
 
           <div className="col-sm-7 inner-2">
+            {this.renderUserEssays()}
           </div>
 
         </div>
@@ -137,6 +138,30 @@ class UserDetail extends Component {
         </div>
       )
     }
+  }
+
+  renderUserEssays() {
+    const essays = [
+      { key: 'p_self_summary', title: 'My self-summary' },
+      { key: 'p_life_doing', title: 'What I’m doing with my life' },
+      { key: 'p_good_at', title: 'I’m really good at' },
+      { key: 'p_freetime_activies', title: 'Favorite books, movies, shows, music, and food' },
+      { key: 'p_important_things', title: '5 things I could never do without' },
+      { key: 'p_thinking_about', title: 'I spend a lot of time thinking about' },
+      { key: 'p_match_criteria', title: 'You should message me if' }
+    ]
+    return essays.map((essay, i) => {
+      var text = this.props.user[essay.key];
+      if (text && text != "") {
+        text = text.split('\n').map((p, i) => { return (<div key={i} className="user-essay-text-row">{p}</div>) })
+        return (
+          <div key={i} className="user-essay">
+            <div className="user-essay-title">{essay.title}</div>
+            {text}
+          </div>
+        )
+      }
+    })
   }
 
   render() {

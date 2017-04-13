@@ -13,6 +13,21 @@ const seedData = (nUsers) => {
 
 let users = [];
 
+const fakeEssay = (type, length) => {
+  let result = [];
+  if (type == 'paragraph') {
+    for (var i = 0; i < length; i++) {
+      result.push(faker.lorem.paragraphs(1));
+    }
+    return result.join('\n\n');
+  } else {
+    for (var i = 0; i < length; i++) {
+      result.push(faker.lorem.lines(1));
+    }
+    return result.join('\n');
+  }
+}
+
 const usersData = (n = 100) => {
   users = users.concat([
     {
@@ -26,6 +41,13 @@ const usersData = (n = 100) => {
       password: '123',
       gender: 'male',
       looking_for: 'female',
+      p_self_summary: fakeEssay('paragraph', Math.floor(Math.random() * 1) + 1),
+      p_life_doing: fakeEssay('paragraph', 1),
+      p_good_at: fakeEssay('line', Math.floor(Math.random() * 2) + 2),
+      p_freetime_activies: fakeEssay('line', Math.floor(Math.random() * 3) + 1),
+      p_important_things: fakeEssay('line', 5),
+      p_thinking_about: fakeEssay('paragraph', 1),
+      p_match_criteria: fakeEssay('paragraph', Math.floor(Math.random() * 1) + 1),
       avatar_url: 'https://scontent.cdninstagram.com/hphotos-xaf1/t51.2885-15/e15/11232856_1598006027143139_1610809847_n.jpg',
       avatar_uploaded: true,
     },
@@ -46,6 +68,13 @@ const usersData = (n = 100) => {
       smokes: "Doesn't smoke",
       drinks: 'Drinks socially',
       pets: 'dogs,cats',
+      p_self_summary: fakeEssay('paragraph', Math.floor(Math.random() * 1) + 1),
+      p_life_doing: fakeEssay('paragraph', 1),
+      p_good_at: fakeEssay('line', Math.floor(Math.random() * 2) + 2),
+      p_freetime_activies: fakeEssay('line', Math.floor(Math.random() * 3) + 1),
+      p_important_things: fakeEssay('line', 5),
+      p_thinking_about: fakeEssay('paragraph', 1),
+      p_match_criteria: fakeEssay('paragraph', Math.floor(Math.random() * 1) + 1),
       avatar_url: 'http://www.animacity.ru/sites/default/files/imagecache/photo-big/users/5037/photo/2015/40/934.jpeg',
       avatar_uploaded: true,
     },
@@ -60,6 +89,13 @@ const usersData = (n = 100) => {
       password: '123',
       gender: 'female',
       looking_for: 'male',
+      p_self_summary: fakeEssay('paragraph', Math.floor(Math.random() * 1) + 1),
+      p_life_doing: fakeEssay('paragraph', 1),
+      p_good_at: fakeEssay('line', Math.floor(Math.random() * 2) + 2),
+      p_freetime_activies: fakeEssay('line', Math.floor(Math.random() * 3) + 1),
+      p_important_things: fakeEssay('line', 5),
+      p_thinking_about: fakeEssay('paragraph', 1),
+      p_match_criteria: fakeEssay('paragraph', Math.floor(Math.random() * 1) + 1),
       avatar_url: 'http://2.bp.blogspot.com/-QmQNMHCaXHk/TfWjKkGizXI/AAAAAAAAAnY/ToDFFxjv79U/s1600/Amazing+and+Awesome+Digital+Art+Portraits+%25282%2529.jpg',
       avatar_uploaded: true,
     }
@@ -87,6 +123,13 @@ const usersData = (n = 100) => {
         password: faker.internet.password(),
         gender: gender,
         looking_for: looking_for,
+        p_self_summary: fakeEssay('paragraph', Math.floor(Math.random() * 2) + 1),
+        p_life_doing: fakeEssay('paragraph', Math.floor(Math.random() * 1)),
+        p_good_at: fakeEssay('line', Math.floor(Math.random() * 2)),
+        p_freetime_activies: fakeEssay('line', Math.floor(Math.random() * 3)),
+        p_important_things: fakeEssay('line', 5),
+        p_thinking_about: fakeEssay('paragraph', Math.floor(Math.random() * 1)),
+        p_match_criteria: fakeEssay('paragraph', Math.floor(Math.random() * 1)),
         avatar_url: avatarUrl,
         avatar_uploaded: true,
       }
@@ -101,6 +144,13 @@ const usersData = (n = 100) => {
         password: faker.internet.password(),
         gender: gender,
         looking_for: looking_for,
+        p_self_summary: fakeEssay('paragraph', Math.floor(Math.random() * 2) + 1),
+        p_life_doing: fakeEssay('paragraph', Math.floor(Math.random() * 1)),
+        p_good_at: fakeEssay('line', Math.floor(Math.random() * 2)),
+        p_freetime_activies: fakeEssay('line', Math.floor(Math.random() * 3)),
+        p_important_things: fakeEssay('line', 5),
+        p_thinking_about: fakeEssay('paragraph', Math.floor(Math.random() * 1)),
+        p_match_criteria: fakeEssay('paragraph', Math.floor(Math.random() * 1)),
       }
     }
     users.push(user);

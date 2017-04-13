@@ -1,7 +1,8 @@
 const jwt = require('jwt-simple');
 const config = require('../config');
+const env = process.env.NODE_ENV || 'development';
 const User = require('../models').User;
-const secret = config[process.env.NODE_ENV].jwtSecret
+const secret = config[env].jwtSecret
 
 const tokenForUser = (user) => {
   const timestamp = new Date().getTime();

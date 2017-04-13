@@ -2,14 +2,28 @@ import axios from 'axios';
 import { jwtHeader } from './utils';
 import socket from '../socketio_client';
 import {
+  FETCH_INBOX,
   OPEN_CHAT,
   CLOSE_CHAT,
   FETCH_MESSAGES,
   SEND_MESSAGE,
   FETCH_UNREAD_COUNT,
-  FETCH_UNREAD_MESSAGES,
   UPDATE_MESSAGES_TO_READ,
 } from './types';
+
+export function fetchInbox() {
+  console.log('action: fetchInbox');
+  return function(dispatch) {
+    axios
+    .get('/api/chat/fetch_inbox', jwtHeader())
+    .then(resp => {
+      dispatch({ type: FETCH_INBOX, payload: resp.data.chatUsers });
+    })
+    .catch((err) => {
+      dispatch(authError(err.response.data.error))
+    });
+  }
+}
 
 export function openChat(currentUser, targetUser) {
   console.log('action: openChat(and fetch_messages), targetUser:', targetUser.username);

@@ -25,7 +25,9 @@ if (process.env.NODE_ENV !== 'production') {
   const webpackMiddleware = require('webpack-dev-middleware');
   const webpack = require('webpack');
   const webpackConfig = require('./webpack.config.js');
-  app.use(webpackMiddleware(webpack(webpackConfig), { noInfo: true }));
+  app.use(webpackMiddleware(webpack(webpackConfig), {
+    noInfo: true
+  }));
 }
 
 app.use(express.static(__dirname + '/public'))
@@ -47,7 +49,7 @@ server.listen(port, function(err) {
   if (err) {
     console.log('error', err);
   } else {
-    console.log(`Server (${process.env.NODE_ENV}) is running at localhost:${port}`);
+    console.log(`Server (${process.env.NODE_ENV || 'development'}) is running at localhost:${port}`);
   }
 });
 

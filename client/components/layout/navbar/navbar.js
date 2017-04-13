@@ -2,11 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import NavLink from './navbar_link';
+import Inbox from '../../chat/inbox';
 import * as actions from '../../../actions/chat_actions';
 
 class Navbar extends Component {
+  constructor() {
+    super();
+    this.state = { showInbox: false };
+  }
+
   componentWillMount() {
     this.props.fetchUnreadCount();
+  }
+
+  toggleInbox(value) {
+    this.setState({ showInbox: value });
   }
 
   renderUnreadCount() {
@@ -30,7 +40,8 @@ class Navbar extends Component {
       return [
         <ul className="nav navbar-nav" key={1}>
           <NavLink {...this.props} to="/">Browse</NavLink>
-          <NavLink {...this.props} to="/messages"><i className="fa fa-comments"></i>{this.renderUnreadCount()}</NavLink>
+          <li onClick={this.toggleInbox.bind(this, true)}><a><i className="fa fa-comments"></i>{this.renderUnreadCount()}</a></li>
+          {this.state.showInbox && <Inbox currentUser={this.props.currentUser} toggleInbox={this.toggleInbox.bind(this)}/>}
           <NavLink {...this.props} to="/likes"><i className="fa fa-star"></i>{this.renderLikeCount()}</NavLink>
           <NavLink {...this.props} to="/profile">Profile</NavLink>
         </ul>,
@@ -41,7 +52,7 @@ class Navbar extends Component {
               <div className="text-container">{this.props.currentUser.username}</div>
             </a>
             <ul className="dropdown-menu">
-              <li><Link to="/messages"><i className="fa fa-comments"></i> Messages</Link></li>
+              <li><a href="https://github.com/cyspath/milk_meets_cookie" target="_"><i className="fa fa-github"></i> Github Page</a></li>
               <li><Link to="/profile"><i className="fa fa-user-circle"></i> Profile</Link></li>
               <li><Link to="/signout"><i className="fa fa-sign-out"></i> Sign Out</Link></li>
             </ul>
@@ -68,7 +79,7 @@ class Navbar extends Component {
         <div className="container-fluid">
           <div className="navbar-header">
             <Link className="navbar-brand" to="/">
-              <span><img src='images/mc.png'/></span>
+              <span><img src='/images/mc.png'/></span>
             </Link>
           </div>
           {this.renderLinks()}

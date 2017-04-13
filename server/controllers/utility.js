@@ -1,7 +1,8 @@
 const seedData = require('../db/seed');
-const User = require('../models').User;
-const Like = require('../models').Like;
-const Chat = require('../models').Chat;
+const db = require('../models');
+const User = db.User;
+const Like = db.Like;
+const Chat = db.Chat;
 
 exports.seedData = (req, res, next) => {
   const data = seedData();
@@ -19,11 +20,8 @@ exports.seedDataDump = (req, res, next) => {
           res.json(data);
         })
     });
-  // for (var i = 0; i < 10000; i++) {
-  //   let si = Math.floor(Math.random() * 35 + 150)
-  //   let ri = Math.floor(Math.random() * 35 + 150)
-  //   Chat.create({sender_id: si, receiver_id: ri, message: 'WTF'})
-  //   console.log('created.');
-  //   // SELECT * FROM snorlax.chats where sender_id = 160 AND receiver_id = 160
-  // }
+}
+
+exports.resetTables = (req, res, next) => {
+  res.send(db.resetTables());
 }

@@ -14,11 +14,11 @@ export const TOGGLE_LIKE_USER = 'toggle_like_user';
 export const ONLINE_USERS = 'online_users';
 
 // chat
+export const FETCH_INBOX = 'fetch_inbox';
 export const OPEN_CHAT = 'open_chat';
 export const CLOSE_CHAT = 'close_chat';
 export const FETCH_MESSAGES = 'fetch_messages';
 export const SEND_MESSAGE = 'send_message';
 export const RECEIVE_MESSAGE = 'receive_message';
 export const FETCH_UNREAD_COUNT = 'fetch_unread_count';
-export const FETCH_UNREAD_MESSAGES = 'fetch_unread_messages';
 export const UPDATE_MESSAGES_TO_READ = 'update_messages_to_read';
