@@ -49,7 +49,7 @@ server.listen(port, function(err) {
   if (err) {
     console.log('error', err);
   } else {
-    console.log(`Server (${process.env.NODE_ENV}) is running at localhost:${port}`);
+    console.log(`Server (${process.env.NODE_ENV || 'development'}) is running at localhost:${port}`);
   }
 });
 
