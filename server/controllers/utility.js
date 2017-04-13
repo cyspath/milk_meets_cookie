@@ -19,9 +19,12 @@ exports.seedDataDump = (req, res, next) => {
         .then(() => {
           res.json(data);
         })
-    });
+    })
+    .catch((err) => { console.log("500 Error: ", err) });
 }
 
 exports.resetTables = (req, res, next) => {
-  res.send(db.resetTables());
+  const msg = db.resetTables();
+  console.log(`database: reset tables - ${msg}`);
+  res.send(msg);
 }
