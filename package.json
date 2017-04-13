@@ -7,7 +7,6 @@
     "start": "nodemon ./bin/www",
     "watch": "webpack -d --watch",
     "build": "webpack",
-    "production": "webpack && node ./bin/www",
     "serve": "serve ./public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
