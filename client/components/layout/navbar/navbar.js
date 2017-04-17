@@ -52,8 +52,9 @@ class Navbar extends Component {
               <div className="text-container">{this.props.currentUser.username}</div>
             </a>
             <ul className="dropdown-menu">
-              <li><a href="https://github.com/cyspath/milk_meets_cookie" target="_"><i className="fa fa-github"></i> Github Page</a></li>
+              <li onClick={this.toggleInbox.bind(this, true)}><a><i className="fa fa-comments-o"></i>{this.renderUnreadCount()} Inbox</a></li>
               <li><Link to="/profile"><i className="fa fa-user-circle"></i> Profile</Link></li>
+              <li><a href="https://github.com/cyspath/milk_meets_cookie" target="_"><i className="fa fa-github"></i> Source Code</a></li>
               <li><Link to="/signout"><i className="fa fa-sign-out"></i> Sign Out</Link></li>
             </ul>
           </li>
