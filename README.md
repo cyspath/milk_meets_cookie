@@ -40,10 +40,6 @@
 <!-- * [Mocha](https://mochajs.org/) - test framework
 * [Shouldjs](https://shouldjs.github.io/) and [Supertest](https://github.com/visionmedia/supertest) for API tests -->
 
-### Dev/Build Tools
-
-<!-- * [Webpack](https://webpack.github.io/) and [Babel](https://babeljs.io/) for transpiling -->
-
 ## File Structure
 
     app/

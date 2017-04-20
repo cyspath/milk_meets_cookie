@@ -94,4 +94,37 @@
   .interested-count {
     background-color: #4c7bd9;
   }
+
+  .navbar-nav>li>ul.dropdown-menu {
+    font-size: 15px;
+    right: 20px;
+    border-radius: 4px;
+    li {
+      @include cursor-hand;
+    }
+    li:last-child {
+      border-top: 1px solid #ccd0d9;
+    }
+    li a {
+      padding: 10px 20px;
+    }
+    i {
+      color: #517cd8;
+      font-size: 20px;
+      margin-right: 10px;
+    }
+    &:after {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: -16px;
+      left: 75px;
+      height: 0;
+      width: 0;
+      border-top: 8px solid transparent;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid $white;
+    }
+  }
 }
