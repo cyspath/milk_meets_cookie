@@ -51969,12 +51969,13 @@
 	              { className: 'dropdown-menu' },
 	              _react2.default.createElement(
 	                'li',
-	                null,
+	                { onClick: this.toggleInbox.bind(this, true) },
 	                _react2.default.createElement(
 	                  'a',
-	                  { href: 'https://github.com/cyspath/milk_meets_cookie', target: '_' },
-	                  _react2.default.createElement('i', { className: 'fa fa-github' }),
-	                  ' Github Page'
+	                  null,
+	                  _react2.default.createElement('i', { className: 'fa fa-comments-o' }),
+	                  this.renderUnreadCount(),
+	                  ' Inbox'
 	                )
 	              ),
 	              _react2.default.createElement(
@@ -51985,6 +51986,16 @@
 	                  { to: '/profile' },
 	                  _react2.default.createElement('i', { className: 'fa fa-user-circle' }),
 	                  ' Profile'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  'a',
+	                  { href: 'https://github.com/cyspath/milk_meets_cookie', target: '_' },
+	                  _react2.default.createElement('i', { className: 'fa fa-github' }),
+	                  ' Source Code'
 	                )
 	              ),
 	              _react2.default.createElement(
@@ -74418,7 +74429,7 @@
 /* 767 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -74448,16 +74459,12 @@
 	  }
 
 	  _createClass(Profile, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
-	        { className: this.constructor.name + '-component' },
-	        _react2.default.createElement(
-	          'h4',
-	          null,
-	          'This is profile page'
-	        )
+	        "div",
+	        { className: this.constructor.name + "-component" },
+	        _react2.default.createElement("img", { src: "http://www.bsmcjaxfl.com/images/thiswebpageis_under_construction1-604x218%20copy.png" })
 	      );
 	    }
 	  }]);
